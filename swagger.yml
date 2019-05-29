@@ -187,15 +187,18 @@ components:
                 description: Amount requested to borrow in SEK (including refinancing)
                 minimum: 0
                 exclusiveMinimum: true
+                example: 100000
               amountToRefinance:
                 type: number
                 description: Amount used exclusively to refinance existing loans in SEK
                 minimum: 0
+                example: 100000
               repaymentTime:
                 type: number
                 description: Repayment time requested in months
                 minimum: 0
                 exclusiveMinimum: true
+                example: 24
               purpose:
                 type: string
                 description: Purpose of the loan. The enum values will be provided by the broker so that Moank can receive the raw data.
