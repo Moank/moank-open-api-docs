@@ -12,6 +12,10 @@ servers:
       description: Same as the basic auth username
 - url: https://staging.api.moank.se/api/hooks/{brokerName}
   description: Staging server
+  variables:
+    brokerName:
+      default: generic
+      description: Same as the basic auth username
 paths:
   /:
     post:
