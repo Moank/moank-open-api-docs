@@ -1,0 +1,403 @@
+openapi: 3.0.0
+info:
+  description: API provided by Moank for loan brokers so that they can send applications and followup on them
+  version: 1.0.0
+  title: Moank Broker API
+servers:
+- url: https://api.moank.se/api/hooks/{brokerName}
+  description: Production server
+  variables:
+    brokerName:
+      default: generic
+      description: Same as the basic auth username
+- url: https://staging.api.moank.se/api/hooks/{brokerName}
+  description: Staging server
+paths:
+  /:
+    post:
+      tags:
+      - Required endpoints
+      summary: Send a new application to Moank
+      requestBody:
+        $ref: "#/components/requestBodies/create"
+      responses:
+        200:
+          $ref: "#/components/responses/create"
+        400:
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorBody"
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorBody"
+      security:
+      - basic_auth: []
+
+  /{applicationId}/accept:
+    post:
+      tags:
+      - Required endpoints
+      summary: Notify that customer accepted the offer. Possible to provide bank account information.
+      parameters:
+      - name: applicationId
+        in: path
+        description: Application's id as set in the create response object
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clearingNumber:
+                  type: string
+                  description: Clearing number of the customer's bank account. 4 or 5 digits depending of the bank (e.g 7428 or 86439)
+                  pattern: /^\d{4,5}$/
+                accountNumber:
+                  type: string
+                  description: Customer's bank account number, excluding the clearing number
+                  pattern: /^\d{7,10}$/
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorBody"
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorBody"
+      security:
+      - basic_auth: []
+
+  /{applicationId}/reject:
+    post:
+      tags:
+      - Optional endpoints
+      summary: Notify that customer rejected the offer when possible to know
+      parameters:
+      - name: applicationId
+        in: path
+        description: Application's id as set in the create response object
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorBody"
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorBody"
+      security:
+      - basic_auth: []
+
+  /{applicationId}/update:
+    post:
+      tags:
+      - Optional endpoints
+      summary: Update an application already sent if a customer wishes to update his details
+      parameters:
+      - name: applicationId
+        in: path
+        description: Application's id as set in the create response object
+        required: true
+        schema:
+          type: string
+      requestBody:
+        $ref: "#/components/requestBodies/create"
+      responses:
+        200:
+          $ref: "#/components/responses/create"
+        400:
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorBody"
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorBody"
+      security:
+      - basic_auth: []
+
+components:
+  requestBodies:
+    create:
+      required: true
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - referenceId
+            - amount
+            - amountToRefinance
+            - repaymentTime
+            - applicant
+            properties:
+              referenceId:
+                type: string
+                description: Broker reference id for the application
+              amount:
+                type: number
+                description: Amount requested to borrow in SEK (including refinancing)
+                minimum: 0
+                exclusiveMinimum: true
+              amountToRefinance:
+                type: number
+                description: Amount used exclusively to refinance existing loans in SEK
+                minimum: 0
+              repaymentTime:
+                type: number
+                description: Repayment time requested in months
+                minimum: 0
+                exclusiveMinimum: true
+              purpose:
+                type: string
+                description: Purpose of the loan. The enum values will be provided by the broker so that Moank can receive the raw data.
+                enum:
+                - vehicle
+                - refinancing
+                - rennovation
+                - ...
+              applicant:
+                $ref: "#/components/schemas/applicant"
+              coapplicant:
+                $ref: "#/components/schemas/applicant"
+
+  responses:
+    create:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - id
+            - decision
+            properties:
+              id:
+                type: string
+                description: Reference id of the application in Moank's system
+              decision:
+                type: string
+                description: Moank's decision regarding the application
+                enum:
+                - granted
+                - declined
+              signLink:
+                type: string
+                description: Link that can be used to redirect the applicant if he/she chooses to go further with the offer
+              loanTerms:
+                $ref: "#/components/schemas/loanTerms"
+
+  schemas:
+    loanTerms:
+      type: object
+      required:
+      - amount
+      - amountToRefinance
+      - nominalRate
+      - effectiveRate
+      - repaymentTime
+      - monthlyPayment
+      - startupFee
+      - monthlyFee
+      - totalCost
+      properties:
+        amount:
+          type: number
+          description: Amount to be paid out (including refinancing)
+          minimum: 0
+          exclusiveMinimum: true
+        amountToRefinance:
+          type: number
+          description: Amount to be used for refinancing previous debts
+          minimum: 0
+        nominalRate:
+          type: number
+          description: Yearly nominal rate of the loan in percent
+          minimum: 0
+          exclusiveMinimum: true
+        effectiveRate:
+          type: number
+          description: Yearly effective rate of the loan in percent
+          minimum: 0
+          exclusiveMinimum: true
+        repaymentTime:
+          type: number
+          description: Repayment time of the loan in months
+          minimum: 0
+          exclusiveMinimum: true
+        monthlyPayment:
+          type: number
+          description: Monthly payment in SEK
+          minimum: 0
+          exclusiveMinimum: true
+        startupFee:
+          type: number
+          description: One time fee to be paid at the beginning of the loan in SEK
+          minimum: 0
+        monthlyFee:
+          type: number
+          description: Fee to be paid every month until loan fully re-paid in SEK
+          minimum: 0
+        totalCost:
+          type: number
+          description: Total cost of loan including all fees, amortisation and interest if following the payment plan
+          minimum: 0
+          exclusiveMinimum: true
+    applicant:
+      type: object
+      required:
+      - nationalId
+      - email
+      - phone
+      properties:
+        nationalId:
+          type: string
+          format: YYYYMMDDXXXX
+          description: Swedish personnummer in format YYYYMMDDXXXX
+          example: "197202104332"
+        email:
+          type: string
+          description: Email of the applicant. Used to communicate loan agreement
+          pattern: /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/
+          example: test@example.com
+        phone:
+          type: string
+          description: Phone number of the applicant (preferably mobile phone). Used to communicate loan agreement if it is a mobile phone number
+          format: international or swedish format
+          example: "+46731234567"
+        firstName:
+          type: string
+          description: First name of the applicant
+          example: Anna
+        lastName:
+          type: string
+          description: Last name of the applicant
+          example: Testsson
+        streetAddress:
+          type: string
+          description: Street part of the applicant's address
+          example: Kungsgatan 10
+        postalCode:
+          type: string
+          description: Postal code of the applicant
+          example: "10000"
+        city:
+          type: string
+          description: Town of the applicant
+          example: Stockholm
+        montlyIncome:
+          type: number
+          description: Monthly income of the applicant before taxes in SEK
+          example: 30000
+          minimum: 0
+        housingCost:
+          type: number
+          description: Monthly cost related to housing in SEK (e.g. monthly rent, monthly housing fees and monthly cost of mortgage). In case the applicant shares the cost with someone else, only his part should be reported.
+          example: 8000
+          minimum: 0
+        loanCost:
+          type: number
+          description: Monthly cost for repaying other loans in SEK (Does not include mortgage as it is already included in the housing cost)
+          example: 1500
+          minimum: 0
+        kids:
+          type: number
+          description: Number of children of the applicant under 18
+          example: 2
+          minimum: 0
+        civilStatus:
+          type: string
+          description: Civil status of the applicant. The enum values will be provided by the broker so that Moank can receive the raw data.
+          enum:
+          - single
+          - partner
+          - married
+          - ...
+        employmentType:
+          type: string
+          description: Type of employment of the applicant. The enum values will be provided by the broker so that Moank can receive the raw data.
+          enum:
+          - permanent
+          - temporarly
+          - unemployed
+          - ...
+        employmentSince:
+          type: string
+          description: Since when was the applicant is in this employment situation
+          format: date
+        employmentTo:
+          type: string
+          description: Date until when the applicant is employed
+          format: date
+        employerName:
+          type: string
+          description: Name of the employer
+          example: Moank AB
+        employerPhone:
+          type: string
+          description: Phone of the employer
+          format: international or swedish format
+          example: "0731234567"
+    errorBody:
+      type: object
+      required:
+      - status
+      - message
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Explanation about the error
+          example: Missing required field socialSecurityNumber
+
+  securitySchemes:
+    basic_auth:
+      type: "http"
+      scheme: "basic"
