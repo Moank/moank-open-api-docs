@@ -351,6 +351,11 @@ components:
           description: Monthly cost for repaying other loans in SEK (Does not include mortgage as it is already included in the housing cost)
           example: 1500
           minimum: 0
+        mortgage:
+          type: number
+          description: Total amount of mortgage for that customer in SEK
+          example: 2500000
+          minimum: 0
         kids:
           type: number
           description: Number of children of the applicant under 18
@@ -363,6 +368,14 @@ components:
           - single
           - partner
           - married
+          - ...
+        accomodationType:
+          type: string
+          description: Type of accomodation of the applicant. The enum values will be provided by the broker so that Moank can receive the raw data.
+          enum:
+          - villa
+          - bostadsrätt
+          - hyresrätt
           - ...
         employmentType:
           type: string
