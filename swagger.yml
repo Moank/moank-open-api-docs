@@ -209,7 +209,7 @@ components:
                 - ...
               applicant:
                 $ref: "#/components/schemas/applicant"
-              coapplicant:
+              coApplicant:
                 $ref: "#/components/schemas/applicant"
 
   responses:
