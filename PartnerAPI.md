@@ -94,21 +94,20 @@
 ### Possible application payload
 - amount *
 - repayment time *
-- is borrowing for own use *
+- is borrowing for own use ?
 - reason for loan ?
-- terms approved *
 - can be profilled ?
 - applicants:
   - ssn ^
   - email ^
   - phone ^
-  - is not pep
+  - is not pep *
   - economic details:
-    - kids
-    - monthly income
-    - monthly housing
-    - monthly loans
-    - occupation
+    - kids *
+    - monthly income *
+    - monthly housing *
+    - monthly loans *
+    - occupation *
     - mortgage amount ?
     - home type ?
   - bank details:
