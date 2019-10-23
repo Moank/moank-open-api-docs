@@ -1,0 +1,497 @@
+openapi: 3.0.0
+info:
+  description: API provided by Moank for partners so that they can send applications and followup on them
+  version: 1.0.0
+  title: Moank Partner API
+servers:
+- url: https://api.moank.se/api/partner/
+  description: Production server
+  variables:
+    brokerName:
+      default: generic
+      description: Same as the basic auth username
+- url: https://staging.api.moank.se/api/partner
+  description: Staging server
+  variables:
+    brokerName:
+      default: generic
+      description: Same as the basic auth username
+paths:
+  /bank/get-link:
+    post:
+      tags:
+      - Signup endpoints
+      summary: Get the Tink link allowing customer to authenticate his bank.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - socialSecurityNumber
+              properties:
+                socialSecurityNumber:
+                  type: string
+                  format: YYYYMMDDXXXX
+                  description: Swedish personnummer in format YYYYMMDDXXXX
+                  example: "197202104332"
+                bank:
+                  type: string
+                  description: Customer's bank nam
+                  example: "SEB"
+                state:
+                  type: string
+                  description: Identifier returned in the redirect url
+                  example: '12345'
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - link
+                properties:
+                  link:
+                    type: string
+                    description: Tink link allowing customer to authenticate his bank.
+                    example: "https://redirect-here"
+        400:
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorBody"
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/serverError"
+      security:
+      - basic_auth: []
+  
+  /bank/send-code:
+    post:
+      tags:
+      - Signup endpoints
+      summary: Send the Tink code fetched with the Tink link.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - socialSecurityNumber
+              - code
+              properties:
+                socialSecurityNumber:
+                  type: string
+                  format: YYYYMMDDXXXX
+                  description: Swedish personnummer in format YYYYMMDDXXXX
+                  example: "197202104332"
+                code:
+                  type: string
+                  description: Tink code fetched with the Tink link.
+                  example: '123456789'
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorBody"
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/serverError"
+      security:
+      - basic_auth: []
+      
+  /application:
+    post:
+      tags:
+      - Signup endpoints
+      summary: Send a new application to Moank
+      requestBody:
+        $ref: "#/components/requestBodies/create"
+      responses:
+        200:
+          $ref: "#/components/responses/application"
+        400:
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorBody"
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/serverError"
+      security:
+      - basic_auth: []
+      
+  /application/:applicationId:
+    get:
+      tags:
+      - Optional endpoints
+      summary: Fetch an application previously created
+      parameters:
+      - name: applicationId
+        in: path
+        description: Application's id as set in the create response object
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          $ref: "#/components/responses/application"
+        400:
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorBody"
+        500:
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorBody"
+      security:
+      - basic_auth: []
+
+components:
+  requestBodies:
+    create:
+      required: true
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - amount
+            - repaymentTime
+            - applicants
+            properties:
+              amount:
+                type: number
+                description: Amount requested to borrow in SEK (including refinancing)
+                minimum: 0
+                exclusiveMinimum: true
+                example: 100000
+              repaymentTime:
+                type: number
+                description: Repayment time requested in months
+                minimum: 0
+                exclusiveMinimum: true
+                example: 24
+              reasonForLoan:
+                type: string
+                description: Purpose of the loan. The enum values will be provided to the partner.
+                enum:
+                - vehicle
+                - refinancing
+                - rennovation
+                - ...
+              isBorrowingForOwnUse:
+                type: boolean
+                description: Indicate if customer is asking the loan for himself
+                example: true
+              applicants:
+                type: array
+                items:
+                  $ref: "#/components/schemas/applicant"
+  
+  responses:
+    application:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - id
+            - amount
+            - repaymentTime
+            - applicants
+            properties:
+              referenceId:
+                type: string
+                description: Reference id for the application
+              amount:
+                type: number
+                description: Amount requested to borrow in SEK (including refinancing)
+                minimum: 0
+                exclusiveMinimum: true
+                example: 100000
+              repaymentTime:
+                type: number
+                description: Repayment time requested in months
+                minimum: 0
+                exclusiveMinimum: true
+                example: 24
+              reasonForLoan:
+                type: string
+                description: Purpose of the loan. The enum values will be provided to the partner.
+                enum:
+                - vehicle
+                - refinancing
+                - rennovation
+                - ...
+              isBorrowingForOwnUse:
+                type: boolean
+                description: Indicate if customer is asking the loan for himself
+                example: true
+              applicants:
+                type: array
+                items:
+                  $ref: "#/components/schemas/applicant"
+              status:
+                type: string
+                description: Status of the application.
+                enum:
+                - pending
+                - payout
+                - ...
+              decision:
+                type: string
+                description: Decision taken on the application.
+                enum:
+                - deny
+                - preliminary-granted
+                - granted
+                - ...
+              loanTerms:
+                $ref: "#/components/schemas/loanTerms"
+
+  schemas:
+    applicant:
+      type: object
+      required:
+      - socialSecurityNumber
+      - email
+      - phone
+      - isNotPep
+      - economicDetails
+      - bankDetails
+      properties:
+        socialSecurityNumber:
+          type: string
+          format: YYYYMMDDXXXX
+          description: Swedish personnummer in format YYYYMMDDXXXX
+          example: "197202104332"
+        email:
+          type: string
+          description: Email of the applicant. Used to communicate loan agreement
+          pattern: /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/
+          example: test@example.com
+        phone:
+          type: string
+          description: Phone number of the applicant (preferably mobile phone). Used to communicate loan agreement if it is a mobile phone number
+          format: international or swedish format
+          example: "+46731234567"
+        isNotPep:
+          type: boolean
+          description: WRITE SOMETHING MEANINGFULL
+          example: true
+        economicDetails:
+          type: object
+          required:
+          - monthlyIncome
+          - monthlyHousing
+          - monthlyLoans
+          - occupation
+          - kids
+          properties:
+            montlyIncome:
+              type: number
+              description: Monthly income of the applicant before taxes in SEK
+              example: 30000
+              minimum: 0
+            monthlyHousing:
+              type: number
+              description: Monthly cost related to housing in SEK (e.g. monthly rent, monthly housing fees and monthly cost of mortgage). In case the applicant shares the cost with someone else, only his part should be reported.
+              example: 8000
+              minimum: 0
+            monthlyLoans:
+              type: number
+              description: Monthly cost for repaying other loans in SEK (Does not include mortgage as it is already included in the housing cost)
+              example: 1500
+              minimum: 0
+            mortgageAmount:
+              type: number
+              description: Total amount of mortgage for that customer in SEK
+              example: 2500000
+              minimum: 0
+            occupation:
+              type: string
+              description: Type of employment of the applicant. The enum values will be provided by the broker so that Moank can receive the raw data.
+              enum:
+              - permanent
+              - temporarly
+              - unemployed
+              - ...
+            kids:
+              type: number
+              description: Number of children of the applicant under 18
+              example: 2
+              minimum: 0
+            homeType:
+              type: string
+              description: Type of accomodation of the applicant. The enum values will be provided by the broker so that Moank can receive the raw data.
+              enum:
+              - villa
+              - bostadsrätt
+              - hyresrätt
+              - ...
+        bankDetails:
+          type: object
+          properties:
+            bank:
+              type: string
+              description: Name of customer's bank
+              example: SEB
+            clearingNumber:
+              type: string
+              description: Clearing number of the customer's bank account. 4 or 5 digits depending of the bank (e.g 7428 or 86439)
+              pattern: /^\d{4,5}$/
+            accountNumber:
+              type: string
+              description: Customer's bank account number, excluding the clearing number
+              pattern: /^\d{7,10}$/
+        employer:
+          type: object
+          properties:
+            employedSince:
+              type: string
+              description: Since when was the applicant is in this employment situation
+              format: date
+            employedUntil:
+              type: string
+              description: Date until when the applicant is employed
+              format: date
+            name:
+              type: string
+              description: Name of the employer
+              example: Moank AB
+            phone:
+              type: string
+              description: Phone of the employer
+              format: international or swedish format
+              example: "0731234567"
+            shouldConnect:
+              type: boolean
+              description: Indicate if customer wants to be connected to his employer
+              example: true
+    
+    loanTerms:
+      type: object
+      required:
+      - amount
+      - amountToRefinance
+      - nominalRate
+      - effectiveRate
+      - repaymentTime
+      - monthlyPayment
+      - startupFee
+      - monthlyFee
+      - totalCost
+      properties:
+        amount:
+          type: number
+          description: Amount to be paid out (including refinancing)
+          minimum: 0
+          exclusiveMinimum: true
+        amountToRefinance:
+          type: number
+          description: Amount to be used for refinancing previous debts
+          minimum: 0
+        nominalRate:
+          type: number
+          description: Yearly nominal rate of the loan in percent
+          minimum: 0
+          exclusiveMinimum: true
+        effectiveRate:
+          type: number
+          description: Yearly effective rate of the loan in percent
+          minimum: 0
+          exclusiveMinimum: true
+        repaymentTime:
+          type: number
+          description: Repayment time of the loan in months
+          minimum: 0
+          exclusiveMinimum: true
+        monthlyPayment:
+          type: number
+          description: Monthly payment in SEK
+          minimum: 0
+          exclusiveMinimum: true
+        startupFee:
+          type: number
+          description: One time fee to be paid at the beginning of the loan in SEK
+          minimum: 0
+        monthlyFee:
+          type: number
+          description: Fee to be paid every month until loan fully re-paid in SEK
+          minimum: 0
+        totalCost:
+          type: number
+          description: Total cost of loan including all fees, amortisation and interest if following the payment plan
+          minimum: 0
+          exclusiveMinimum: true
+    
+    errorBody:
+      type: object
+      required:
+      - status
+      - message
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 400
+        message:
+          type: string
+          description: Main error reason
+          example: Invalid Data
+        errors:
+          type: array
+          items:
+            type: string
+            description: Optional list of errors
+            example: Missing required field ...
+    
+    serverError:
+      type: object
+      required:
+      - status
+      - message
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 500
+        message:
+          type: string
+          description: Main error reason
+          example: Internal Server Error
+
+  securitySchemes:
+    basic_auth:
+      type: "http"
+      scheme: "basic"
