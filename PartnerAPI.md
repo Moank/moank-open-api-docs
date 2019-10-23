@@ -90,3 +90,39 @@
 > - Create tink app
 > - Add partner in collection
 > - Add new event logic if needed
+
+### Possible application payload
+- amount *
+- repayment time *
+- is borrowing for own use *
+- reason for loan ?
+- terms approved *
+- can be profilled ?
+- applicants:
+  - ssn ^
+  - email ^
+  - phone ^
+  - is not pepe
+  - economic details:
+    - kids
+    - monthly income
+    - monthly housing
+    - monthly loans
+    - occupation
+    - mortgage amount ?
+    - home type ?
+  - bank details:
+    - account number ?
+    - clearing number ?
+    - bank ?
+
+### Possible interesting fields for partners
+- ...possible application payload
+- status [pending, granted, deny, rejected, payout] based on application step and decision or other things
+- decision: [preliminary_granted, granted, deny] based on decision
+- offer: interesting data about application offer (amount, interest, etc...)
+- agreement url: if application granted
+
+> *: required from decision engine
+> ^: required to create an user
+> ?: conditional field
