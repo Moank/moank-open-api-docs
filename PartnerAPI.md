@@ -102,7 +102,7 @@
   - ssn ^
   - email ^
   - phone ^
-  - is not pepe
+  - is not pep
   - economic details:
     - kids
     - monthly income
@@ -116,6 +116,12 @@
     - clearing number ?
     - bank ?
 
+> *: required from decision engine
+>
+> ^: required to create an user
+>
+> ?: conditional field
+
 ### Possible interesting fields for partners
 - ...possible application payload
 - status [pending, granted, deny, rejected, payout] based on application step and decision or other things
@@ -123,6 +129,6 @@
 - offer: interesting data about application offer (amount, interest, etc...)
 - agreement url: if application granted
 
-> *: required from decision engine
-> ^: required to create an user
-> ?: conditional field
+### Possible event payload
+- event (es: car-sold, rejected)
+- ...data
