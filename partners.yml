@@ -150,7 +150,7 @@ components:
 
     create:
       required: true
-      description: Success
+      description: New Application Data
       content:
         application/json:
           schema:
@@ -226,6 +226,8 @@ components:
       required:
       - amount
       - repaymentTime
+      - reasonForLoan
+      - isBorrowingForOwnUse
       - applicants
       properties:
         referenceId:
@@ -264,6 +266,10 @@ components:
       allOf:
         - $ref: "#/components/schemas/application"
         - type: object
+          required:
+          - status
+          - decision
+          - loanTerms
           properties:
             status:
               type: string
@@ -291,7 +297,6 @@ components:
       - phone
       - isNotPep
       - economicDetails
-      - bankDetails
       properties:
         socialSecurityNumber:
           type: string
@@ -328,7 +333,7 @@ components:
       - occupation
       - kids
       properties:
-        montlyIncome:
+        monthlyIncome:
           type: number
           description: Monthly income of the applicant before taxes in SEK
           example: 30000
@@ -419,7 +424,6 @@ components:
       type: object
       required:
       - amount
-      - amountToRefinance
       - nominalRate
       - effectiveRate
       - repaymentTime
