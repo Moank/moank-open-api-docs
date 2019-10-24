@@ -104,11 +104,11 @@ paths:
     get:
       tags:
       - Application endpoints
-      summary: Fetch an application previously created
+      summary: Fetch an application
       parameters:
       - name: applicationId
         in: path
-        description: Application's id as set in the create response object
+        description: Application's id as set in the application response object
         required: true
         schema:
           type: string
@@ -146,7 +146,7 @@ components:
                 example: "SEB"
               state:
                 type: string
-                description: Identifier returned in the redirect url
+                description: Optional session identifier returned in the redirect url
                 example: '12345'
 
     sendCode:
@@ -179,7 +179,7 @@ components:
   
     event:
       required: true
-      description: Success
+      description: Send event about application
       content:
         application/json:
           schema:
@@ -302,14 +302,14 @@ components:
           properties:
             status:
               type: string
-              description: Status of the application.
+              description: Status of the application. The enum values will be provided to the partner.
               enum:
               - pending
               - payout
               - ...
             decision:
               type: string
-              description: Decision taken on the application.
+              description: Decision taken on the application. The enum values will be provided to the partner.
               enum:
               - deny
               - preliminary-granted
@@ -344,7 +344,7 @@ components:
           example: "+46731234567"
         isNotPep:
           type: boolean
-          description: WRITE SOMETHING MEANINGFULL
+          description: Indicate if the customer is politically exposed
           example: true
         economicDetails:
           $ref: "#/components/schemas/economicDetails"
@@ -384,7 +384,7 @@ components:
           minimum: 0
         occupation:
           type: string
-          description: Type of employment of the applicant. The enum values will be provided by the broker so that Moank can receive the raw data.
+          description: Type of employment of the applicant. The enum values will be provided to the partner.
           enum:
           - permanent
           - temporarly
@@ -397,7 +397,7 @@ components:
           minimum: 0
         homeType:
           type: string
-          description: Type of accomodation of the applicant. The enum values will be provided by the broker so that Moank can receive the raw data.
+          description: Type of accomodation of the applicant. The enum values will be provided to the partner.
           enum:
           - villa
           - bostadsrätt
@@ -409,7 +409,7 @@ components:
       properties:
         bank:
           type: string
-          description: Name of customer's bank
+          description: Name of customer's bank. The enum values will be provided to the partner.
           example: SEB
           enum:
             - nordea
@@ -511,13 +511,13 @@ components:
       properties:
         event:
           type: string
-          description: Event about the application
+          description: Event about the application. The enum values will be provided to the partner.
           example: rejected-application
           enum:
             - ...
         payload:
           type: object
-          description: Payload of the event
+          description: Payload of the event. It will be different based on the event sent
 
     error:
       type: object
