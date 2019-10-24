@@ -16,6 +16,7 @@ servers:
     brokerName:
       default: generic
       description: Same as the basic auth username
+
 paths:
   /bank/get-link:
     post:
@@ -59,17 +60,13 @@ paths:
                     description: Tink link allowing customer to authenticate his bank.
                     example: "https://redirect-here"
         400:
-          description: Invalid parameters
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/errorBody"
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
         500:
-          description: Server Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/serverError"
+          $ref: "#/components/responses/serverError"
+        503:
+          $ref: "#/components/responses/serviceError"
       security:
       - basic_auth: []
   
@@ -105,17 +102,13 @@ paths:
               schema:
                 type: object
         400:
-          description: Invalid parameters
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/errorBody"
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
         500:
-          description: Server Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/serverError"
+          $ref: "#/components/responses/serverError"
+        503:
+          $ref: "#/components/responses/serviceError"
       security:
       - basic_auth: []
       
@@ -130,17 +123,13 @@ paths:
         200:
           $ref: "#/components/responses/application"
         400:
-          description: Invalid parameters
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/errorBody"
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
         500:
-          description: Server Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/serverError"
+          $ref: "#/components/responses/serverError"
+        503:
+          $ref: "#/components/responses/serviceError"
       security:
       - basic_auth: []
       
@@ -160,7 +149,16 @@ paths:
         200:
           $ref: "#/components/responses/application"
         400:
-          description: Invalid parameters
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+        503:
+          $ref: "#/components/responses/serviceError"
+      security:
+      - basic_auth: []
+
           content:
             application/json:
               schema:
@@ -279,6 +277,34 @@ components:
               loanTerms:
                 $ref: "#/components/schemas/loanTerms"
 
+    dataError:
+      description: Invalid data
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error"
+  
+    authError:
+      description: Invalid authentication
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error"
+  
+    serverError:
+      description: Server Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error"
+  
+    serviceError:
+      description: Service Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/error"
+  
   schemas:
     applicant:
       type: object
@@ -359,6 +385,7 @@ components:
               - bostadsrätt
               - hyresrätt
               - ...
+    
         bankDetails:
           type: object
           properties:
@@ -378,6 +405,7 @@ components:
               type: string
               description: Customer's bank account number, excluding the clearing number
               pattern: /^\d{7,10}$/
+    
         employer:
           type: object
           properties:
@@ -459,7 +487,7 @@ components:
           minimum: 0
           exclusiveMinimum: true
     
-    errorBody:
+    error:
       type: object
       required:
       - status
@@ -478,22 +506,7 @@ components:
           items:
             type: string
             description: Optional list of errors
-            example: Missing required field ...
-    
-    serverError:
-      type: object
-      required:
-      - status
-      - message
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 500
-        message:
-          type: string
-          description: Main error reason
-          example: Internal Server Error
+            example: Field ... should be defined
 
   securitySchemes:
     basic_auth:
