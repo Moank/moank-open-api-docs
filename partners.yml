@@ -336,6 +336,13 @@ components:
           description: WRITE SOMETHING MEANINGFULL
           example: true
         economicDetails:
+          $ref: "#/components/schemas/economicDetails"
+        bankDetails:
+          $ref: "#/components/schemas/bankDetails"
+        employer:
+          $ref: "#/components/schemas/employer"
+    
+        economicDetails:
           type: object
           required:
           - monthlyIncome
