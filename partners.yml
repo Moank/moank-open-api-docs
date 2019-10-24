@@ -4,13 +4,13 @@ info:
   version: 1.0.0
   title: Moank Partner API
 servers:
-- url: https://api.moank.se/api/partner/
+- url: https://api.moank.se/partner/
   description: Production server
   variables:
     brokerName:
       default: generic
       description: Same as the basic auth username
-- url: https://staging.api.moank.se/api/partner
+- url: https://staging.api.moank.se/partner
   description: Staging server
   variables:
     brokerName:
