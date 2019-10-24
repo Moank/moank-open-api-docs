@@ -24,41 +24,10 @@ paths:
       - Signup endpoints
       summary: Get the Tink link allowing customer to authenticate his bank.
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-              - socialSecurityNumber
-              properties:
-                socialSecurityNumber:
-                  type: string
-                  format: YYYYMMDDXXXX
-                  description: Swedish personnummer in format YYYYMMDDXXXX
-                  example: "197202104332"
-                bank:
-                  type: string
-                  description: Customer's bank name
-                  example: "SEB"
-                state:
-                  type: string
-                  description: Identifier returned in the redirect url
-                  example: '12345'
+        $ref: "#/components/requestBodies/getLink"
       responses:
         200:
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                - link
-                properties:
-                  link:
-                    type: string
-                    description: Tink link allowing customer to authenticate his bank.
-                    example: "https://redirect-here"
+          $ref: '#/components/resposnes/link'
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -76,31 +45,10 @@ paths:
       - Signup endpoints
       summary: Send the Tink code fetched with the Tink link.
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-              - socialSecurityNumber
-              - code
-              properties:
-                socialSecurityNumber:
-                  type: string
-                  format: YYYYMMDDXXXX
-                  description: Swedish personnummer in format YYYYMMDDXXXX
-                  example: "197202104332"
-                code:
-                  type: string
-                  description: Tink code fetched with the Tink link.
-                  example: '123456789'
+        $ref: "#/components/requestBodies/sendCode"
       responses:
         200:
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
+          $ref: "#/components/responses/empty"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -159,21 +107,51 @@ paths:
       security:
       - basic_auth: []
 
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/errorBody"
-        500:
-          description: Server Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/errorBody"
-      security:
-      - basic_auth: []
-
 components:
   requestBodies:
+    getLink:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - socialSecurityNumber
+            properties:
+              socialSecurityNumber:
+                type: string
+                format: YYYYMMDDXXXX
+                description: Swedish personnummer in format YYYYMMDDXXXX
+                example: "197202104332"
+              bank:
+                type: string
+                description: Customer's bank name
+                example: "SEB"
+              state:
+                type: string
+                description: Identifier returned in the redirect url
+                example: '12345'
+
+    sendCode:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - socialSecurityNumber
+            - code
+            properties:
+              socialSecurityNumber:
+                type: string
+                format: YYYYMMDDXXXX
+                description: Swedish personnummer in format YYYYMMDDXXXX
+                example: "197202104332"
+              code:
+                type: string
+                description: Tink code fetched with the Tink link.
+                example: '123456789'
+
     create:
       required: true
       description: Success
@@ -216,6 +194,27 @@ components:
                   $ref: "#/components/schemas/applicant"
   
   responses:
+    link:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - link
+            properties:
+              link:
+                type: string
+                description: Tink link allowing customer to authenticate his bank.
+                example: "https://redirect-here"
+
+    empty:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+
     application:
       description: Successful operation
       content:
@@ -342,102 +341,102 @@ components:
         employer:
           $ref: "#/components/schemas/employer"
     
-        economicDetails:
-          type: object
-          required:
-          - monthlyIncome
-          - monthlyHousing
-          - monthlyLoans
-          - occupation
-          - kids
-          properties:
-            montlyIncome:
-              type: number
-              description: Monthly income of the applicant before taxes in SEK
-              example: 30000
-              minimum: 0
-            monthlyHousing:
-              type: number
-              description: Monthly cost related to housing in SEK (e.g. monthly rent, monthly housing fees and monthly cost of mortgage). In case the applicant shares the cost with someone else, only his part should be reported.
-              example: 8000
-              minimum: 0
-            monthlyLoans:
-              type: number
-              description: Monthly cost for repaying other loans in SEK (Does not include mortgage as it is already included in the housing cost)
-              example: 1500
-              minimum: 0
-            mortgageAmount:
-              type: number
-              description: Total amount of mortgage for that customer in SEK
-              example: 2500000
-              minimum: 0
-            occupation:
-              type: string
-              description: Type of employment of the applicant. The enum values will be provided by the broker so that Moank can receive the raw data.
-              enum:
-              - permanent
-              - temporarly
-              - unemployed
-              - ...
-            kids:
-              type: number
-              description: Number of children of the applicant under 18
-              example: 2
-              minimum: 0
-            homeType:
-              type: string
-              description: Type of accomodation of the applicant. The enum values will be provided by the broker so that Moank can receive the raw data.
-              enum:
-              - villa
-              - bostadsrätt
-              - hyresrätt
-              - ...
+    economicDetails:
+      type: object
+      required:
+      - monthlyIncome
+      - monthlyHousing
+      - monthlyLoans
+      - occupation
+      - kids
+      properties:
+        montlyIncome:
+          type: number
+          description: Monthly income of the applicant before taxes in SEK
+          example: 30000
+          minimum: 0
+        monthlyHousing:
+          type: number
+          description: Monthly cost related to housing in SEK (e.g. monthly rent, monthly housing fees and monthly cost of mortgage). In case the applicant shares the cost with someone else, only his part should be reported.
+          example: 8000
+          minimum: 0
+        monthlyLoans:
+          type: number
+          description: Monthly cost for repaying other loans in SEK (Does not include mortgage as it is already included in the housing cost)
+          example: 1500
+          minimum: 0
+        mortgageAmount:
+          type: number
+          description: Total amount of mortgage for that customer in SEK
+          example: 2500000
+          minimum: 0
+        occupation:
+          type: string
+          description: Type of employment of the applicant. The enum values will be provided by the broker so that Moank can receive the raw data.
+          enum:
+          - permanent
+          - temporarly
+          - unemployed
+          - ...
+        kids:
+          type: number
+          description: Number of children of the applicant under 18
+          example: 2
+          minimum: 0
+        homeType:
+          type: string
+          description: Type of accomodation of the applicant. The enum values will be provided by the broker so that Moank can receive the raw data.
+          enum:
+          - villa
+          - bostadsrätt
+          - hyresrätt
+          - ...
     
-        bankDetails:
-          type: object
-          properties:
-            bank:
-              type: string
-              description: Name of customer's bank
-              example: SEB
-              enum:
-                - nordea
-                - seb
-                - ...
-            clearingNumber:
-              type: string
-              description: Clearing number of the customer's bank account. 4 or 5 digits depending of the bank (e.g 7428 or 86439)
-              pattern: /^\d{4,5}$/
-            accountNumber:
-              type: string
-              description: Customer's bank account number, excluding the clearing number
-              pattern: /^\d{7,10}$/
+    bankDetails:
+      type: object
+      properties:
+        bank:
+          type: string
+          description: Name of customer's bank
+          example: SEB
+          enum:
+            - nordea
+            - seb
+            - ...
+        clearingNumber:
+          type: string
+          description: Clearing number of the customer's bank account. 4 or 5 digits depending of the bank (e.g 7428 or 86439)
+          pattern: /^\d{4,5}$/
+        accountNumber:
+          type: string
+          description: Customer's bank account number, excluding the clearing number
+          pattern: /^\d{7,10}$/
     
-        employer:
-          type: object
-          properties:
-            employedSince:
-              type: string
-              description: Since when was the applicant is in this employment situation
-              format: date
-            employedUntil:
-              type: string
-              description: Date until when the applicant is employed
-              format: date
-            name:
-              type: string
-              description: Name of the employer
-              example: Moank AB
-            phone:
-              type: string
-              description: Phone of the employer
-              format: international or swedish format
-              example: "0731234567"
-            shouldConnect:
-              type: boolean
-              description: Indicate if customer wants to be connected to his employer
-              example: true
-    
+    employer:
+      type: object
+      properties:
+        employedSince:
+          type: string
+          description: Since when was the applicant is in this employment situation
+          format: date
+        employedUntil:
+          type: string
+          description: Date until when the applicant is employed
+          format: date
+        name:
+          type: string
+          description: Name of the employer
+          example: Moank AB
+        phone:
+          type: string
+          description: Phone of the employer
+          format: international or swedish format
+          example: "0731234567"
+        shouldConnect:
+          type: boolean
+          description: Indicate if customer wants to be connected to his employer
+          example: true
+
     loanTerms:
       type: object
       required:
