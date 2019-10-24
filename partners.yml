@@ -34,8 +34,6 @@ paths:
           $ref: "#/components/responses/authError"
         500:
           $ref: "#/components/responses/serverError"
-        503:
-          $ref: "#/components/responses/serviceError"
       security:
       - basic_auth: []
   
@@ -84,7 +82,7 @@ paths:
   /application/:applicationId:
     get:
       tags:
-      - Optional endpoints
+      - Application endpoints
       summary: Fetch an application previously created
       parameters:
       - name: applicationId
@@ -102,8 +100,6 @@ paths:
           $ref: "#/components/responses/authError"
         500:
           $ref: "#/components/responses/serverError"
-        503:
-          $ref: "#/components/responses/serviceError"
       security:
       - basic_auth: []
 
