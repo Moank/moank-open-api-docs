@@ -89,7 +89,7 @@ footer p
 .page
 {
   min-height: calc(100vh - 88px);
-  background-image: url('././dist/page-bg.svg');
+  background-image: url('../assets/page-bg.svg');
   background-repeat: no-repeat;
   background-position: bottom right;
   -webkit-background-size: cover;
