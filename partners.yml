@@ -38,7 +38,7 @@ paths:
                   example: "197202104332"
                 bank:
                   type: string
-                  description: Customer's bank nam
+                  description: Customer's bank name
                   example: "SEB"
                 state:
                   type: string
@@ -366,6 +366,10 @@ components:
               type: string
               description: Name of customer's bank
               example: SEB
+              enum:
+                - nordea
+                - seb
+                - ...
             clearingNumber:
               type: string
               description: Clearing number of the customer's bank account. 4 or 5 digits depending of the bank (e.g 7428 or 86439)
