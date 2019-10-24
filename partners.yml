@@ -78,7 +78,28 @@ paths:
           $ref: "#/components/responses/serviceError"
       security:
       - basic_auth: []
-      
+
+  /application/:applicationId/event:
+    post:
+      tags:
+      - Signup endpoints
+      summary: Send event about an application
+      requestBody:
+        $ref: '#/components/requestBodies/event'
+      responses:
+        200:
+          $ref: "#/components/responses/empty"
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+        503:
+          $ref: "#/components/responses/serviceError"
+      security:
+      - basic_auth: []
+
   /application/:applicationId:
     get:
       tags:
@@ -156,6 +177,14 @@ components:
           schema:
             $ref: "#/components/schemas/application"
   
+    event:
+      required: true
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/event"
+
   responses:
     link:
       description: Successful operation
@@ -475,6 +504,21 @@ components:
           minimum: 0
           exclusiveMinimum: true
     
+    event:
+      type: object
+      required:
+      - event
+      properties:
+        event:
+          type: string
+          description: Event about the application
+          example: rejected-application
+          enum:
+            - ...
+        payload:
+          type: object
+          description: Payload of the event
+
     error:
       type: object
       required:
