@@ -19,14 +19,14 @@ body
   font-family: sans-serif;
 }
 
-header
+.moank-menu
 {
   width: 100%;
   border: 1px solid #e7e7e7;
   background-color: #f3f3f3;
 }
 
-ul
+.moank-menu ul
 {
   list-style-type: none;
   margin: 0;
@@ -36,13 +36,13 @@ ul
   align-items: center;
 }
 
-li
+.moank-menu li
 {
   float: left;
   border-right: 1px solid #bbb;
 }
 
-li a
+.moank-menu li a
 {
   display: block;
   color: #666;
@@ -52,24 +52,24 @@ li a
   font-size: 24px;
 }
 
-li:hover:not(.main)
+.moank-menu li:hover:not(.main)
 {
   background-color: #ddd;
 }
 
-li a.main
+.moank-menu li a.main
 {
   color: white;
   background-color: rgb(56, 145, 173);
 }
 
-a.disabled
+.moank-menu a.disabled
 {
   pointer-events: none;
   cursor: default;
 }
 
-footer
+.moank-footer
 {
   text-align: center;
   padding: 5px;
@@ -78,7 +78,7 @@ footer
   background-color: #fafafa
 }
 
-footer p
+.moank-footer p
 {
   color: #bbb;
   font-size: 16px;
@@ -86,7 +86,7 @@ footer p
   font-weight: 300;
 }
 
-.page
+.moank-page
 {
   min-height: calc(100vh - 88px);
   background-image: url('../assets/page-bg.svg');

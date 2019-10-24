@@ -1,5 +1,5 @@
 
-.carousel
+.moank-carousel
 {
   display: flex;
   flex-direction: row;
@@ -9,7 +9,7 @@
   margin: auto;
 }
 
-.card
+.moank-carousel .card
 {
   margin: 70px;
   background: #eee;
@@ -24,18 +24,18 @@
   box-shadow: -10px 10px 5px rgba(70, 70, 70, .6);
 }
 
-.card h1
+.moank-carousel .card h1
 {
   font-weight: 350;
 }
 
-.card .description {
+.moank-carousel .card .description {
   width: 300px;
   margin: 12px;
   text-align: center;
 }
 
-.card .button
+.moank-carousel .card .button
 {
   display: flex;
   align-items: center;
@@ -50,7 +50,7 @@
   cursor: pointer;
 }
 
-.card .button a
+.moank-carousel .card .button a
 {
   color: #f3f3f3;
   text-decoration: none;
