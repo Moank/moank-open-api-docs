@@ -1,0 +1,102 @@
+html
+{
+  box-sizing: border-box;
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
+}
+
+*,
+*:before,
+*:after
+{
+  box-sizing: inherit;
+}
+
+body
+{
+  margin:0;
+  background: #fafafa;
+  font-family: sans-serif;
+}
+
+header
+{
+  width: 100%;
+  border: 1px solid #e7e7e7;
+  background-color: #f3f3f3;
+}
+
+ul
+{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+li
+{
+  float: left;
+  border-right: 1px solid #bbb;
+}
+
+li a
+{
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 18px 30px;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+li:hover:not(.main)
+{
+  background-color: #ddd;
+}
+
+li a.main
+{
+  color: white;
+  background-color: rgb(56, 145, 173);
+}
+
+a.disabled
+{
+  pointer-events: none;
+  cursor: default;
+}
+
+footer
+{
+  text-align: center;
+  padding: 5px;
+  height: 88px;
+  width: 100%;
+  background-color: #fafafa
+}
+
+footer p
+{
+  color: #bbb;
+  font-size: 16px;
+  margin: 5px 0;
+  font-weight: 300;
+}
+
+.page
+{
+  min-height: calc(100vh - 88px);
+  background-image: url('././dist/page-bg.svg');
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

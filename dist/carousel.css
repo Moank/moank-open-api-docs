@@ -1,0 +1,57 @@
+
+.carousel
+{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.card
+{
+  margin: 70px;
+  background: #eee;
+  border: 1px solid #e7e7e7;
+  border-radius: 6px;
+  padding: 12px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: -10px 10px 5px rgba(70, 70, 70, .6);
+}
+
+.card h1
+{
+  font-weight: 350;
+}
+
+.card .description {
+  width: 300px;
+  margin: 12px;
+  text-align: center;
+}
+
+.card .button
+{
+  display: flex;
+  align-items: center;
+  background-color: rgb(56, 145, 173);
+  width: 100%;
+  max-width: 200px;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.card .button a
+{
+  color: #f3f3f3;
+  text-decoration: none;
+}

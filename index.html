@@ -4,7 +4,6 @@
   <head>
     <meta charset="UTF-8">
     <title>Moank Broker API</title>
-    <link rel="stylesheet" type="text/css" href="./dist/swagger-ui.css" >
     <link rel="apple-touch-icon" sizes="180x180" href="./favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./favicons/favicon-16x16.png">
@@ -12,52 +11,50 @@
     <link rel="mask-icon" href="./favicons/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-    <style>
-      html
-      {
-        box-sizing: border-box;
-        overflow: -moz-scrollbars-vertical;
-        overflow-y: scroll;
-      }
-
-      *,
-      *:before,
-      *:after
-      {
-        box-sizing: inherit;
-      }
-
-      body
-      {
-        margin:0;
-        background: #fafafa;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="./global.css" />
+    <link rel="stylesheet" type="text/css" href="././dist/carousel.css" />
   </head>
 
   <body>
-    <div id="swagger-ui"></div>
+    <div class="page">
+      <header>
+        <ul>
+          <li>
+            <a class="main disabled" href="javascript:void(0)">
+              <img src="./dist/moank_logo.svg" height="25px" />
+            </a>
+          </li>
+          <li><a href="./brokers.html">Broker API</a></li>
+          <li><a href="./partners.html">Partner API</a></li>
+        </ul>
+      </header>
 
-    <script src="./dist/swagger-ui-bundle.js"> </script>
-    <script src="./dist/swagger-ui-standalone-preset.js"> </script>
-    <script>
-    window.onload = function() {
-      // Begin Swagger UI call region
-      const ui = SwaggerUIBundle({
-        url: "./swagger.yml",
-        dom_id: '#swagger-ui',
-        deepLinking: true,
-        presets: [
-          SwaggerUIBundle.presets.apis,
-        ],
-        plugins: [
-          SwaggerUIBundle.plugins.DownloadUrl
-        ],
-      })
-      // End Swagger UI call region
+      <div class="carousel">
+        <div class="card">
+          <h1>Broker API</h1>
+          <div class="description">
+            <p>API provided by Moank for loan brokers so that they can send applications and followup on them</p>
+          </div>
+          <div class="button">
+            <a href="./brokers.html">Read more</a>
+          </div>
+        </div>
+        <div class="card">
+          <h1>Partner API</h1>
+          <div class="description">
+            <p>API provided by Moank for partners so that they can send applications and followup on them</p>
+          </div>
+          <div class="button">
+            <a href="./partners.html">Read more</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      window.ui = ui
-    }
-  </script>
+    <footer>
+      <p>Copyright ©2019 Moank. Alla rättigheter förbehålls.</p>
+      <p>Moank AB är ett konsumentkreditinstitut med tillstånd av Finansinspektionen.</p>
+      <p>Org.nr: 559000-0237. Styrelsens säte: Stockholm.</p>
+    </footer>
   </body>
 </html>
