@@ -75,7 +75,8 @@ paths:
     post:
       tags:
       - Signup endpoints
-      summary: Send event about an application
+      summary: Send event about an application.
+      description:  This endpoint can be used to notify Moank that new action should be taken on the application. If none of the documented events match your needs we can always create new ones.
       parameters:
       - name: applicationId
         in: path
