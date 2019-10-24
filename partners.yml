@@ -6,16 +6,8 @@ info:
 servers:
 - url: https://api.moank.se/partner/
   description: Production server
-  variables:
-    brokerName:
-      default: generic
-      description: Same as the basic auth username
 - url: https://staging.api.moank.se/partner
   description: Staging server
-  variables:
-    brokerName:
-      default: generic
-      description: Same as the basic auth username
 
 paths:
   /bank/get-link:
@@ -84,6 +76,13 @@ paths:
       tags:
       - Signup endpoints
       summary: Send event about an application
+      parameters:
+      - name: applicationId
+        in: path
+        description: Application's id as set in the application response object
+        required: true
+        schema:
+          type: string
       requestBody:
         $ref: '#/components/requestBodies/event'
       responses:
@@ -134,16 +133,12 @@ components:
             type: object
             required:
             - socialSecurityNumber
+            - bank
             properties:
               socialSecurityNumber:
-                type: string
-                format: YYYYMMDDXXXX
-                description: Swedish personnummer in format YYYYMMDDXXXX
-                example: "197202104332"
+                $ref: "#/components/schemas/socialSecurityNumber"
               bank:
-                type: string
-                description: Customer's bank name
-                example: "SEB"
+                $ref: "#/components/schemas/bank"
               state:
                 type: string
                 description: Optional session identifier returned in the redirect url
@@ -160,10 +155,7 @@ components:
             - code
             properties:
               socialSecurityNumber:
-                type: string
-                format: YYYYMMDDXXXX
-                description: Swedish personnummer in format YYYYMMDDXXXX
-                example: "197202104332"
+                $ref: "#/components/schemas/socialSecurityNumber"
               code:
                 type: string
                 description: Tink code fetched with the Tink link.
@@ -236,20 +228,35 @@ components:
             $ref: "#/components/schemas/error"
   
     serverError:
-      description: Internal Server Error. If the problem persist contact the tecnical support
+      description: Internal Server Error. If the problem persists contact the technical support
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/error"
   
     serviceError:
-      description: Service Error. If the problem persist contact the tecnical support
+      description: Service Error. If the problem persists contact the technical support
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/error"
   
   schemas:
+    socialSecurityNumber:
+      type: string
+      format: YYYYMMDDXXXX
+      description: Swedish personnummer in format YYYYMMDDXXXX
+      example: "197202104332"
+
+    bank:
+      type: string
+      description: Name of customer's bank. The enum values will be provided to the partner.
+      example: SEB
+      enum:
+        - nordea
+        - seb
+        - ...
+
     application:
       type: object
       required:
@@ -284,7 +291,7 @@ components:
           - ...
         isBorrowingForOwnUse:
           type: boolean
-          description: Indicate if customer is asking the loan for himself
+          description: Indicate if customer is applying for a loan for himself or if he is applying on behalf of someone else.
           example: true
         applicants:
           type: array
@@ -328,10 +335,7 @@ components:
       - economicDetails
       properties:
         socialSecurityNumber:
-          type: string
-          format: YYYYMMDDXXXX
-          description: Swedish personnummer in format YYYYMMDDXXXX
-          example: "197202104332"
+          $ref: "#/components/schemas/socialSecurityNumber"
         email:
           type: string
           description: Email of the applicant. Used to communicate loan agreement
@@ -361,6 +365,7 @@ components:
       - monthlyLoans
       - occupation
       - kids
+      - homeType
       properties:
         monthlyIncome:
           type: number
@@ -408,13 +413,7 @@ components:
       type: object
       properties:
         bank:
-          type: string
-          description: Name of customer's bank. The enum values will be provided to the partner.
-          example: SEB
-          enum:
-            - nordea
-            - seb
-            - ...
+          $ref: "#/components/schemas/bank"
         clearingNumber:
           type: string
           description: Clearing number of the customer's bank account. 4 or 5 digits depending of the bank (e.g 7428 or 86439)
@@ -422,7 +421,7 @@ components:
         accountNumber:
           type: string
           description: Customer's bank account number, excluding the clearing number
-          pattern: /^\d{7,10}$/
+          pattern: /^\d{5, 12}$/
     
     employer:
       type: object
@@ -452,6 +451,7 @@ components:
     loanTerms:
       type: object
       required:
+      - isFinal
       - amount
       - nominalRate
       - effectiveRate
@@ -461,6 +461,10 @@ components:
       - monthlyFee
       - totalCost
       properties:
+        isFinal:
+          type: boolean
+          description: If false offer can change in the end after a manual review from Moank underwriters
+          example: false
         amount:
           type: number
           description: Amount to be paid out (including refinancing)
