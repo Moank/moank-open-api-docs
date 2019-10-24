@@ -27,7 +27,7 @@ paths:
         $ref: "#/components/requestBodies/getLink"
       responses:
         200:
-          $ref: '#/components/resposnes/link'
+          $ref: '#/components/responses/link'
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -69,7 +69,7 @@ paths:
         $ref: "#/components/requestBodies/create"
       responses:
         200:
-          $ref: "#/components/responses/application"
+          $ref: "#/components/responses/extendedApplication"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -95,7 +95,7 @@ paths:
           type: string
       responses:
         200:
-          $ref: "#/components/responses/application"
+          $ref: "#/components/responses/extendedApplication"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -158,40 +158,7 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            required:
-            - amount
-            - repaymentTime
-            - applicants
-            properties:
-              amount:
-                type: number
-                description: Amount requested to borrow in SEK (including refinancing)
-                minimum: 0
-                exclusiveMinimum: true
-                example: 100000
-              repaymentTime:
-                type: number
-                description: Repayment time requested in months
-                minimum: 0
-                exclusiveMinimum: true
-                example: 24
-              reasonForLoan:
-                type: string
-                description: Purpose of the loan. The enum values will be provided to the partner.
-                enum:
-                - vehicle
-                - refinancing
-                - rennovation
-                - ...
-              isBorrowingForOwnUse:
-                type: boolean
-                description: Indicate if customer is asking the loan for himself
-                example: true
-              applicants:
-                type: array
-                items:
-                  $ref: "#/components/schemas/applicant"
+            $ref: "#/components/schemas/application"
   
   responses:
     link:
@@ -220,61 +187,14 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            required:
-            - id
-            - amount
-            - repaymentTime
-            - applicants
-            properties:
-              referenceId:
-                type: string
-                description: Reference id for the application
-              amount:
-                type: number
-                description: Amount requested to borrow in SEK (including refinancing)
-                minimum: 0
-                exclusiveMinimum: true
-                example: 100000
-              repaymentTime:
-                type: number
-                description: Repayment time requested in months
-                minimum: 0
-                exclusiveMinimum: true
-                example: 24
-              reasonForLoan:
-                type: string
-                description: Purpose of the loan. The enum values will be provided to the partner.
-                enum:
-                - vehicle
-                - refinancing
-                - rennovation
-                - ...
-              isBorrowingForOwnUse:
-                type: boolean
-                description: Indicate if customer is asking the loan for himself
-                example: true
-              applicants:
-                type: array
-                items:
-                  $ref: "#/components/schemas/applicant"
-              status:
-                type: string
-                description: Status of the application.
-                enum:
-                - pending
-                - payout
-                - ...
-              decision:
-                type: string
-                description: Decision taken on the application.
-                enum:
-                - deny
-                - preliminary-granted
-                - granted
-                - ...
-              loanTerms:
-                $ref: "#/components/schemas/loanTerms"
+            $ref: "#/components/schemas/application"
+
+    extendedApplication:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/extendedApplication"
 
     dataError:
       description: Invalid data
@@ -291,20 +211,82 @@ components:
             $ref: "#/components/schemas/error"
   
     serverError:
-      description: Server Error
+      description: Internal Server Error. If the problem persist contact the tecnical support
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/error"
   
     serviceError:
-      description: Service Error
+      description: Service Error. If the problem persist contact the tecnical support
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/error"
   
   schemas:
+    application:
+      type: object
+      required:
+      - amount
+      - repaymentTime
+      - applicants
+      properties:
+        referenceId:
+          type: string
+          description: Partner reference id for the application
+        amount:
+          type: number
+          description: Amount requested to borrow in SEK (including refinancing)
+          minimum: 0
+          exclusiveMinimum: true
+          example: 100000
+        repaymentTime:
+          type: number
+          description: Repayment time requested in months
+          minimum: 0
+          exclusiveMinimum: true
+          example: 24
+        reasonForLoan:
+          type: string
+          description: Purpose of the loan. The enum values will be provided to the partner.
+          enum:
+          - vehicle
+          - refinancing
+          - rennovation
+          - ...
+        isBorrowingForOwnUse:
+          type: boolean
+          description: Indicate if customer is asking the loan for himself
+          example: true
+        applicants:
+          type: array
+          items:
+            $ref: "#/components/schemas/applicant"
+
+    extendedApplication:
+      allOf:
+        - $ref: "#/components/schemas/application"
+        - type: object
+          properties:
+            status:
+              type: string
+              description: Status of the application.
+              enum:
+              - pending
+              - payout
+              - ...
+            decision:
+              type: string
+              description: Decision taken on the application.
+              enum:
+              - deny
+              - preliminary-granted
+              - granted
+              - ...
+            loanTerms:
+              $ref: "#/components/schemas/loanTerms"
+
     applicant:
       type: object
       required:
