@@ -608,7 +608,7 @@ components:
               example: 400
             message:
               type: string
-              description: INVALID_REQUEST mean that the payload of the request is invalid, check the errors list to get more information. INVALID_TOKEN mean that the code passed as parameter was not recognised by our authentication partner, the end user should do the authentication flow again to obtain a new token. INVALID_IDENTITY means that the bank account retrieved using the code does not belong to the socialSecurityNumber, the end user should do the authentication flow again with a different bank where he/she has an account in his/her name. INVALID_ACCOUNTS means that the end user does not have any salary account at the selected bank and needs to redo the authentication flow selecting another bank where he/she has a salary account.
+              description: INVALID_REQUEST means that the payload of the request is invalid, check the errors list to get more information. INVALID_TOKEN means that the code passed as parameter was not recognised by our authentication partner, the end user should do the authentication flow again to obtain a new token. INVALID_IDENTITY means that the bank account retrieved using the code does not belong to the socialSecurityNumber, the end user should do the authentication flow again with a different bank where he/she has an account in his/her name. INVALID_ACCOUNTS means that the end user does not have any salary account at the selected bank and needs to redo the authentication flow selecting another bank where he/she has a salary account.
               enum:
                 - INVALID_REQUEST
                 - INVALID_TOKEN
