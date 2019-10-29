@@ -288,20 +288,30 @@ components:
       type: object
       required:
       - amount
+      - amountToRefinance
       - repaymentTime
       - reasonForLoan
       - isBorrowingForOwnUse
+      - termsApproved
+      - canBeProfiled
       - applicants
       properties:
         referenceId:
           type: string
           description: Partner reference id for the application
+          example: "12345"
         amount:
           type: number
           description: Amount requested to borrow in SEK (including refinancing)
           minimum: 0
           exclusiveMinimum: true
           example: 100000
+        amountToRefinance:
+          type: number
+          description: Amount used exclusively to refinance existing loans in SEK
+          minimum: 0
+          exclusiveMinimum: true
+          example: 50000
         repaymentTime:
           type: number
           description: Repayment time requested in months
@@ -312,7 +322,7 @@ components:
           type: string
           description: Purpose of the loan. The enum values will be provided to the partner.
           enum:
-          - consolidate-loan
+          - consolidate-loans
           - down-payment
           - financial-security
           - health
@@ -323,9 +333,18 @@ components:
           - studies
           - travel
           - vehicle
+          example: vehicle
         isBorrowingForOwnUse:
           type: boolean
           description: Indicate if customer is applying for a loan for himself or if he is applying on behalf of someone else.
+          example: true
+        termsApproved:
+          type: boolean
+          description: Indicate if customer accepted Moank's terms and conditions
+          example: true
+        canBeProfiled:
+          type: boolean
+          description: Indicate if customer accepted can be profiled by Moank to take a credit decision
           example: true
         applicants:
           type: array
@@ -337,8 +356,17 @@ components:
         - $ref: "#/components/schemas/application"
         - type: object
           required:
-          - loanTerms
+          - id
+          - createdAt
           properties:
+            id:
+              type: string
+              description: Unique identifier of the application
+              example: '12345'
+            createdAt:
+              type: string
+              description: Date of when the application was created
+              format: date
             loanTerms:
               $ref: "#/components/schemas/loanTerms"
 
@@ -348,7 +376,7 @@ components:
       - socialSecurityNumber
       - email
       - phone
-      - isNotPep
+      - isNotPEP
       - economicDetails
       properties:
         socialSecurityNumber:
@@ -363,7 +391,7 @@ components:
           description: Phone number of the applicant (preferably mobile phone). Used to communicate loan agreement if it is a mobile phone number
           format: international or swedish format
           example: "+46731234567"
-        isNotPep:
+        isNotPEP:
           type: boolean
           description: Indicate if the customer is politically exposed
           example: true
@@ -408,7 +436,6 @@ components:
           type: string
           description: Type of employment of the applicant. The enum values will be provided to the partner.
           enum:
-          - employee
           - extra-job
           - other
           - pensioner
@@ -418,6 +445,7 @@ components:
           - student
           - temporary-employment
           - unemployed
+          example: permanent-employment
         kids:
           type: number
           description: Number of children of the applicant under 18
@@ -431,6 +459,7 @@ components:
           - house
           - rent
           - roommate
+        example: appartment
 
     bankDetails:
       type: object
@@ -441,10 +470,12 @@ components:
           type: string
           description: Clearing number of the customer's bank account. 4 or 5 digits depending of the bank (e.g 7428 or 86439)
           pattern: /^\d{4,5}$/
+          example: "1234"
         accountNumber:
           type: string
           description: Customer's bank account number, excluding the clearing number
           pattern: /^\d{5, 12}$/
+          example: "567890"
 
     employer:
       type: object
@@ -474,7 +505,6 @@ components:
     loanTerms:
       type: object
       required:
-      - isFinal
       - amount
       - nominalRate
       - effectiveRate
@@ -484,19 +514,11 @@ components:
       - monthlyFee
       - totalCost
       properties:
-        isFinal:
-          type: boolean
-          description: If false offer can change in the end after a manual review from Moank underwriters
-          example: false
         amount:
           type: number
           description: Amount to be paid out (including refinancing)
           minimum: 0
           exclusiveMinimum: true
-        amountToRefinance:
-          type: number
-          description: Amount to be used for refinancing previous debts
-          minimum: 0
         nominalRate:
           type: number
           description: Yearly nominal rate of the loan in percent
