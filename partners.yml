@@ -266,9 +266,23 @@ components:
       description: Name of customer's bank. The enum values will be provided to the partner.
       example: SEB
       enum:
+        - alandsbanken
+        - danske-bank
+        - forex
+        - handelsbanken
+        - ica
+        - ikano
+        - lansforsakringar
+        - marginalen
+        - nordax
         - nordea
+        - santander
+        - sbab
         - seb
-        - ...
+        - skandia
+        - sparbanken-syd
+        - sparbankerna
+        - swedbank
 
     application:
       type: object
@@ -298,10 +312,17 @@ components:
           type: string
           description: Purpose of the loan. The enum values will be provided to the partner.
           enum:
-          - vehicle
-          - refinancing
+          - consolidate-loan
+          - down-payment
+          - financial-security
+          - health
+          - other
           - rennovation
-          - ...
+          - services
+          - shopping
+          - studies
+          - travel
+          - vehicle
         isBorrowingForOwnUse:
           type: boolean
           description: Indicate if customer is applying for a loan for himself or if he is applying on behalf of someone else.
@@ -316,25 +337,8 @@ components:
         - $ref: "#/components/schemas/application"
         - type: object
           required:
-          - status
-          - decision
           - loanTerms
           properties:
-            status:
-              type: string
-              description: Status of the application. The enum values will be provided to the partner.
-              enum:
-              - pending
-              - payout
-              - ...
-            decision:
-              type: string
-              description: Decision taken on the application. The enum values will be provided to the partner.
-              enum:
-              - deny
-              - preliminary-granted
-              - granted
-              - ...
             loanTerms:
               $ref: "#/components/schemas/loanTerms"
 
@@ -404,10 +408,16 @@ components:
           type: string
           description: Type of employment of the applicant. The enum values will be provided to the partner.
           enum:
-          - permanent
-          - temporarly
+          - employee
+          - extra-job
+          - other
+          - pensioner
+          - permanent-employment
+          - probation-employment
+          - selfemployed
+          - student
+          - temporary-employment
           - unemployed
-          - ...
         kids:
           type: number
           description: Number of children of the applicant under 18
@@ -417,10 +427,10 @@ components:
           type: string
           description: Type of accomodation of the applicant. The enum values will be provided to the partner.
           enum:
-          - villa
-          - bostadsrätt
-          - hyresrätt
-          - ...
+          - apartment
+          - house
+          - rent
+          - roommate
 
     bankDetails:
       type: object
