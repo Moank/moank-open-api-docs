@@ -203,10 +203,17 @@ components:
                 type: string
                 description: Purpose of the loan. The enum values will be provided by the broker so that Moank can receive the raw data.
                 enum:
-                - vehicle
+                - consolidate-loan
+                - down-payment
+                - financial-security
+                - health
+                - other
                 - refinancing
                 - rennovation
-                - ...
+                - services
+                - shopping
+                - studies
+                - vehicle
               applicant:
                 $ref: "#/components/schemas/applicant"
               coApplicant:
@@ -368,23 +375,30 @@ components:
           - single
           - partner
           - married
-          - ...
+          - divorced
+          - widowed
         accomodationType:
           type: string
           description: Type of accomodation of the applicant. The enum values will be provided by the broker so that Moank can receive the raw data.
           enum:
-          - villa
-          - bostadsrätt
-          - hyresrätt
-          - ...
+          - apartment
+          - house
+          - house
+          - roommate
         employmentType:
           type: string
           description: Type of employment of the applicant. The enum values will be provided by the broker so that Moank can receive the raw data.
           enum:
-          - permanent
-          - temporarly
+          - employee
+          - extra-job
+          - other
+          - pensioner
+          - permanent-employment
+          - probation-employment
+          - self-employed
+          - student
+          - temporary-employment
           - unemployed
-          - ...
         employmentSince:
           type: string
           description: Since when was the applicant is in this employment situation
