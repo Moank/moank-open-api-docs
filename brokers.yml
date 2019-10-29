@@ -383,7 +383,7 @@ components:
           enum:
           - apartment
           - house
-          - house
+          - rent
           - roommate
         employmentType:
           type: string
@@ -395,7 +395,7 @@ components:
           - pensioner
           - permanent-employment
           - probation-employment
-          - self-employed
+          - selfemployed
           - student
           - temporary-employment
           - unemployed
