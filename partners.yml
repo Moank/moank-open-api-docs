@@ -93,6 +93,8 @@ paths:
           $ref: "#/components/responses/dataError"
         401:
           $ref: "#/components/responses/authError"
+        404:
+          $ref: "#/components/responses/notFoundError"
         500:
           $ref: "#/components/responses/serverError"
         503:
@@ -119,6 +121,8 @@ paths:
           $ref: "#/components/responses/dataError"
         401:
           $ref: "#/components/responses/authError"
+        404:
+          $ref: "#/components/responses/notFoundError"
         500:
           $ref: "#/components/responses/serverError"
       security:
@@ -239,6 +243,13 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/authError"
+
+    notFoundError:
+      description: Application not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/notFoundError"
 
     serverError:
       description: Internal Server Error. If the problem persists contact the technical support
@@ -610,6 +621,16 @@ components:
               example: 401
             message:
               example: Unauthorized
+
+    notFoundError:
+      allOf:
+        - $ref: "#/components/schemas/error"
+        - type: object
+          properties:
+            status:
+              example: 404
+            message:
+              example: Application not found
 
     serverError:
       allOf:
