@@ -76,7 +76,7 @@ paths:
       tags:
       - Signup endpoints
       summary: Send event about an application.
-      description:  This endpoint can be used to notify Moank that new action should be taken on the application. If none of the documented events match your needs we can always create new ones.
+      description: This endpoint can be used to notify Moank that a new action should be taken on the application. If none of the documented events match your needs we can always create new ones.
       parameters:
       - name: applicationId
         in: path
@@ -88,7 +88,7 @@ paths:
         $ref: '#/components/requestBodies/event'
       responses:
         200:
-          $ref: "#/components/responses/empty"
+          $ref: "#/components/responses/event"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -222,6 +222,13 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/extendedApplication"
+
+    event:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/eventResult"
 
     sendCodeError:
       description: Error when validating bank authentication code
@@ -572,12 +579,22 @@ components:
         event:
           type: string
           description: Event about the application. The enum values will be provided to the partner.
-          example: rejected-application
+          example: use-loan-promise
           enum:
-            - ...
+            - use-loan-promise
+            - pay-loan
         payload:
           type: object
           description: Payload of the event. It will be different based on the event sent
+
+    eventResult:
+      type: object
+      required:
+      - result
+      properties:
+        result:
+          type: object
+          description: Result of the event. It will be different based on the event sent
 
     error:
       type: object
@@ -661,7 +678,11 @@ components:
               example: 400
             message:
               type: string
-              description: INVALID_REQUEST means that the payload of the request is invalid, check the errors list to get more information. INVALID_TOKEN means that the code passed as parameter was not recognised by our authentication partner, the end user should do the authentication flow again to obtain a new token. INVALID_IDENTITY means that the bank account retrieved using the code does not belong to the socialSecurityNumber, the end user should do the authentication flow again with a different bank where he/she has an account in his/her name. INVALID_ACCOUNTS means that the end user does not have any salary account at the selected bank and needs to redo the authentication flow selecting another bank where he/she has a salary account.
+              description:
+                INVALID_REQUEST means that the payload of the request is invalid, check the errors list to get more information.<br/>
+                INVALID_TOKEN means that the code passed as parameter was not recognised by our authentication partner, the end user should do the authentication flow again to obtain a new token.<br/>
+                INVALID_IDENTITY means that the bank account retrieved using the code does not belong to the socialSecurityNumber, the end user should do the authentication flow again with a different bank where he/she has an account in his/her name.<br/>
+                INVALID_ACCOUNTS means that the end user does not have any salary account at the selected bank and needs to redo the authentication flow selecting another bank where he/she has a salary account.
               enum:
                 - INVALID_REQUEST
                 - INVALID_TOKEN
