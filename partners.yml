@@ -376,6 +376,7 @@ components:
           required:
           - id
           - createdAt
+          - decision
           properties:
             id:
               type: string
