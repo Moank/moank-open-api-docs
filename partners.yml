@@ -519,6 +519,20 @@ components:
           type: boolean
           description: Indicate if customer wants to be connected to his employer
           example: true
+    decision:
+      type: string
+      enum:
+        - deny
+        - pending
+        - granted
+      default: pending
+      description: |
+        Current status of an application.
+
+        Possible values are
+        * denied -> application is denied and no manual review is necessary.
+        * pending -> application is preliminary granted but will go through manual review before being granted.
+        * granted -> application is granted and no manual review is necessary.
 
     loanTerms:
       type: object
