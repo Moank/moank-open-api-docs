@@ -387,6 +387,8 @@ components:
               format: date
             loanTerms:
               $ref: "#/components/schemas/loanTerms"
+            decision:
+              $ref: "#/components/schemas/decision"
 
     applicant:
       type: object
@@ -519,6 +521,7 @@ components:
           type: boolean
           description: Indicate if customer wants to be connected to his employer
           example: true
+
     decision:
       type: string
       enum:
