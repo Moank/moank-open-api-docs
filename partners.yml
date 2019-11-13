@@ -38,7 +38,7 @@ paths:
         $ref: "#/components/requestBodies/sendCode"
       responses:
         200:
-          $ref: "#/components/responses/empty"
+          $ref: "#/components/responses/sendCode"
         400:
           $ref: "#/components/responses/sendCodeError"
         401:
@@ -202,12 +202,18 @@ components:
                 description: Tink link allowing customer to authenticate his bank.
                 example: "https://redirect-here"
 
-    empty:
-      description: Successful operation
+    sendCode:
+      description: Successful operation. It returns a list of customer's valid accounts in the selected bank.
       content:
         application/json:
           schema:
-            type: object
+            required:
+            - bankAccounts
+            properties:
+              bankAccounts:
+                type: array
+                items:
+                  $ref: "#/components/schemas/bankAccount"
 
     application:
       description: Successful operation
@@ -522,6 +528,24 @@ components:
           type: boolean
           description: Indicate if customer wants to be connected to his employer
           example: true
+
+    bankAccount:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the customer account
+          example: Debt Account
+        clearingNumber:
+          type: string
+          description: Clearing number of the customer's bank account. 4 or 5 digits depending of the bank (e.g 7428 or 86439)
+          pattern: /^\d{4,5}$/
+          example: "1234"
+        accountNumber:
+          type: string
+          description: Customer's bank account number, excluding the clearing number
+          pattern: /^\d{5, 12}$/
+          example: "567890"
 
     decision:
       type: string
