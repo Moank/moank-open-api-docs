@@ -203,7 +203,7 @@ components:
                 example: "https://redirect-here"
 
     sendCode:
-      description: Successful operation. Return the list of customer's valid account on the selected bank.
+      description: Successful operation. It returns a list of customer's valid accounts in the selected bank.
       content:
         application/json:
           schema:
