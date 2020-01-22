@@ -290,23 +290,18 @@ components:
       description: Name of customer's bank. The enum values will be provided to the partner.
       example: SEB
       enum:
-        - alandsbanken
-        - danske-bank
-        - forex
-        - handelsbanken
-        - ica
-        - ikano
-        - lansforsakringar
-        - marginalen
-        - nordax
         - nordea
-        - santander
-        - sbab
-        - seb
-        - skandia
-        - sparbanken-syd
-        - sparbankerna
         - swedbank
+        - seb
+        - danske-bank
+        - handelsbanken
+        - sparbanken-syd
+        - sbab
+        - ica
+        - skandia
+        - lansforsakringar
+        - sparbankerna
+        - alandsbanken
 
     application:
       type: object
