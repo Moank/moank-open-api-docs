@@ -615,11 +615,21 @@ components:
       properties:
         event:
           type: string
-          description: Event about the application. The enum values will be provided to the partner.
+          description: | 
+            Event about the application. The enum values will be provided to the partner. 
+            Possible values are
+            * use-loan-promise
+            * pay-loan
+            * process-test-loan (Only available in DEBUG mode). Will return a warning message in case the bank report hasn't been completed yet.
+            * grant-test-loan (Only available in DEBUG mode)
+            * sign-test-loan (Only available in DEBUG mode)
           example: use-loan-promise
           enum:
             - use-loan-promise
             - pay-loan
+            - process-test-loan
+            - grant-test-loan
+            - sign-test-loan
         payload:
           description: Payload of the event. It will be different based on the event sent
           oneOf:
