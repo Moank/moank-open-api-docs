@@ -377,7 +377,7 @@ components:
           required:
           - id
           - createdAt
-          - decision
+          - applicationStatus
           properties:
             id:
               type: string
@@ -389,8 +389,8 @@ components:
               format: date
             loanTerms:
               $ref: "#/components/schemas/loanTerms"
-            decision:
-              $ref: "#/components/schemas/decision"
+            applicationStatus:
+              $ref: "#/components/schemas/applicationStatus"
 
     applicant:
       type: object
@@ -542,12 +542,15 @@ components:
           pattern: /^\d{5, 12}$/
           example: "567890"
 
-    decision:
+    applicationStatus:
       type: string
       enum:
-        - deny
+        - denied
         - pending
         - granted
+        - signed
+        - payed-out
+        - expired
       default: pending
       description: |
         Current status of an application.
@@ -555,7 +558,10 @@ components:
         Possible values are
         * denied -> application is denied and no manual review is necessary.
         * pending -> application is preliminary granted but will go through manual review before being granted.
-        * granted -> application is granted and no manual review is necessary.
+        * granted -> application is granted and no manual review is necessary. Waiting for applicant(s) to sign the loan agreement. 
+        * signed -> application is signed by applicant(s).
+        * payed-out -> loan is payed out.
+        * expired -> application is expired.
 
     loanTerms:
       type: object
