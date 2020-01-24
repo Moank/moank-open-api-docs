@@ -343,7 +343,7 @@ components:
           type: string
           description: Town of the applicant
           example: Stockholm
-        montlyIncome:
+        monthlyIncome:
           type: number
           description: Monthly income of the applicant before taxes in SEK
           example: 30000
