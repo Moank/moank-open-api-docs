@@ -128,6 +128,32 @@ paths:
       security:
       - basic_auth: []
 
+  /application/:applicationId/download-agreement:
+    get:
+      tags:
+      - Application endpoints
+      summary: Fetch the signed agreement after the application has been signed
+      parameters:
+      - name: applicationId
+        in: path
+        description: Application's id as set in the application response object
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          $ref: "#/components/responses/file"
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        404:
+          $ref: "#/components/responses/notFoundError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
 components:
   requestBodies:
     getLink:
@@ -235,6 +261,14 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/eventResult"
+
+    file:
+      description: Binary file
+      content:
+        application/pdf:
+          schema:
+            type: string
+            format: binary
 
     sendCodeError:
       description: Error when validating bank authentication code
@@ -558,7 +592,7 @@ components:
         Possible values are
         * denied -> application is denied and no manual review is necessary.
         * pending -> application is preliminary granted but will go through manual review before being granted.
-        * granted -> application is granted and no manual review is necessary. Waiting for applicant(s) to sign the loan agreement. 
+        * granted -> application is granted and no manual review is necessary. Waiting for applicant(s) to sign the loan agreement.
         * signed -> application is signed by applicant(s).
         * payed-out -> loan is payed out.
         * expired -> application is expired.
@@ -621,8 +655,8 @@ components:
       properties:
         event:
           type: string
-          description: | 
-            Event about the application. The enum values will be provided to the partner. 
+          description: |
+            Event about the application. The enum values will be provided to the partner.
             Possible values are
             * use-loan-promise
             * pay-loan
