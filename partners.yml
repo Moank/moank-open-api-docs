@@ -102,6 +102,26 @@ paths:
       security:
       - basic_auth: []
 
+  /application/preview-terms:
+    post:
+      tags:
+        - Application endpoints 
+      summary: Get a preview of terms for an application
+      description: You can use this endpoint to get a preview a of the terms if we would process the application. This is just a simulation and only does calculations with the data sent.
+      requestBody:
+        $ref: '#/components/requestBodies/create'
+      responses: 
+        200:
+          $ref: "#/components/responses/loanTerms"
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+        503:
+          $ref: "#/components/responses/serviceError"
+
   /application/{applicationId}:
     get:
       tags:
@@ -262,6 +282,13 @@ components:
           schema:
             $ref: "#/components/schemas/eventResult"
 
+    loanTerms:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/loanTerms"
+        
     file:
       description: Binary file
       content:
