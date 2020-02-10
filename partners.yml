@@ -107,7 +107,7 @@ paths:
       tags:
         - Application endpoints 
       summary: Get a preview of terms for an application
-      description: You can use this endpoint to get a preview a of the terms if we would process the application. This is just a simulation and only does calculations with the data sent.
+      description: You can use this endpoint to get a preview of the terms if we would process the application. This is just a simulation and only does calculations with the data sent.
       requestBody:
         $ref: '#/components/requestBodies/previewTerms'
       responses: 
