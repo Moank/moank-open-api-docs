@@ -32,7 +32,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorBody"
+                $ref: "#/components/schemas/invalidBody"
         500:
           description: Server Error
           content:
@@ -81,7 +81,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorBody"
+                $ref: "#/components/schemas/invalidBody"
         500:
           description: Server Error
           content:
@@ -121,7 +121,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorBody"
+                $ref: "#/components/schemas/invalidBody"
         500:
           description: Server Error
           content:
@@ -153,7 +153,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/errorBody"
+                $ref: "#/components/schemas/invalidBody"
         500:
           description: Server Error
           content:
@@ -416,7 +416,7 @@ components:
           description: Phone of the employer
           format: international or swedish format
           example: "0731234567"
-    errorBody:
+    invalidBody:
       type: object
       required:
       - status
@@ -428,8 +428,26 @@ components:
           example: 400
         message:
           type: string
-          description: Explanation about the error
-          example: Missing required field socialSecurityNumber
+          description: Main error reason
+        errors:
+          type: array
+          items:
+            type: string
+            description: Optional list of errors
+            example: applicant.0.phone is a required field and must be a valid phone number in swedish or international format
+    errorBody:
+      type: object
+      required:
+      - status
+      - message
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 500
+        message:
+          type: string
+          description: Main error reason
 
   securitySchemes:
     basic_auth:
