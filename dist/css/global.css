@@ -28,6 +28,7 @@ body {
 
 .moank-menu li {
   border-right: 1px solid #bbb;
+  display: flex;
 }
 
 .moank-menu li a {
@@ -81,7 +82,7 @@ body {
 .moank-page {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .moank-content {
