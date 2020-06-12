@@ -49,7 +49,8 @@ paths:
     post:
       tags:
       - Required endpoints
-      summary: Send a new application to Moank
+      summary: Create application
+      description: Send a new application to Moank and receive Moank's decision and offer
       requestBody:
         $ref: "#/components/requestBodies/create"
       responses:
@@ -74,7 +75,8 @@ paths:
     post:
       tags:
       - Required endpoints
-      summary: Notify that customer accepted the offer. Possible to provide bank account information.
+      summary: Accept offer
+      description: Notify that customer accepted the offer. Possible to provide bank account information.
       parameters:
       - name: applicationId
         in: path
@@ -123,7 +125,8 @@ paths:
     post:
       tags:
       - Optional endpoints
-      summary: Notify that customer rejected the offer when possible to know
+      summary: Reject offer
+      description: Notify that customer rejected the offer when possible to know
       parameters:
       - name: applicationId
         in: path
@@ -163,7 +166,8 @@ paths:
     post:
       tags:
       - Optional endpoints
-      summary: Update an application already sent if a customer wishes to update his details
+      summary: Update application
+      description: Update an application already sent if a customer wishes to update his details
       parameters:
       - name: applicationId
         in: path
