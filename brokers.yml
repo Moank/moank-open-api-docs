@@ -30,7 +30,7 @@ info:
     The actual payload and event names sent during the callback can be customised for each broker in order to match their own specifications.
 
     # Sequence Diagram
-    ![Sequence Diagram](./broker-sequence-diagram.svg)
+    <a href="./broker-sequence-diagram.svg" target="_blank">![Sequence Diagram](./broker-sequence-diagram.svg)</a>
 servers:
 - url: https://api.moank.se/api/hooks/{brokerName}
   description: Production server
