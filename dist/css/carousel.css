@@ -7,16 +7,18 @@
   align-items: center;
   justify-content: center;
   margin: auto;
+  width: 100%;
 }
 
 .moank-carousel .card
 {
-  margin: 70px;
+  margin: 20px;
   background: #eee;
   border: 1px solid #e7e7e7;
   border-radius: 6px;
   padding: 12px;
-  width: 400px;
+  width: 60%;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -30,7 +32,7 @@
 }
 
 .moank-carousel .card .description {
-  width: 300px;
+  max-width: 300px;
   margin: 12px;
   text-align: center;
 }

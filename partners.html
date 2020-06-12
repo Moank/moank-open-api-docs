@@ -5,23 +5,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Moank Partner API</title>
-  <link rel="stylesheet" type="text/css" href="./dist/swagger/swagger-ui.css">
   <link rel="apple-touch-icon" sizes="180x180" href="./dist/favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./dist/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./dist/favicons/favicon-16x16.png">
   <link rel="manifest" href="./dist/favicons/site.webmanifest">
   <link rel="mask-icon" href="./dist/favicons/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="./dist/css/global.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
 </head>
 
-<body>
+<body class="moank-page">
   <header class="moank-menu">
     <ul>
       <li>
         <a class="main" href="../">
-          <img src="./dist/assets/moank_logo.svg" height="25px" />
+          <img src="./dist/assets/moank_logo.svg" />
         </a>
       </li>
       <li><a href="./brokers.html">Broker API</a></li>
@@ -29,7 +28,9 @@
     </ul>
   </header>
 
-  <div id="partners-ui"></div>
+  <div class="moank-content">
+    <redoc spec-url='./partners.yml'></redoc>
+  </div>
 
   <footer class="moank-footer">
     <p>Copyright ©2019 Moank. Alla rättigheter förbehålls.</p>
@@ -37,27 +38,7 @@
     <p>Org.nr: 559000-0237. Styrelsens säte: Stockholm.</p>
   </footer>
 
-  <script src="./dist/swagger/swagger-ui-bundle.js"> </script>
-  <script src="./dist/swagger/swagger-ui-standalone-preset.js"> </script>
-  <script>
-    window.onload = function () {
-      // Begin Swagger UI call region
-      const ui = SwaggerUIBundle({
-        url: "./partners.yml",
-        dom_id: "#partners-ui",
-        deepLinking: true,
-        presets: [
-          SwaggerUIBundle.presets.apis,
-        ],
-        plugins: [
-          SwaggerUIBundle.plugins.DownloadUrl
-        ],
-      })
-      // End Swagger UI call region
-
-      window.ui = ui
-    }
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
 </body>
 
 </html>

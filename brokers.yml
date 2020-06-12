@@ -1,8 +1,36 @@
 openapi: 3.0.0
 info:
-  description: API provided by Moank for loan brokers so that they can send applications and followup on them
-  version: 1.0.0
   title: Moank Broker API
+  version: 1.0.0
+  description: |
+    The Moank Broker API can be used by loan brokers with an active collaboration with Moank. With this API a broker will be able to send Moank new applications and receive from Moank a loan offer. Once the end customer has accepted Moank's offer, the broker can use the API to notify Moank and trigger the final part of the customer's journey.
+
+    Some optional endpoints are provided to enable a broker to update an existing application as well as notifying Moank when an end customer has rejected Moank's offer.
+
+    # Test objects
+
+    Test objects can be used in the staging environment in order to test specific flow. If one of the applicant of the application has its `nationalId` equal to one of the test object, the decision returned by Moank will always be the same one as described in the following table:
+
+    National id  |Decision
+    -------------|--------
+    199001011114 |`granted`
+    199001019992 |`declined`
+
+    # Callbacks
+
+    Moank can send callbacks to a Broker when an application status is updated. The events that can be reported via callbacks are described in the following table:
+
+    Event |Description  |Extra information
+    ------|-------------|-----------------
+    `debt-notice-sent`  |Triggered when Moank sends the debt notice to the customer. This mean that the customer went through all the routine checks performed by Moank's underwriters.|-
+    `debt-notice-signed`|Triggered when the customer has signed his debt notice using BankID.  |-
+    `paid-out`          |Triggered when Moank has paid out the money to the end customer.  |Paid out amount
+    `denied`            |Triggered when Moank denies a customer because of one of the routine checks performed by Moank's underwriters. |-
+
+    The actual payload and event names sent during the callback can be customised for each broker in order to match their own specifications.
+
+    # Sequence Diagram
+    <a href="./broker-sequence-diagram.svg" target="_blank">![Sequence Diagram](./broker-sequence-diagram.svg)</a>
 servers:
 - url: https://api.moank.se/api/hooks/{brokerName}
   description: Production server
@@ -21,7 +49,8 @@ paths:
     post:
       tags:
       - Required endpoints
-      summary: Send a new application to Moank
+      summary: Create application
+      description: Send a new application to Moank and receive Moank's decision and offer
       requestBody:
         $ref: "#/components/requestBodies/create"
       responses:
@@ -46,7 +75,8 @@ paths:
     post:
       tags:
       - Required endpoints
-      summary: Notify that customer accepted the offer. Possible to provide bank account information.
+      summary: Accept offer
+      description: Notify that customer accepted the offer. Possible to provide bank account information.
       parameters:
       - name: applicationId
         in: path
@@ -95,7 +125,8 @@ paths:
     post:
       tags:
       - Optional endpoints
-      summary: Notify that customer rejected the offer when possible to know
+      summary: Reject offer
+      description: Notify that customer rejected the offer when possible to know
       parameters:
       - name: applicationId
         in: path
@@ -135,7 +166,8 @@ paths:
     post:
       tags:
       - Optional endpoints
-      summary: Update an application already sent if a customer wishes to update his details
+      summary: Update application
+      description: Update an application already sent if a customer wishes to update his details
       parameters:
       - name: applicationId
         in: path
