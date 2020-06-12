@@ -15,12 +15,12 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
 </head>
 
-<body>
+<body class="moank-page">
   <header class="moank-menu">
     <ul>
       <li>
         <a class="main" href="../">
-          <img src="./dist/assets/moank_logo.svg" height="25px" />
+          <img src="./dist/assets/moank_logo.svg" />
         </a>
       </li>
       <li><a href="./brokers.html">Broker API</a></li>
@@ -28,7 +28,9 @@
     </ul>
   </header>
 
-  <redoc spec-url='./partners.yml'></redoc>
+  <div class="moank-content">
+    <redoc spec-url='./partners.yml'></redoc>
+  </div>
 
   <footer class="moank-footer">
     <p>Copyright ©2019 Moank. Alla rättigheter förbehålls.</p>
