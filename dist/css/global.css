@@ -29,6 +29,7 @@ body {
 .moank-menu li {
   border-right: 1px solid #bbb;
   display: flex;
+  flex-direction: column;
 }
 
 .moank-menu li a {
@@ -38,6 +39,7 @@ body {
   padding: 18px 30px;
   text-decoration: none;
   font-size: 24px;
+  flex-grow: 1;
 }
 
 .moank-menu li:hover:not(.main) {
@@ -62,6 +64,8 @@ body {
 @media(max-width: 600px) {
   .moank-menu li {
     width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #bbb;
   }
 }
 
