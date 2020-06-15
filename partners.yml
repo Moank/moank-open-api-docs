@@ -1,8 +1,45 @@
 openapi: 3.0.0
 info:
-  description: API provided by Moank for partners so that they can send applications and followup on them
-  version: 1.0.0
   title: Moank Partner API
+  version: 1.0.0
+  description: |
+    The Moank Partner API can be used by Moank's partners in order to provide financial products to their end customers within their own application/website.
+
+    # Test objects
+
+    Test objects can be used in the staging environment in order to test specific flow. If one of the applicant of the application has its `socialSecurityNumber` equal to one of the test object, the `applicationStatus` returned by Moank for the create application endpoint will always be the same one as described in the following table:
+
+    Social Security Number|Application Status
+    ----------------------|------------------
+    199001010009 |`granted`
+    199001011114 |`pending`
+    199001019992 |`denied`
+
+    # Test events
+
+    Test events can be used in the staging environment in order to trigger background process that will update the application status. Test events are not available in the production environment and should only be used for testing. The test events are described in the following table and they can be used in the [Send Application Endpoint](#tag/Signup-endpoints/paths/~1application~1{applicationId}~1event/post):
+
+    Test event |Description
+    -----------|-----------
+    `process-test-loan`|Triggers the data collection about the application. The application status will stay as `pending`.
+    `grant-test-loan`|Triggers a manual review on the application. The application status will be updated to `granted`.
+    `sign-test-loan`|Triggers a signature of the loan agreement. The application status will be updated to `signed`.
+
+    # Callbacks
+
+    Moank can send callbacks to a Partner when an application status is updated. The events that can be reported via callbacks are described in the following table:
+
+    Event |Description
+    ------|-----------
+    `granted` |Triggered when the customer went through all the checks performed by Moank's underwriters.
+    `signed`  |Triggered when the customer has signed his debt notice using BankID.
+    `payed-out`|Triggered when Moank has paid out the money to the end customer or the Partner.
+    `denied`   |Triggered when Moank denies a customer because of one of the routine checks performed by Moank's underwriters.
+
+    The actual payload and event names sent during the callback can be customised for each partner in order to match their own specifications.
+
+    # Sequence Diagram
+    <a href="./partner-sequence-diagram.svg" target="_blank">![Sequence Diagram](./partner-sequence-diagram.svg)</a>
 servers:
 - url: https://api.moank.se/api/hooks/partner
   description: Production server
@@ -14,7 +51,8 @@ paths:
     post:
       tags:
       - Signup endpoints
-      summary: Get the Tink link allowing customer to authenticate his bank.
+      summary: Get Tink Link
+      description: Get the Tink link allowing customer to authenticate his bank.
       requestBody:
         $ref: "#/components/requestBodies/getLink"
       responses:
@@ -33,7 +71,8 @@ paths:
     post:
       tags:
       - Signup endpoints
-      summary: Send the Tink code fetched with the Tink link.
+      summary: Send Tink Code
+      description: Send the Tink code fetched with the Tink link.
       requestBody:
         $ref: "#/components/requestBodies/sendCode"
       responses:
@@ -54,7 +93,8 @@ paths:
     post:
       tags:
       - Signup endpoints
-      summary: Send a new application to Moank
+      summary: Create Application
+      description: Send a new application to Moank
       requestBody:
         $ref: "#/components/requestBodies/create"
       responses:
@@ -75,7 +115,7 @@ paths:
     post:
       tags:
       - Signup endpoints
-      summary: Send event about an application.
+      summary: Send Application Event
       description: This endpoint can be used to notify Moank that a new action should be taken on the application. If none of the documented events match your needs we can always create new ones.
       parameters:
       - name: applicationId
@@ -105,12 +145,12 @@ paths:
   /application/preview-terms:
     post:
       tags:
-        - Application endpoints 
-      summary: Get a preview of terms for an application
+        - Application endpoints
+      summary: Get Terms Preview
       description: You can use this endpoint to get a preview of the terms if we would process the application. This is just a simulation and only does calculations with the data sent.
       requestBody:
         $ref: '#/components/requestBodies/previewTerms'
-      responses: 
+      responses:
         200:
           $ref: "#/components/responses/loanTerms"
         400:
@@ -126,7 +166,8 @@ paths:
     get:
       tags:
       - Application endpoints
-      summary: Fetch an application
+      summary: Get application
+      description: Fetch an application
       parameters:
       - name: applicationId
         in: path
@@ -152,7 +193,8 @@ paths:
     get:
       tags:
       - Application endpoints
-      summary: Fetch the signed agreement after the application has been signed
+      summary: Download Agreement
+      description: Fetch the signed agreement after the application has been signed
       parameters:
       - name: applicationId
         in: path
@@ -227,7 +269,7 @@ components:
 
     previewTerms:
       required: true
-      content: 
+      content:
         application/json:
           schema:
             $ref: "#/components/schemas/previewTerms"
@@ -295,7 +337,7 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/loanTerms"
-        
+
     file:
       description: Binary file
       content:
@@ -694,9 +736,9 @@ components:
             Possible values are
             * use-loan-promise
             * pay-loan
-            * process-test-loan (Only available in DEBUG mode). Will return a warning message in case the bank report hasn't been completed yet.
-            * grant-test-loan (Only available in DEBUG mode)
-            * sign-test-loan (Only available in DEBUG mode)
+            * process-test-loan (Only available in staging environment). Will return a warning message in case the bank report hasn't been completed yet.
+            * grant-test-loan (Only available in staging environment)
+            * sign-test-loan (Only available in staging environment)
           example: use-loan-promise
           enum:
             - use-loan-promise
@@ -709,7 +751,7 @@ components:
           oneOf:
             - $ref: '#/components/schemas/useLoanPromisePayload'
             - $ref: '#/components/schemas/payLoanPayload'
-    
+
     previewTerms:
       type: object
       required:
