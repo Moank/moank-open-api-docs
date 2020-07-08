@@ -595,19 +595,23 @@ components:
 
     bankDetails:
       type: object
+      deprecated: true
       properties:
         bank:
           $ref: "#/components/schemas/bank"
+          deprecated: true
         clearingNumber:
           type: string
           description: Clearing number of the customer's bank account. 4 or 5 digits depending of the bank (e.g 7428 or 86439)
           pattern: /^\d{4,5}$/
           example: "1234"
+          deprecated: true
         accountNumber:
           type: string
           description: Customer's bank account number, excluding the clearing number
           pattern: /^\d{5, 12}$/
           example: "567890"
+          deprecated: true
 
     employer:
       type: object
