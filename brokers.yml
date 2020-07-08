@@ -95,10 +95,12 @@ paths:
                   type: string
                   description: Clearing number of the customer's bank account. 4 or 5 digits depending of the bank (e.g 7428 or 86439)
                   pattern: /^\d{4,5}$/
+                  deprecated: true
                 accountNumber:
                   type: string
                   description: Customer's bank account number, excluding the clearing number
                   pattern: /^\d{7,10}$/
+                  deprecated: true
       responses:
         200:
           description: Successful operation
