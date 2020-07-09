@@ -598,7 +598,22 @@ components:
       deprecated: true
       properties:
         bank:
-          $ref: "#/components/schemas/bank"
+          type: string
+          description: Name of customer's bank. The enum values will be provided to the partner.
+          example: SEB
+          enum:
+            - nordea
+            - swedbank
+            - seb
+            - danske-bank
+            - handelsbanken
+            - sparbanken-syd
+            - sbab
+            - ica
+            - skandia
+            - lansforsakringar
+            - sparbankerna
+            - alandsbanken
           deprecated: true
         clearingNumber:
           type: string
