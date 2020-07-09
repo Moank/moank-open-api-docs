@@ -599,6 +599,7 @@ components:
       properties:
         bank:
           $ref: "#/components/schemas/bank"
+          deprecated: true
         clearingNumber:
           type: string
           description: Clearing number of the customer's bank account. 4 or 5 digits depending of the bank (e.g 7428 or 86439)
