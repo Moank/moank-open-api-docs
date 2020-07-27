@@ -295,7 +295,7 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/loanTerms"
-        
+
     file:
       description: Binary file
       content:
@@ -595,6 +595,10 @@ components:
     bankAccount:
       type: object
       properties:
+        id:
+          type: string
+          description: Unique identifier of the bank account
+          example: '12345'
         name:
           type: string
           description: Name of the customer account
@@ -709,7 +713,7 @@ components:
           oneOf:
             - $ref: '#/components/schemas/useLoanPromisePayload'
             - $ref: '#/components/schemas/payLoanPayload'
-    
+
     previewTerms:
       type: object
       required:
