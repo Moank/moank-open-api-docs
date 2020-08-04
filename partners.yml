@@ -656,6 +656,10 @@ components:
     bankAccount:
       type: object
       properties:
+        id:
+          type: string
+          description: Unique identifier of the bank account
+          example: '12345'
         name:
           type: string
           description: Name of the customer account
