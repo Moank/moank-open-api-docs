@@ -423,7 +423,7 @@ components:
           type: string
           description: Type of employment of the applicant. The enum values will be provided by the broker so that Moank can receive the raw data.
           enum:
-          - employee
+          - employee (deprecated)
           - extra-job
           - other
           - pensioner
