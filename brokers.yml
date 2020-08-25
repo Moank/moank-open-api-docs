@@ -237,17 +237,17 @@ components:
                 type: string
                 description: Purpose of the loan. The enum values will be provided by the broker so that Moank can receive the raw data.
                 enum:
-                - consolidate-loan
                 - down-payment
+                - consolidate-loans
+                - vehicle
+                - rennovation
+                - travel
+                - shopping
+                - studies
+                - services
                 - financial-security
                 - health
                 - other
-                - refinancing
-                - rennovation
-                - services
-                - shopping
-                - studies
-                - vehicle
               applicant:
                 $ref: "#/components/schemas/applicant"
               coApplicant:

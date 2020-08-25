@@ -451,17 +451,17 @@ components:
           type: string
           description: Purpose of the loan. The enum values will be provided to the partner.
           enum:
-          - consolidate-loans
           - down-payment
+          - consolidate-loans
+          - vehicle
+          - rennovation
+          - travel
+          - shopping
+          - studies
+          - services
           - financial-security
           - health
           - other
-          - rennovation
-          - services
-          - shopping
-          - studies
-          - travel
-          - vehicle
           example: vehicle
         isBorrowingForOwnUse:
           type: boolean
