@@ -851,6 +851,9 @@ components:
       oneOf:
         - $ref: '#/components/schemas/useLoanPromiseResult'
         - $ref: '#/components/schemas/payLoanResult'
+        - $ref: '#/components/schemas/processTestLoanResult'
+        - $ref: '#/components/schemas/grantTestLoanResult'
+        - $ref: '#/components/schemas/signTestLoanResult'
 
     payLoanResult:
       type: object
@@ -859,11 +862,61 @@ components:
       type: object
       required:
       - link
+      - agreementDetails
       properties:
         link:
           type: string
+          deprecated: true
           description: Link to allow customer to sign the application agreement.
           example: 'https://sign-here'
+        agreementDetails:
+          type: array
+          description: Details about the agreement explaining which URL has been sent to which applicant through which medium
+          items:
+            type: object
+            required:
+              - applicantId
+              - signUrl
+              - sentBy
+              - email
+              - phone
+            properties:
+              applicantId:
+                type: string
+                description: Identifier of the applicant, same as the one returned when creating the application
+              signUrl:
+                type: string
+                description: Link to be used by the customer to sign his loan agreement. This link has been sent to the customer using the media described in the "sentBy" array
+              sentBy:
+                type: array
+                description: List of media used to send the sign URL to the customer. If the array is empty the agreement has not been sent to the customer and can then be sent by other mean by the partner. The list of media is not necessarily equal to the once received in the request as it might fail to send the agreement via a specific medium. If a medium is present in the request and not in the response it means that it failed to send the agreement through that medium, the most likely reason being an incorrect email address or phone number.
+                items:
+                  type: string
+                  enum:
+                    - text-message
+                    - email
+              email:
+                type: string
+                description: Email of the applicant that was used to deliver the agreement link if the "email" medium is present in the "sentBy" array
+                example: "test@example.com"
+              phone:
+                type: string
+                description: Phone number of the applicant that was used to deliver the agreement link if the "text-message" medium is present in the "sentBy" array
+                example: "+46731234567"
+
+
+    processTestLoanResult:
+      type: object
+      properties:
+        warning:
+          type: string
+          description: Warning message explaining why the processing didn't go fully as expected
+
+    grantTestLoanResult:
+      type: object
+
+    signTestLoanResult:
+      type: object
 
     error:
       type: object
