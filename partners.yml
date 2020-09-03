@@ -486,17 +486,16 @@ components:
         - type: object
           required:
           - id
-          - createdAt
           - applicationStatus
           properties:
             id:
               type: string
               description: Unique identifier of the application
               example: '12345'
-            createdAt:
-              type: string
-              description: Date of when the application was created
-              format: date
+            applicants:
+              type: array
+              items:
+                $ref: "#/components/schemas/extendedApplicant"
             loanTerms:
               $ref: "#/components/schemas/loanTerms"
             applicationStatus:
@@ -511,6 +510,56 @@ components:
       - isNotPEP
       - economicDetails
       properties:
+        socialSecurityNumber:
+          $ref: "#/components/schemas/socialSecurityNumber"
+        email:
+          type: string
+          description: Email of the applicant. Used to communicate loan agreement
+          pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i
+          example: test@example.com
+        phone:
+          type: string
+          description: Phone number of the applicant (preferably mobile phone). Used to communicate loan agreement if it is a mobile phone number
+          format: international or swedish format
+          example: "+46731234567"
+        isNotPEP:
+          type: boolean
+          description: Indicate if the customer is politically exposed
+          example: true
+        economicDetails:
+          $ref: "#/components/schemas/economicDetails"
+        bankDetails:
+          $ref: "#/components/schemas/bankDetails"
+        employer:
+          $ref: "#/components/schemas/employer"
+
+    extendedApplicant:
+      # There is an issue with redoc that cannot display correctly when using allOf. The below specifications are however correct and can be used when the issue is fixed: https://github.com/Redocly/redoc/issues/1154
+      # allOf:
+      #   - $ref: "#/components/schemas/applicant"
+      #   - type: object
+      #     required:
+      #     - id
+      #     properties:
+      #       id:
+      #         type: string
+      #         description: Unique identifier of the applicant
+      #         example: '12345'
+
+      # Copy paste of the applicant specifications with the id
+      type: object
+      required:
+      - id
+      - socialSecurityNumber
+      - email
+      - phone
+      - isNotPEP
+      - economicDetails
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the applicant
+          example: '12345'
         socialSecurityNumber:
           $ref: "#/components/schemas/socialSecurityNumber"
         email:
