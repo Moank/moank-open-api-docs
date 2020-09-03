@@ -825,14 +825,10 @@ components:
 
     eventResult:
       type: object
-      required:
-      - result
-      properties:
-        result:
-          description: Result of the event. It will be different based on the event sent
-          oneOf:
-            - $ref: '#/components/schemas/useLoanPromiseResult'
-            - $ref: '#/components/schemas/payLoanResult'
+      description: Result of the event. It will be different based on the event sent
+      oneOf:
+        - $ref: '#/components/schemas/useLoanPromiseResult'
+        - $ref: '#/components/schemas/payLoanResult'
 
     payLoanResult:
       type: object
