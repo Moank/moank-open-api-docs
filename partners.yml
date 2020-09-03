@@ -486,17 +486,16 @@ components:
         - type: object
           required:
           - id
-          - createdAt
           - applicationStatus
           properties:
             id:
               type: string
               description: Unique identifier of the application
               example: '12345'
-            createdAt:
-              type: string
-              description: Date of when the application was created
-              format: date
+            applicants:
+              type: array
+              items:
+                $ref: "#/components/schemas/extendedApplicant"
             loanTerms:
               $ref: "#/components/schemas/loanTerms"
             applicationStatus:
@@ -511,6 +510,56 @@ components:
       - isNotPEP
       - economicDetails
       properties:
+        socialSecurityNumber:
+          $ref: "#/components/schemas/socialSecurityNumber"
+        email:
+          type: string
+          description: Email of the applicant. Used to communicate loan agreement
+          pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i
+          example: test@example.com
+        phone:
+          type: string
+          description: Phone number of the applicant (preferably mobile phone). Used to communicate loan agreement if it is a mobile phone number
+          format: international or swedish format
+          example: "+46731234567"
+        isNotPEP:
+          type: boolean
+          description: Indicate if the customer is politically exposed
+          example: true
+        economicDetails:
+          $ref: "#/components/schemas/economicDetails"
+        bankDetails:
+          $ref: "#/components/schemas/bankDetails"
+        employer:
+          $ref: "#/components/schemas/employer"
+
+    extendedApplicant:
+      # There is an issue with redoc that cannot display correctly when using allOf. The below specifications are however correct and can be used when the issue is fixed: https://github.com/Redocly/redoc/issues/1154
+      # allOf:
+      #   - $ref: "#/components/schemas/applicant"
+      #   - type: object
+      #     required:
+      #     - id
+      #     properties:
+      #       id:
+      #         type: string
+      #         description: Unique identifier of the applicant
+      #         example: '12345'
+
+      # Copy paste of the applicant specifications with the id
+      type: object
+      required:
+      - id
+      - socialSecurityNumber
+      - email
+      - phone
+      - isNotPEP
+      - economicDetails
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the applicant
+          example: '12345'
         socialSecurityNumber:
           $ref: "#/components/schemas/socialSecurityNumber"
         email:
@@ -751,6 +800,7 @@ components:
       type: object
       required:
       - event
+      - payload
       properties:
         event:
           type: string
@@ -774,6 +824,9 @@ components:
           oneOf:
             - $ref: '#/components/schemas/useLoanPromisePayload'
             - $ref: '#/components/schemas/payLoanPayload'
+            - $ref: '#/components/schemas/processTestLoanPayload'
+            - $ref: '#/components/schemas/grantTestLoanPayload'
+            - $ref: '#/components/schemas/signTestLoanPayload'
 
     previewTerms:
       type: object
@@ -812,6 +865,15 @@ components:
     payLoanPayload:
       type: object
 
+    processTestLoanPayload:
+      type: object
+
+    grantTestLoanPayload:
+      type: object
+
+    signTestLoanPayload:
+      type: object
+
     useLoanPromisePayload:
       type: object
       required:
@@ -819,20 +881,28 @@ components:
       properties:
         amount:
           type: number
-          description: Amount requested to borrow in SEK. It as to be less or equal to "loanTerms.amount" value.
+          description: Amount requested to borrow in SEK. It has to be less or equal to "loanTerms.amount" value.
           minimum: 0
           exclusiveMinimum: true
+          example: 50000
+        sendAgreementBy:
+          type: array
+          description: List of media to be used to send the loan agreement. An empty array will mean that the loan agreement will not be sent automatically to the customer.
+          items:
+            type: string
+            enum:
+              - text-message
+              - email
 
     eventResult:
       type: object
-      required:
-      - result
-      properties:
-        result:
-          description: Result of the event. It will be different based on the event sent
-          oneOf:
-            - $ref: '#/components/schemas/useLoanPromiseResult'
-            - $ref: '#/components/schemas/payLoanResult'
+      description: Result of the event. It will be different based on the event sent
+      oneOf:
+        - $ref: '#/components/schemas/useLoanPromiseResult'
+        - $ref: '#/components/schemas/payLoanResult'
+        - $ref: '#/components/schemas/processTestLoanResult'
+        - $ref: '#/components/schemas/grantTestLoanResult'
+        - $ref: '#/components/schemas/signTestLoanResult'
 
     payLoanResult:
       type: object
@@ -841,11 +911,61 @@ components:
       type: object
       required:
       - link
+      - agreementDetails
       properties:
         link:
           type: string
+          deprecated: true
           description: Link to allow customer to sign the application agreement.
           example: 'https://sign-here'
+        agreementDetails:
+          type: array
+          description: Details about the agreement explaining which URL has been sent to which applicant through which medium
+          items:
+            type: object
+            required:
+              - applicantId
+              - signUrl
+              - sentBy
+              - email
+              - phone
+            properties:
+              applicantId:
+                type: string
+                description: Identifier of the applicant, same as the one returned when creating the application
+              signUrl:
+                type: string
+                description: Link to be used by the customer to sign his loan agreement. This link has been sent to the customer using the media described in the "sentBy" array
+              sentBy:
+                type: array
+                description: List of media used to send the sign URL to the customer. If the array is empty the agreement has not been sent to the customer and can then be sent by other mean by the partner. The list of media is not necessarily equal to the once received in the request as it might fail to send the agreement via a specific medium. If a medium is present in the request and not in the response it means that it failed to send the agreement through that medium, the most likely reason being an incorrect email address or phone number.
+                items:
+                  type: string
+                  enum:
+                    - text-message
+                    - email
+              email:
+                type: string
+                description: Email of the applicant that was used to deliver the agreement link if the "email" medium is present in the "sentBy" array
+                example: "test@example.com"
+              phone:
+                type: string
+                description: Phone number of the applicant that was used to deliver the agreement link if the "text-message" medium is present in the "sentBy" array
+                example: "+46731234567"
+
+
+    processTestLoanResult:
+      type: object
+      properties:
+        warning:
+          type: string
+          description: Warning message explaining why the processing didn't go fully as expected
+
+    grantTestLoanResult:
+      type: object
+
+    signTestLoanResult:
+      type: object
 
     error:
       type: object
@@ -862,9 +982,9 @@ components:
           description: Main error reason
         errors:
           type: array
+          description: List of errors messages to describe the issue in more details
           items:
             type: string
-            description: Optional list of errors
 
     dataError:
       allOf:
