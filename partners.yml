@@ -751,6 +751,7 @@ components:
       type: object
       required:
       - event
+      - payload
       properties:
         event:
           type: string
@@ -774,6 +775,9 @@ components:
           oneOf:
             - $ref: '#/components/schemas/useLoanPromisePayload'
             - $ref: '#/components/schemas/payLoanPayload'
+            - $ref: '#/components/schemas/processTestLoanPayload'
+            - $ref: '#/components/schemas/grantTestLoanPayload'
+            - $ref: '#/components/schemas/signTestLoanPayload'
 
     previewTerms:
       type: object
@@ -812,6 +816,15 @@ components:
     payLoanPayload:
       type: object
 
+    processTestLoanPayload:
+      type: object
+
+    grantTestLoanPayload:
+      type: object
+
+    signTestLoanPayload:
+      type: object
+
     useLoanPromisePayload:
       type: object
       required:
@@ -819,9 +832,18 @@ components:
       properties:
         amount:
           type: number
-          description: Amount requested to borrow in SEK. It as to be less or equal to "loanTerms.amount" value.
+          description: Amount requested to borrow in SEK. It has to be less or equal to "loanTerms.amount" value.
           minimum: 0
           exclusiveMinimum: true
+          example: 50000
+        sendAgreementBy:
+          type: array
+          description: List of media to be used to send the loan agreement. An empty array will mean that the loan agreement will not be sent automatically to the customer.
+          items:
+            type: string
+            enum:
+              - text-message
+              - email
 
     eventResult:
       type: object
@@ -858,9 +880,9 @@ components:
           description: Main error reason
         errors:
           type: array
+          description: List of errors messages to describe the issue in more details
           items:
             type: string
-            description: Optional list of errors
 
     dataError:
       allOf:
