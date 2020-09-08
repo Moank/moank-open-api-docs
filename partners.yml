@@ -447,6 +447,12 @@ components:
           minimum: 0
           exclusiveMinimum: true
           example: 24
+        preferredInterestRate:
+          type: number
+          description: Preferred interest rate for the customer in percent. This can be used in case of a special partnership with Moank where the comission of the partner will depend of the interest rate sold to the end customer.
+          minimum: 0
+          exclusiveMinimum: true
+          example: 6.05
         reasonForLoan:
           type: string
           description: Purpose of the loan. The enum values will be provided to the partner.
