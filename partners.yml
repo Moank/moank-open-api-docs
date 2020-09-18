@@ -9,11 +9,11 @@ info:
 
     Test objects can be used in the staging environment in order to test specific flow. If one of the applicant of the application has its `socialSecurityNumber` equal to one of the test object, the `applicationStatus` returned by Moank for the create application endpoint will always be the same one as described in the following table:
 
-    Social Security Number|Application Status
-    ----------------------|------------------
-    199001010009 |`granted`
-    199001011114 |`pending`
-    199001019992 |`denied`
+    Social Security Number|Application Status|Comment
+    ----------------------|------------------|-------
+    199001010009 |`granted` `pending`|Will return `pending` if the application requires bank details and none were provided at this stage. The test event `grant-test-loan` can then be used to update the application to `granted`
+    199001011114 |`pending`|-
+    199001019992 |`denied`|-
 
     # Test events
 
@@ -21,7 +21,6 @@ info:
 
     Test event |Description
     -----------|-----------
-    `process-test-loan`|Triggers the data collection about the application. The application status will stay as `pending`.
     `grant-test-loan`|Triggers a manual review on the application. The application status will be updated to `granted`.
     `sign-test-loan`|Triggers a signature of the loan agreement. The application status will be updated to `signed`.
 
@@ -815,14 +814,12 @@ components:
             Possible values are
             * use-loan-promise
             * pay-loan
-            * process-test-loan (Only available in staging environment). Will return a warning message in case the bank report hasn't been completed yet.
             * grant-test-loan (Only available in staging environment)
             * sign-test-loan (Only available in staging environment)
           example: use-loan-promise
           enum:
             - use-loan-promise
             - pay-loan
-            - process-test-loan
             - grant-test-loan
             - sign-test-loan
         payload:
@@ -830,7 +827,6 @@ components:
           oneOf:
             - $ref: '#/components/schemas/useLoanPromisePayload'
             - $ref: '#/components/schemas/payLoanPayload'
-            - $ref: '#/components/schemas/processTestLoanPayload'
             - $ref: '#/components/schemas/grantTestLoanPayload'
             - $ref: '#/components/schemas/signTestLoanPayload'
 
@@ -871,9 +867,6 @@ components:
     payLoanPayload:
       type: object
 
-    processTestLoanPayload:
-      type: object
-
     grantTestLoanPayload:
       type: object
 
@@ -906,7 +899,6 @@ components:
       oneOf:
         - $ref: '#/components/schemas/useLoanPromiseResult'
         - $ref: '#/components/schemas/payLoanResult'
-        - $ref: '#/components/schemas/processTestLoanResult'
         - $ref: '#/components/schemas/grantTestLoanResult'
         - $ref: '#/components/schemas/signTestLoanResult'
 
@@ -958,14 +950,6 @@ components:
                 type: string
                 description: Phone number of the applicant that was used to deliver the agreement link if the "text-message" medium is present in the "sentBy" array
                 example: "+46731234567"
-
-
-    processTestLoanResult:
-      type: object
-      properties:
-        warning:
-          type: string
-          description: Warning message explaining why the processing didn't go fully as expected
 
     grantTestLoanResult:
       type: object
