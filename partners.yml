@@ -416,12 +416,7 @@ components:
       type: object
       required:
       - amount
-      - amountToRefinance
       - repaymentTime
-      - reasonForLoan
-      - isBorrowingForOwnUse
-      - termsApproved
-      - canBeProfiled
       - applicants
       properties:
         referenceId:
@@ -512,8 +507,6 @@ components:
       - socialSecurityNumber
       - email
       - phone
-      - isNotPEP
-      - economicDetails
       properties:
         socialSecurityNumber:
           $ref: "#/components/schemas/socialSecurityNumber"
@@ -558,8 +551,6 @@ components:
       - socialSecurityNumber
       - email
       - phone
-      - isNotPEP
-      - economicDetails
       properties:
         id:
           type: string
@@ -590,13 +581,6 @@ components:
 
     economicDetails:
       type: object
-      required:
-      - monthlyIncome
-      - monthlyHousing
-      - monthlyLoans
-      - occupation
-      - kids
-      - homeType
       properties:
         monthlyIncome:
           type: number
