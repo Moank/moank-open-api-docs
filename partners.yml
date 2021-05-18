@@ -141,26 +141,6 @@ paths:
       security:
       - basic_auth: []
 
-  /application/preview-terms:
-    post:
-      tags:
-        - Application endpoints
-      summary: Get Terms Preview
-      description: You can use this endpoint to get a preview of the terms if we would process the application. This is just a simulation and only does calculations with the data sent.
-      requestBody:
-        $ref: '#/components/requestBodies/previewTerms'
-      responses:
-        200:
-          $ref: "#/components/responses/loanTerms"
-        400:
-          $ref: "#/components/responses/dataError"
-        401:
-          $ref: "#/components/responses/authError"
-        500:
-          $ref: "#/components/responses/serverError"
-        503:
-          $ref: "#/components/responses/serviceError"
-
   /application/{applicationId}:
     get:
       tags:
@@ -265,13 +245,6 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/application"
-
-    previewTerms:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/previewTerms"
 
     event:
       required: true
@@ -813,40 +786,6 @@ components:
             - $ref: '#/components/schemas/payLoanPayload'
             - $ref: '#/components/schemas/grantTestLoanPayload'
             - $ref: '#/components/schemas/signTestLoanPayload'
-
-    previewTerms:
-      type: object
-      required:
-      - amount
-      - amountToRefinance
-      - repaymentTime
-      - applicants
-      properties:
-        amount:
-          type: number
-          description: Amount requested to borrow in SEK (including refinancing)
-          minimum: 0
-          exclusiveMinimum: true
-          example: 100000
-        amountToRefinance:
-          type: number
-          description: Amount used exclusively to refinance existing loans in SEK
-          minimum: 0
-          exclusiveMinimum: true
-          example: 50000
-        repaymentTime:
-          type: number
-          description: Repayment time requested in months
-          minimum: 0
-          exclusiveMinimum: true
-          example: 24
-        applicants:
-          type: array
-          items:
-            type: object
-            properties:
-              economicDetails:
-                $ref: "#/components/schemas/economicDetails"
 
     payLoanPayload:
       type: object
