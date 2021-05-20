@@ -291,6 +291,8 @@ components:
       - monthlyPayment
       - startupFee
       - monthlyFee
+      - invoiceFee
+      - administrationFee
       - totalCost
       properties:
         amount:
@@ -329,6 +331,15 @@ components:
         monthlyFee:
           type: number
           description: Fee to be paid every month until loan fully re-paid in SEK
+          minimum: 0
+          deprecated: true
+        administrationFee:
+          type: number
+          description: Fee to be paid every month until loan fully re-paid in SEK
+          minimum: 0
+        invoiceFee:
+          type: number
+          description: Fee to be paid every month until loan fully re-paid in SEK if not connected to autogiro
           minimum: 0
         totalCost:
           type: number
