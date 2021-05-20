@@ -31,6 +31,7 @@ info:
     Test bank |Description
     -----------|-----------
     `alandsbanken`|Simulate a failure from a third party during the financial details aggregation
+    _all other banks_|Simulate a successful aggregation of the financial details
 
     # Callbacks
 
