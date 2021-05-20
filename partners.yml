@@ -755,7 +755,7 @@ components:
           minimum: 0
         invoiceFee:
           type: number
-          description: Fee to be paid every month until loan fully re-paid in SEK if not connected to autogiro
+          description: Fee that will be charged for each invoice if the customer do not allow direct debit from their bank account
           minimum: 0
         totalCost:
           type: number
