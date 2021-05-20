@@ -725,7 +725,8 @@ components:
       - repaymentTime
       - monthlyPayment
       - startupFee
-      - monthlyFee
+      - administrationFee
+      - invoiceFee
       - totalCost
       properties:
         amount:
@@ -757,9 +758,13 @@ components:
           type: number
           description: One time fee to be paid at the beginning of the loan in SEK
           minimum: 0
-        monthlyFee:
+        administrationFee:
           type: number
           description: Fee to be paid every month until loan fully re-paid in SEK
+          minimum: 0
+        invoiceFee:
+          type: number
+          description: Fee that will be charged for each invoice if the customer do not allow direct debit from their bank account
           minimum: 0
         totalCost:
           type: number
