@@ -24,6 +24,15 @@ info:
     `grant-test-loan`|Triggers a manual review on the application. The application status will be updated to `granted`.
     `sign-test-loan`|Triggers a signature of the loan agreement. The application status will be updated to `signed`.
 
+    # Test banks
+
+    Test banks can be used in the staging environment in order to test specific flow during the applicant's financial details aggregation. This can be usefull to simulate a failure or any specific behavior from the third party that provides the financial details aggregation. The impact of using a test bank is described in the following table:
+
+    Test bank |Description
+    -----------|-----------
+    `alandsbanken`|Simulate a failure from a third party during the financial details aggregation
+    _all other banks_|Simulate a successful aggregation of the financial details
+
     # Callbacks
 
     Moank can send callbacks to a Partner when an application status is updated. The events that can be reported via callbacks are described in the following table:
