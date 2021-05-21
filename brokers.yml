@@ -339,7 +339,7 @@ components:
           minimum: 0
         invoiceFee:
           type: number
-          description: Fee that will be charged for each invoice if the customer do not allow direct debit from their bank account
+          description: Fee that will be charged for each invoice if the customer does not allow direct debit from their bank account
           minimum: 0
         totalCost:
           type: number
