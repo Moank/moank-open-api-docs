@@ -457,6 +457,10 @@ components:
           type: boolean
           description: Indicate if customer accepted can be profiled by Moank to take a credit decision
           example: true
+        bankAccountId:
+          type: string
+          description: Unique identifier of the bank account chosen for the payout by the customer from the list of accounts returned by the "/bank/send-code" endpoint
+          example: '12345'
         applicants:
           type: array
           items:
