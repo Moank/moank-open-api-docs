@@ -47,7 +47,10 @@ info:
     The actual payload and event names sent during the callback can be customised for each partner in order to match their own specifications.
 
     # Sequence Diagram
-    <a href="./partner-sequence-diagram.svg" target="_blank">![Sequence Diagram](./partner-sequence-diagram.svg)</a>
+    ## Bank Flow
+    <a href="./partner-sequence-diagram-bank-flow.svg" target="_blank">![Sequence Diagram Bank Flow](./partner-sequence-diagram-bank-flow.svg)</a>
+    ## Application Flow
+    <a href="./partner-sequence-diagram-application-flow.svg" target="_blank">![Sequence Diagram Application Flow](./partner-sequence-diagram-application-flow.svg)</a>
 servers:
 - url: https://api.moank.se/api/hooks/partner
   description: Production server
