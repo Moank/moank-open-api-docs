@@ -61,9 +61,9 @@ paths:
   /bank/get-link:
     post:
       tags:
-      - Signup endpoints
-      summary: Get Tink Link
-      description: Get the Tink link allowing customer to authenticate his bank.
+      - Bank endpoints
+      summary: Get Bank Link
+      description: Get the Bank link allowing customer to authenticate his bank.
       requestBody:
         $ref: "#/components/requestBodies/getLink"
       responses:
@@ -81,9 +81,9 @@ paths:
   /bank/send-code:
     post:
       tags:
-      - Signup endpoints
-      summary: Send Tink Code
-      description: Send the Tink code fetched with the Tink link.
+      - Bank endpoints
+      summary: Send Bank Code
+      description: Send the Bank code fetched with the Bank link.
       requestBody:
         $ref: "#/components/requestBodies/sendCode"
       responses:
@@ -103,7 +103,7 @@ paths:
   /application:
     post:
       tags:
-      - Signup endpoints
+      - Application endpoints
       summary: Create Application
       description: Send a new application to Moank
       requestBody:
@@ -125,7 +125,7 @@ paths:
   /application/{applicationId}/event:
     post:
       tags:
-      - Signup endpoints
+      - Application endpoints
       summary: Send Application Event
       description: This endpoint can be used to notify Moank that a new action should be taken on the application. If none of the documented events match your needs we can always create new ones.
       parameters:
@@ -247,7 +247,7 @@ components:
                 $ref: "#/components/schemas/socialSecurityNumber"
               code:
                 type: string
-                description: Tink code fetched with the Tink link.
+                description: Bank code fetched with the Bank link.
                 example: '123456789'
 
     create:
@@ -278,7 +278,7 @@ components:
             properties:
               link:
                 type: string
-                description: Tink link allowing customer to authenticate his bank.
+                description: Bank link allowing customer to authenticate his bank.
                 example: "https://redirect-here"
 
     sendCode:
