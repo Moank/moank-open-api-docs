@@ -17,7 +17,7 @@ info:
 
     # Test events
 
-    Test events can be used in the staging environment in order to trigger background process that will update the application status. Test events are not available in the production environment and should only be used for testing. The test events are described in the following table and they can be used in the [Send Application Endpoint](#tag/Signup-endpoints/paths/~1application~1{applicationId}~1event/post):
+    Test events can be used in the staging environment in order to trigger background process that will update the application status. Test events are not available in the production environment and should only be used for testing. The test events are described in the following table and they can be used in the [Send Application Endpoint](#tag/Application-endpoints/paths/~1application~1{applicationId}~1event/post):
 
     Test event |Description
     -----------|-----------
