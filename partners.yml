@@ -48,11 +48,11 @@ info:
 
     # Sequence Diagram
     ## Bank Flow
-    To take a full decision on the customer application, Moank need to fetch the financial details of the customer. This flow can be done before sending the application, but if it is not it will done on Moank's side instead. This flow is required for a full decision.
+    For the loan application to reach a `granted` status, Moank needs to have access to the financial details of the applicant. If the applicant did not complete the Bank flow already, Moank will automatically send a link to the applicant as soon as the loan application is created. This link will allow the customer to give access to his bank details without the help of the Partner. The Partner can still generate and send the link manually to the applicant before creating the application.
 
     <a href="./partner-sequence-diagram-bank-flow.svg" target="_blank">![Sequence Diagram Bank Flow](./partner-sequence-diagram-bank-flow.svg)</a>
     ## Application Flow
-    The application flow allows the partner to create an application in Moank's system and receive our offer based on the customer data. A full decision cannot be made on the application unless the bank flow has been completed.
+    The application flow allows the partner to create a loan application in Moank's system and receive an offer based on the customer data. The application cannot have the possibilty to reach a `granted` status until the bank flow has been completed.
 
     <a href="./partner-sequence-diagram-application-flow.svg" target="_blank">![Sequence Diagram Application Flow](./partner-sequence-diagram-application-flow.svg)</a>
 servers:
