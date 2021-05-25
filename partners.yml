@@ -17,7 +17,7 @@ info:
 
     # Test events
 
-    Test events can be used in the staging environment in order to trigger background process that will update the application status. Test events are not available in the production environment and should only be used for testing. The test events are described in the following table and they can be used in the [Send Application Endpoint](#tag/Signup-endpoints/paths/~1application~1{applicationId}~1event/post):
+    Test events can be used in the staging environment in order to trigger background process that will update the application status. Test events are not available in the production environment and should only be used for testing. The test events are described in the following table and they can be used in the [Send Application Endpoint](#tag/Application-endpoints/paths/~1application~1{applicationId}~1event/post):
 
     Test event |Description
     -----------|-----------
@@ -48,8 +48,12 @@ info:
 
     # Sequence Diagram
     ## Bank Flow
+    To take a full decision on the customer application, Moank need to fetch the financial details of the customer. This flow can be done before sending the application, but if it is not it will done on Moank's side instead. This flow is required for a full decision.
+
     <a href="./partner-sequence-diagram-bank-flow.svg" target="_blank">![Sequence Diagram Bank Flow](./partner-sequence-diagram-bank-flow.svg)</a>
     ## Application Flow
+    The application flow allows the partner to create an application in Moank's system and receive our offer based on the customer data. A full decision cannot be made on the application unless the bank flow has been completed.
+
     <a href="./partner-sequence-diagram-application-flow.svg" target="_blank">![Sequence Diagram Application Flow](./partner-sequence-diagram-application-flow.svg)</a>
 servers:
 - url: https://api.moank.se/api/hooks/partner
@@ -61,9 +65,9 @@ paths:
   /bank/get-link:
     post:
       tags:
-      - Signup endpoints
-      summary: Get Tink Link
-      description: Get the Tink link allowing customer to authenticate his bank.
+      - Bank endpoints
+      summary: Get Bank Link
+      description: Get the Bank link allowing customer to authenticate his bank.
       requestBody:
         $ref: "#/components/requestBodies/getLink"
       responses:
@@ -81,9 +85,9 @@ paths:
   /bank/send-code:
     post:
       tags:
-      - Signup endpoints
-      summary: Send Tink Code
-      description: Send the Tink code fetched with the Tink link.
+      - Bank endpoints
+      summary: Send Bank Code
+      description: Send the Bank code fetched with the Bank link.
       requestBody:
         $ref: "#/components/requestBodies/sendCode"
       responses:
@@ -103,7 +107,7 @@ paths:
   /application:
     post:
       tags:
-      - Signup endpoints
+      - Application endpoints
       summary: Create Application
       description: Send a new application to Moank
       requestBody:
@@ -125,7 +129,7 @@ paths:
   /application/{applicationId}/event:
     post:
       tags:
-      - Signup endpoints
+      - Application endpoints
       summary: Send Application Event
       description: This endpoint can be used to notify Moank that a new action should be taken on the application. If none of the documented events match your needs we can always create new ones.
       parameters:
@@ -247,7 +251,7 @@ components:
                 $ref: "#/components/schemas/socialSecurityNumber"
               code:
                 type: string
-                description: Tink code fetched with the Tink link.
+                description: Bank code fetched with the Bank link.
                 example: '123456789'
 
     create:
@@ -278,7 +282,7 @@ components:
             properties:
               link:
                 type: string
-                description: Tink link allowing customer to authenticate his bank.
+                description: Bank link allowing customer to authenticate his bank.
                 example: "https://redirect-here"
 
     sendCode:

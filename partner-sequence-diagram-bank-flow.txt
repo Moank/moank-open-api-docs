@@ -2,17 +2,17 @@ participant End Customer
 participant Partner
 participant Moank
 
-Partner->Moank: Fetch the Tink Link using "Get Tink Link" endpoint
+Partner->Moank: Fetch the Bank Link using "Get Bank Link" endpoint
 
-Partner<--Moank: Return the Tink Link
+Partner<--Moank: Return the Bank Link
 
-End Customer<--Partner: Redirect the customer to the Tink Link url
+End Customer<--Partner: Redirect the customer to the Bank Link url
 
 note over End Customer: Verify bank account details
 
-End Customer-->Partner: Redirected to partner website/application with the Tink Code
+End Customer-->Partner: Redirected to partner website/application with the Bank Code
 
-Partner->Moank: Send Tink code to Moank using "Send Tink Code" endpoint
+Partner->Moank: Send Bank code to Moank using "Send Bank Code" endpoint
 
 Partner<--Moank: Return the list of bank accounts of the end customer
 
