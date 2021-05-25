@@ -48,7 +48,7 @@ info:
 
     # Sequence Diagram
     ## Bank Flow
-    To take a full decision on the customer application, Moank need to fetch the financial details of the customer. This flow can be done before sending the application, but if it is not it will done on Moank's side instead. This flow is required for a full decision.
+    For an application to reach a 'granted' status, Moank needs to fetch the financial details of the customer. This can be done through this Bank flow. If the application is sent before doing the Bank flow, the application will stay on a 'pending' status until the Partner or Moank's underwriters handles it.
 
     <a href="./partner-sequence-diagram-bank-flow.svg" target="_blank">![Sequence Diagram Bank Flow](./partner-sequence-diagram-bank-flow.svg)</a>
     ## Application Flow
