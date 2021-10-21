@@ -11,7 +11,7 @@ info:
 
     Social Security Number|Application Status|Comment
     ----------------------|------------------|-------
-    199001010009 |`granted` `pending`|Will return `pending` if the application requires bank details and none were provided at this stage. The test event `grant-test-loan` can then be used to update the application to `granted`
+    199001010009 or 199001010017 |`granted` `pending`|Will return `pending` if the application requires bank details and none were provided at this stage. The test event `grant-test-loan` can then be used to update the application to `granted`
     199001011114 |`pending`|-
     199001019992 |`denied`|-
 
