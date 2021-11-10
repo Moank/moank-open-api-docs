@@ -523,6 +523,19 @@ components:
           $ref: "#/components/schemas/bankDetails"
         employer:
           $ref: "#/components/schemas/employer"
+        comment:
+          type: array
+          items:
+            type: object
+            properties:
+              comment:
+                type: string
+                description: Comments that underwriter or the system can add for describing specific events
+                format: string
+              date:
+                type: string
+                description: Date of the comment
+                format: date
 
     extendedApplicant:
       # There is an issue with redoc that cannot display correctly when using allOf. The below specifications are however correct and can be used when the issue is fixed: https://github.com/Redocly/redoc/issues/1154
@@ -861,7 +874,7 @@ components:
       properties:
         link:
           type: string
-          deprecated: true
+          deprecated: trueap
           description: Link to allow customer to sign the application agreement.
           example: 'https://sign-here'
         agreementDetails:
