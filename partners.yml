@@ -523,14 +523,14 @@ components:
           $ref: "#/components/schemas/bankDetails"
         employer:
           $ref: "#/components/schemas/employer"
-        comment:
+        comments:
           type: array
           items:
             type: object
             properties:
               comment:
                 type: string
-                description: Comments that underwriter or the system can add for describing specific events
+                description: Comments that underwriters or the system can use as notes for the applicant or application
                 format: string
               date:
                 type: string
@@ -874,7 +874,7 @@ components:
       properties:
         link:
           type: string
-          deprecated: trueap
+          deprecated: true
           description: Link to allow customer to sign the application agreement.
           example: 'https://sign-here'
         agreementDetails:
