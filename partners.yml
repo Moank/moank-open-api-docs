@@ -523,6 +523,19 @@ components:
           $ref: "#/components/schemas/bankDetails"
         employer:
           $ref: "#/components/schemas/employer"
+        comments:
+          type: array
+          items:
+            type: object
+            properties:
+              comment:
+                type: string
+                description: Comments that underwriters or the system can use as notes for the applicant or application
+                format: string
+              date:
+                type: string
+                description: Date of the comment
+                format: date
 
     extendedApplicant:
       # There is an issue with redoc that cannot display correctly when using allOf. The below specifications are however correct and can be used when the issue is fixed: https://github.com/Redocly/redoc/issues/1154
