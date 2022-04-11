@@ -157,6 +157,34 @@ paths:
       security:
       - basic_auth: []
 
+  /application/{applicationId}/mark-rejected:
+    post:
+      tags:
+      - Application endpoints
+      summary: Mark Application Rejected
+      description: This endpoint can be used to notify Moank when the customer decides to reject an application, so the decision process will be stopped.
+      parameters:
+      - name: applicationId
+        in: path
+        description: Application's id as set in the application response object
+        required: true
+        schema: {}
+      responses:
+        200:
+          $ref: "#/components/responses/empty"
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        404:
+          $ref: "#/components/responses/notFoundError"
+        500:
+          $ref: "#/components/responses/serverError"
+        503:
+          $ref: "#/components/responses/serviceError"
+      security:
+      - basic_auth: []
+
   /application/{applicationId}:
     get:
       tags:
@@ -318,6 +346,13 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/eventResult"
+
+    empty:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
 
     loanTerms:
       description: Successful operation
