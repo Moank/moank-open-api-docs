@@ -39,10 +39,12 @@ info:
 
     Event |Description
     ------|-----------
+    `submitted` |Triggered when the customer has completed the bank flow and has sent all the required information. This event will not be sent for applications created by the Partner with already all the required data.
     `granted` |Triggered when the customer went through all the checks performed by Moank's underwriters.
     `signed`  |Triggered when the customer has signed his debt notice using BankID.
     `payed-out`|Triggered when Moank has paid out the money to the end customer or the Partner.
     `denied`   |Triggered when Moank denies a customer because of one of the routine checks performed by Moank's underwriters.
+    `expired` |Triggered when the customer’s application has expired. If not paid out, an application expires 30 days after being created.
 
     The actual payload and event names sent during the callback can be customised for each partner in order to match their own specifications.
 
