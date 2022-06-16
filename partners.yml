@@ -21,6 +21,7 @@ info:
 
     Test event |Description
     -----------|-----------
+    `complete-test-loan`|Returns the link(s) sent to the applicant(s) when the application needs to be completed.
     `grant-test-loan`|Triggers a manual review on the application. The application status will be updated to `granted`.
     `sign-test-loan`|Triggers a signature of the loan agreement. The application status will be updated to `signed`.
 
@@ -846,12 +847,14 @@ components:
             Possible values are
             * use-loan-promise
             * pay-loan
+            * complete-test-loan (Only available in staging environment)
             * grant-test-loan (Only available in staging environment)
             * sign-test-loan (Only available in staging environment)
           example: use-loan-promise
           enum:
             - use-loan-promise
             - pay-loan
+            - complete-test-loan
             - grant-test-loan
             - sign-test-loan
         payload:
@@ -859,10 +862,14 @@ components:
           oneOf:
             - $ref: '#/components/schemas/useLoanPromisePayload'
             - $ref: '#/components/schemas/payLoanPayload'
+            - $ref: '#/components/schemas/completeTestLoanPayload'
             - $ref: '#/components/schemas/grantTestLoanPayload'
             - $ref: '#/components/schemas/signTestLoanPayload'
 
     payLoanPayload:
+      type: object
+
+    completeTestLoanPayload:
       type: object
 
     grantTestLoanPayload:
@@ -897,6 +904,7 @@ components:
       oneOf:
         - $ref: '#/components/schemas/useLoanPromiseResult'
         - $ref: '#/components/schemas/payLoanResult'
+        - $ref: '#/components/schemas/completeTestLoanResult'
         - $ref: '#/components/schemas/grantTestLoanResult'
         - $ref: '#/components/schemas/signTestLoanResult'
 
@@ -948,6 +956,17 @@ components:
                 type: string
                 description: Phone number of the applicant that was used to deliver the agreement link if the "text-message" medium is present in the "sentBy" array
                 example: "+46731234567"
+
+    completeTestLoanResult:
+      type: object
+      required:
+      - completeLinks
+      properties:
+        completeLinks:
+          type: array
+          description: List including the url(s) sent to the applicant(s) to complete the application.
+          items:
+            type: string
 
     grantTestLoanResult:
       type: object
