@@ -461,6 +461,10 @@ components:
           description: Phone of the employer
           format: international or swedish format
           example: "0731234567"
+        pep:
+          type: boolean
+          description: Self-declaration of political exposure of the applicant
+          example: false
     invalidBody:
       type: object
       required:
