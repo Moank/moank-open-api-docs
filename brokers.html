@@ -31,9 +31,12 @@
     <redoc spec-url='./specifications/brokers/brokers.yml'></redoc>
   </div>
   <footer class="moank-footer">
-    <p>Copyright ©2022 Moank. Alla rättigheter förbehålls.</p>
+    <p>Copyright ©<span id="year"></span> Moank. Alla rättigheter förbehålls.</p>
   </footer>
   <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"> </script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 
 </html>

@@ -52,7 +52,11 @@
     </div>
 
     <footer class="moank-footer">
-      <p>Copyright ©2022 Moank. Alla rättigheter förbehålls.</p>
+      <p>Copyright ©<span id="year"></span> Moank. Alla rättigheter förbehålls.</p>
     </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
