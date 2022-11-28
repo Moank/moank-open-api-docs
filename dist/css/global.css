@@ -8,7 +8,7 @@ html {
 body {
   margin: 0;
   background: #fafafa;
-  font-family: sans-serif;
+  font-family: "aktiv-grotesk", sans-serif;
 }
 
 .moank-menu {
@@ -48,7 +48,7 @@ body {
 
 .moank-menu li a.main {
   color: white;
-  background-color: rgb(56, 145, 173);
+  background-color: #fafafa;
 }
 
 .moank-menu li a.main img {
@@ -73,11 +73,11 @@ body {
   text-align: center;
   padding: 20px;
   width: calc(100% - 40px);
-  background-color: #fafafa;
+  background-color: #2f3131;
 }
 
 .moank-footer p {
-  color: #bbb;
+  color: #ffffff;
   font-size: 14px;
   margin: 5px 0;
   font-weight: 300;
@@ -96,9 +96,9 @@ body {
 }
 
 .background {
-  background-image: url('../assets/page-bg.svg');
+  background-image: url('../assets/pexels-lukas-574080.jpg');
   background-repeat: no-repeat;
-  background-position: bottom right;
+  background-position: top right;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

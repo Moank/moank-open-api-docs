@@ -4,11 +4,8 @@
   <head>
     <meta charset="UTF-8">
     <title>Moank Broker API</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="./dist/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./dist/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./dist/favicons/favicon-16x16.png">
-    <link rel="manifest" href="./dist/favicons/site.webmanifest">
-    <link rel="mask-icon" href="./dist/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="icon" type="image/png" href="./dist/favicons/favicon.svg">
+    <link rel="stylesheet" media="all" type="text/css" href="https://use.typekit.net/yhj0sxi.css" />
     <link rel="stylesheet" type="text/css" href="./dist/css/global.css" />
     <link rel="stylesheet" type="text/css" href="./dist/css/carousel.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,7 +16,7 @@
       <ul>
         <li>
           <a class="main disabled" href="javascript:void(0)">
-            <img src="./dist/assets/moank_logo.svg" />
+            <img src="./dist/assets/moank_logo_short.svg" />
           </a>
         </li>
         <li><a href="./brokers.html">Broker API</a></li>
@@ -32,7 +29,7 @@
         <div class="card">
           <h1>Broker API</h1>
           <div class="description">
-            <p>API provided by Moank for loan brokers so that they can send applications and followup on them</p>
+            <p>API for loan brokers to handle the bidding and loan application process with Moank.</p>
           </div>
           <a href="./brokers.html">
             <div class="button">Read more</div>
@@ -41,7 +38,7 @@
         <div class="card">
           <h1>Partner API</h1>
           <div class="description">
-            <p>API provided by Moank for partners so that they can send applications and followup on them</p>
+            <p>API for applying for a loan at Moank. This is targetted to partners that want to offer financing solutions for private individuals.</p>
           </div>
           <a href="./partners.html">
             <div class="button">Read more</div>
@@ -51,9 +48,11 @@
     </div>
 
     <footer class="moank-footer">
-      <p>Copyright ©2019 Moank. Alla rättigheter förbehålls.</p>
-      <p>Moank AB är ett konsumentkreditinstitut med tillstånd av Finansinspektionen.</p>
-      <p>Org.nr: 559000-0237. Styrelsens säte: Stockholm.</p>
+      <p>Copyright ©<span id="year"></span> Moank. Alla rättigheter förbehålls.</p>
     </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>

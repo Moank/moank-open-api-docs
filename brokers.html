@@ -5,10 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Moank Broker API</title>
-  <link rel="apple-touch-icon" sizes="180x180" href="./dist/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="./dist/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="./dist/favicons/favicon-16x16.png">
-  <link rel="manifest" href="./dist/favicons/site.webmanifest">
+  <link rel="icon" type="image/png" href="./dist/favicons/favicon.svg">
   <link rel="mask-icon" href="./dist/favicons/safari-pinned-tab.svg" color="#5bbad5">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="./dist/css/global.css">
@@ -20,7 +17,7 @@
     <ul>
       <li>
         <a class="main" href="./">
-          <img src="./dist/assets/moank_logo.svg" />
+          <img src="./dist/assets/moank_logo_short.svg" />
         </a>
       </li>
       <li><a href="javascript:void(0)" class="disabled">Broker API</a></li>
@@ -28,14 +25,15 @@
     </ul>
   </header>
   <div class="moank-content">
-    <redoc spec-url='./brokers.yml'></redoc>
+    <redoc spec-url='./specifications/brokers/brokers.yml'></redoc>
   </div>
   <footer class="moank-footer">
-    <p>Copyright ©2019 Moank. Alla rättigheter förbehålls.</p>
-    <p>Moank AB är ett konsumentkreditinstitut med tillstånd av Finansinspektionen.</p>
-    <p>Org.nr: 559000-0237. Styrelsens säte: Stockholm.</p>
+    <p>Copyright ©<span id="year"></span> Moank. Alla rättigheter förbehålls.</p>
   </footer>
-  <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
+  <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"> </script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 
 </html>
