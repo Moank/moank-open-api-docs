@@ -5,7 +5,7 @@ info:
   description: |
     The Moank Partner API can be used by Moank's partners in order to provide financial products to their end customers within their own application/website.
 
-    # Test objects
+    # Test objects
 
     Test objects can be used in the staging environment in order to test specific flow. If one of the applicant of the application has its `socialSecurityNumber` equal to one of the test object, the `applicationStatus` returned by Moank for the create application endpoint will always be the same one as described in the following table:
 
@@ -53,11 +53,11 @@ info:
     ## Bank Flow
     For the loan application to reach a `granted` status, Moank needs to have access to the financial details of the applicant. If the applicant did not complete the Bank flow already, Moank will automatically send a link to the applicant as soon as the loan application is created. This link will allow the customer to give access to his bank details without the help of the Partner. The Partner can still generate and send the link manually to the applicant before creating the application.
 
-    <a href="./partner-sequence-diagram-bank-flow.svg" target="_blank">![Sequence Diagram Bank Flow](./partner-sequence-diagram-bank-flow.svg)</a>
+    <a href="./specifications/partners/partner-sequence-diagram-bank-flow.svg" target="_blank">![Sequence Diagram Bank Flow](./specifications/partners/partner-sequence-diagram-bank-flow.svg)</a>
     ## Application Flow
     The application flow allows the partner to create a loan application in Moank's system and receive an offer based on the customer data. The application cannot have the possibilty to reach a `granted` status until the bank flow has been completed.
 
-    <a href="./partner-sequence-diagram-application-flow.svg" target="_blank">![Sequence Diagram Application Flow](./partner-sequence-diagram-application-flow.svg)</a>
+    <a href="./specifications/partners/partner-sequence-diagram-application-flow.svg" target="_blank">![Sequence Diagram Application Flow](./specifications/partners/partner-sequence-diagram-application-flow.svg)</a>
 servers:
 - url: https://api.moank.se/api/hooks/partner
   description: Production server

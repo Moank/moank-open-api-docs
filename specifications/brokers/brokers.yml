@@ -7,7 +7,7 @@ info:
 
     Some optional endpoints are provided to enable a broker to update an existing application as well as notifying Moank when an end customer has rejected Moank's offer.
 
-    # Test objects
+    # Test objects
 
     Test objects can be used in the staging environment in order to test specific flow. If one of the applicant of the application has its `nationalId` equal to one of the test object, the decision returned by Moank will always be the same one as described in the following table:
 
@@ -30,7 +30,7 @@ info:
     The actual payload and event names sent during the callback can be customised for each broker in order to match their own specifications.
 
     # Sequence Diagram
-    <a href="./broker-sequence-diagram.svg" target="_blank">![Sequence Diagram](./broker-sequence-diagram.svg)</a>
+    <a href="./specifications/brokers/broker-sequence-diagram.svg" target="_blank">![Sequence Diagram](./specifications/brokers/broker-sequence-diagram.svg)</a>
 servers:
 - url: https://api.moank.se/api/hooks/{brokerName}
   description: Production server
