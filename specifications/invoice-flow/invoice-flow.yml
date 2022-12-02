@@ -24,12 +24,52 @@ paths:
             schema:
               type: object
               required:
-              - test
+              - applicants
+              - product
+              - currency
               properties:
-                test:
+                product:
                   type: string
-                  description: Test
-                  example: This is a test
+                  enum:
+                  - recurring-billing
+                  - purchase
+                  description: The product to apply for. Recuring billing will open an account with periodic invoicing and regular charges. Purchase is a one time charge that can be paid/invoiced in several ways.
+                currency:
+                  type: string
+                  description: Currency of the product that is applied for. Financing and invoicing of a product are always done in the approved currency.
+                  format: Currency 3 digits ISO code
+                  example: SEK
+                applicants:
+                  type: array
+                  description: List of applicants
+                  items:
+                    type: object
+                    required:
+                    - type
+                    - country
+                    - nationalIdentifier
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - individual
+                        - organisation
+                        example: individual
+                        description: Type of applicant. Can be either an individual or an organisation
+                      country:
+                        type: string
+                        description: Country of residence of the applicant. 3 digits ISO country code
+                        example: SWE
+                      nationalIdentifier:
+                        type: string
+                        description: National identifier of the applicant. The allowed format depends on the type of applicant and on the country of the applicant. For Swedish individual the format is 12 digits. For Swedish organisation it is a 10 digit organisation number.
+                        example: '197202104332'
+                      reference:
+                        type: string
+                        description: Optional reference for the applicant. Can be used for reconciliation.
+                reference:
+                  type: string
+                  description: Optional reference for the decision. Can be used for reconciliation.
       responses:
         200:
           description: Successful operation
@@ -38,12 +78,59 @@ paths:
               schema:
                 type: object
                 required:
-                - test
+                - id
+                - product
+                - currency
+                - isApproved
+                - paymentMethods
                 properties:
-                  test:
+                  id:
                     type: string
-                    description: Test
-                    example: This is a test
+                    description: Unique identifier for the decision. BSON ObjectID format.
+                    example: 62f2250490f4c20d0368d66c
+                  reference:
+                    type: string
+                    description: Reference for the decision that was sent in the request body
+                  product:
+                    type: string
+                    description: The product that was used to create the decision
+                    example: recurring-billing
+                  currency:
+                    type: string
+                    description: The currency that was used to create the decision
+                    example: SEK
+                  isApproved:
+                    type: boolean
+                    description: Result of the decision
+                    example: true
+                  paymentMethods:
+                    type: array
+                    description: Payment methods that are available for that decision
+                    items:
+                      type: object
+                      required:
+                      - type
+                      - limit
+                      - maximumLtv
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - monthly-invoice
+                          - invoice
+                          - instalments
+                          - leasing
+                          - direct-transfer
+                          description: The type of the payment method. Possible values are dependent of the product that was applied for
+                        limit:
+                          type: number
+                          description: Maximum amount that can be charged to the end customer using this payment method
+                          example: 100000
+                        maximumLtv:
+                          type: number
+                          description: Maximum allowed loan to value (LTV) when financing the selected payment method. An LTV of 0 means that this payment method cannot be financed. An LTV of 100 means that the charge of the end customer can be financed entirely.
+                          format: percent
+                          example: 100
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -54,6 +141,98 @@ paths:
           $ref: "#/components/responses/serviceError"
       security:
       - bearer_auth: []
+  /account:
+    post:
+      tags:
+      - Account
+      summary: Create Account
+      description: Create the customer account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - decisionId
+              - reference
+              - paymentMethod
+              - invoicing
+              - terms
+              properties:
+                decisionId:
+                  type: string
+                  description: Id of the decision received when using the create decision endpoint. The decision must be approved in order to be used to create an account.
+                reference:
+                  type: string
+                  description: Reference of the account. This will be printed on the invoices as the order/subscription reference.
+                paymentMethod:
+                  type: string
+                  enum:
+                  - monthly-invoice
+                  - invoice
+                  - instalments
+                  - leasing
+                  - direct-transfer
+                  description: Select one of the payment method available in the decision.
+                invoicing:
+                  type: object
+                  required:
+                  - email
+                  - addressLine1
+                  - addressLine2
+                  - addressLine3
+                  properties:
+                    email:
+                      type: string
+                      description: Email address where to send the invoices.
+                    addressLine1:
+                      type: string
+                      description: First line of the address to display on the invoice
+                    addressLine2:
+                      type: string
+                      description: Second line of the address to display on the invoice
+                    addressLine3:
+                      type: string
+                      description: Third line of the address to display on the invoice
+                terms:
+                  oneOf:
+                    - schema:
+                      type: object
+                      title: Recurring Billing Terms
+                      properties:
+                        invoiceCreationDays:
+                          type: number
+                          description: Number of days after the end of the billed period to wait before generating an invoice
+                          default: 5
+                        paymentDays:
+                          type: number
+                          description: Number of days between the invoice creation date and the invoice due date.
+                          default: 21
+                    - schema:
+                      type: object
+                      title: Purchase Terms
+                      properties:
+                        order:
+                          type: string
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+        503:
+          $ref: "#/components/responses/serviceError"
+      security:
+      - bearer_auth: []
+
 
 components:
   responses:
