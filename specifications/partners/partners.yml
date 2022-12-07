@@ -488,6 +488,7 @@ components:
           - services
           - financial-security
           - health
+          - necessities
           - other
           example: vehicle
         isBorrowingForOwnUse:
