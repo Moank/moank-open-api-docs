@@ -421,6 +421,14 @@ components:
       description: Swedish personnummer in format YYYYMMDDXXXX
       example: "197202104332"
 
+    citizenships:
+      type: array
+      description: Each customer's citizenships in Alpha3 code
+      items:
+        type: string
+        format: XXX
+        example: SWE
+
     bank:
       type: string
       description: Name of customer's bank. The enum values will be provided to the partner.
@@ -562,6 +570,8 @@ components:
           $ref: "#/components/schemas/bankDetails"
         employer:
           $ref: "#/components/schemas/employer"
+        citizenships:
+          $ref: "#/components/schemas/citizenships"
         comments:
           type: array
           items:
@@ -623,6 +633,8 @@ components:
           $ref: "#/components/schemas/bankDetails"
         employer:
           $ref: "#/components/schemas/employer"
+        citizenships:
+          $ref: "#/components/schemas/citizenships"
 
     economicDetails:
       type: object
