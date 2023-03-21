@@ -513,6 +513,7 @@ components:
           example: true
         bankAccountId:
           type: string
+          deprecated: true
           description: Unique identifier of the bank account chosen for the payout by the customer from the list of accounts returned by the "/bank/send-code" endpoint
           example: '12345'
         applicants:
