@@ -16,7 +16,7 @@ paths:
   /creditor:
     post:
       tags:
-        - Creditor edpoints
+        - Creditor endpoints
       summary: Create new creditor
       description: Used to add a new creditor into the system. The Moank service will process it and set the business terms for it
       requestBody:
@@ -36,7 +36,7 @@ paths:
   /creditor/{creditorId}:
     get:
       tags:
-        - Creditor edpoints
+        - Creditor endpoints
       summary: Get creditor
       description: Used to fetch a previously created creditor and visualise the usage of the agreeded terms
       parameters:
@@ -61,7 +61,7 @@ paths:
   /decision:
     post:
       tags:
-        - Decision edpoints
+        - Decision endpoints
       summary: Create new decision
       description: Request decision on a new debtor for an approved creditor
       requestBody:
@@ -81,7 +81,7 @@ paths:
   /decision/{decisionId}:
     get:
       tags:
-        - Decision edpoints
+        - Decision endpoints
       summary: Fetch a decision
       description: Use to retrive information on a previously created decision
       parameters:
@@ -106,7 +106,7 @@ paths:
   /account:
     post:
       tags:
-        - Account edpoints
+        - Account endpoints
       summary: Create an account
       description: Used to convert a previouly debtor's granted decision in an account to allow the business
       requestBody:
@@ -126,7 +126,7 @@ paths:
   /account/{accountId}:
     get:
       tags:
-        - Account edpoints
+        - Account endpoints
       summary: Fetch an account
       description: Used to fetch a previously created account and visualise the usage of the agreeded terms
       parameters:
@@ -151,7 +151,7 @@ paths:
   /claim:
     post:
       tags:
-        - Claim edpoints
+        - Claim endpoints
       summary: Transfer a claim
       description: Allow the transfer of a claim between the creditor and the debtor of the account to Moank
       requestBody:
@@ -171,7 +171,7 @@ paths:
   # /claim/{accountId}:
   #   get:
   #     tags:
-  #       - Claim edpoints
+  #       - Claim endpoints
   #     summary: something
   #     description: something
   #     parameters:
