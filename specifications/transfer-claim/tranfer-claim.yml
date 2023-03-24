@@ -1,0 +1,884 @@
+openapi: 3.0.0
+info:
+  title: Moank Transfer of Claim API
+  version: 1.0.0
+  description: |
+    Draft API
+    The Moank Transfer of Claim API can be used by Moank's partners in order to provide financial products to their end customers within their own application/website.
+
+servers:
+- url: https://api.moank.se/1.0
+  description: Production server
+- url: https://staging.api.moank.se/1.0
+  description: Staging server
+
+paths:
+  /creditor:
+    post:
+      tags:
+        - Creditor edpoints
+      summary: Create new creditor
+      description: Used to add a new creditor into the system. The Moank service will process it and set the business terms for it
+      requestBody:
+        $ref: "#/components/requestBodies/creditorCreate"
+      responses:
+        200:
+          $ref: '#/components/responses/creditor'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
+  /creditor/{creditorId}:
+    get:
+      tags:
+        - Creditor edpoints
+      summary: Get creditor
+      description: Used to fetch a previously created creditor and visualise the usage of the agreeded terms
+      parameters:
+      - name: creditorId
+        in: path
+        description: something
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          $ref: '#/components/responses/creditor'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
+  /decision:
+    post:
+      tags:
+        - Decision edpoints
+      summary: Create new decision
+      description: Request decision on a new debtor for an approved creditor
+      requestBody:
+        $ref: "#/components/requestBodies/decisionCreate"
+      responses:
+        200:
+          $ref: '#/components/responses/decision'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
+  /decision/{decisionId}:
+    get:
+      tags:
+        - Decision edpoints
+      summary: Fetch a decision
+      description: Use to retrive information on a previously created decision
+      parameters:
+      - name: decisionId
+        in: path
+        description: something
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          $ref: '#/components/responses/decision'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
+  /account:
+    post:
+      tags:
+        - Account edpoints
+      summary: Create an account
+      description: Used to convert a previouly debtor's granted decision in an account to allow the business
+      requestBody:
+        $ref: "#/components/requestBodies/accountCreate"
+      responses:
+        200:
+          $ref: '#/components/responses/account'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
+  /account/{accountId}:
+    get:
+      tags:
+        - Account edpoints
+      summary: Fetch an account
+      description: Used to fetch a previously created account and visualise the usage of the agreeded terms
+      parameters:
+      - name: accountId
+        in: path
+        description: something
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          $ref: '#/components/responses/account'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
+  /claim:
+    post:
+      tags:
+        - Claim edpoints
+      summary: Transfer a claim
+      description: Allow the transfer of a claim between the creditor and the debtor of the account to Moank
+      requestBody:
+        $ref: "#/components/requestBodies/claimCreate"
+      responses:
+        200:
+          $ref: '#/components/responses/claim'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
+  # /claim/{accountId}:
+  #   get:
+  #     tags:
+  #       - Claim edpoints
+  #     summary: something
+  #     description: something
+  #     parameters:
+  #     - name: accountId
+  #       in: path
+  #       description: something
+  #       required: true
+  #       schema:
+  #         type: string
+  #     responses:
+  #       200:
+  #         $ref: '#/components/responses/claim'
+  #       400:
+  #         $ref: "#/components/responses/dataError"
+  #       401:
+  #         $ref: "#/components/responses/authError"
+  #       500:
+  #         $ref: "#/components/responses/serverError"
+  #     security:
+  #     - basic_auth: []
+
+components:
+  requestBodies:
+    creditorCreate:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - nationalIdentifier
+              - country
+              - name
+              - type
+              - contactEmail
+              - phone
+            properties:
+              name:
+                type: string
+                description: Full legal name of the creditor
+                example: Acme AB
+              nationalIdentifier:
+                description: National identifier of the creditor in unique per country
+                type: string
+                example: 5566778899
+              country:
+                description: Country where the national identifier is registered
+                type: string
+                example: SE
+              type:
+                description: Type of the creditor
+                type: string
+                example: company
+                enum:
+                  - company
+                  - private
+              contactEmail:
+                type: string
+                description: Email used to contact the creditor
+                example: contact@creditor.com
+              phone:
+                type: string
+                description: Phone number used to contact the creditor
+                example: +46701234567
+              mainAddress:
+                type: object
+                description: Address information of the creditor
+                properties:
+                  streetAddress:
+                    type: string
+                    example: Fake Street 123
+                  additionalStreetAddress:
+                    type: string
+                    example: 8th floor
+                  town:
+                    type: string
+                    example: Somewhere
+                  postcode:
+                    type: string
+                    example: 12345
+
+    decisionCreate:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - creditorId
+            - debtors
+            - product
+            properties:
+              creditorId:
+                description: Creditor's unique identifier in the system
+                example: "123"
+              debtors:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - nationalIdentifier
+                    - country
+                    - name
+                    - type
+                    - contanctEmail
+                    - phone
+                  properties:
+                    name:
+                      type: string
+                      description: Full legal name of the debtor
+                      example: Consumer AB
+                    nationalIdentifier:
+                      description: National identifier of the debtor in unique per country
+                      type: string
+                      example: 5544332211
+                    country:
+                      description: Country where the national identifier is registered
+                      type: string
+                      example: SE
+                    type:
+                      description: Type of the debtor
+                      type: string
+                      example: company
+                      enum:
+                        - company
+                        - private
+                    contactEmail:
+                      type: string
+                      description: Email used to contact the debtor
+                      example: contact@debtor.com
+                    phone:
+                      type: string
+                      description: Phone number used to contact the creditor
+                      example: +46701234567
+                    mainAddress:
+                      type: object
+                      description: Address information of the debtor
+                      properties:
+                        streetAddress:
+                          type: string
+                          example: Overthere 32
+                        additionalStreetAddress:
+                          type: string
+                          example: 2th floor
+                        town:
+                          type: string
+                          example: Nicetown
+                        postcode:
+                          type: string
+                          example: 54321
+              product:
+                type: object
+                required:
+                  - productId
+                  - currency
+                properties:
+                  productId:
+                    description: Unique identifier of the requested product received by moank
+                    type: string
+                    example: "FI-TPC-123"
+                  currency:
+                    description: Requested currency for the business terms
+                    type: string
+                    example: SEK
+
+    accountCreate:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - decisionId
+            properties:
+              decisionId:
+                type: string
+                description: Decision's unique identifier
+                example: "123"
+
+    claimCreate:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - accountId
+            - lineItems
+            properties:
+              accountId:
+                type: string
+                description: Account's unique identifier
+                example: "123"
+              lineItems:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - amount
+                    - vatAmount
+                    - vatPercentage
+                    - unit
+                    - quantity
+                    - description
+                  properties:
+                    amount:
+                      type: number
+                      description: Amount of the single article per unit including VAT
+                      example: 10000
+                      minimum: 0
+                    quantity:
+                      type: number
+                      description: Number of item with the same article number
+                      example: 2
+                      minimum: 0
+                    vatPercent:
+                      type: number
+                      description: Vat percentage applied to the article as integer
+                      example: 25
+                      minimum: 0
+                    vatAmount:
+                      type: number
+                      description: Vat amount of the article per unit
+                      example: 2500
+                      minimum: 0
+                    description:
+                      type: string
+                      description: Extended description of the article
+                      example: "Potato"
+                    unit:
+                      type: string
+                      description: The unit measurement of the article. This is used to have a better description when the article is not a single countable object
+                      example: "kilogram"
+
+  responses:
+    creditor:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - id
+              - nationalIdentifier
+              - country
+              - name
+              - type
+              - contactEmail
+              - phone
+            properties:
+              id:
+                type: string
+                description: Creditor's unique identifier in the system
+                example: "123"
+              name:
+                type: string
+                description: Full legal name of the creditor
+                example: Acme AB
+              nationalIdentifier:
+                description: National identifier of the creditor in unique per country
+                type: string
+                example: 5566778899
+              country:
+                description: Country where the national identifier is registered
+                type: string
+                example: SE
+              type:
+                description: Type of the creditor
+                type: string
+                example: company
+                enum:
+                  - company
+                  - private
+              contactEmail:
+                type: string
+                description: Email used to contact the creditor
+                example: contact@creditor.com
+              phone:
+                type: string
+                description: Phone number used to contact the creditor
+                example: +46701234567
+              mainAddress:
+                type: object
+                description: Address information of the creditor
+                properties:
+                  streetAddress:
+                    type: string
+                    example: Fake Street 123
+                  additionalStreetAddress:
+                    type: string
+                    example: 8th floor
+                  town:
+                    type: string
+                    example: Somewhere
+                  postcode:
+                    type: string
+                    example: 12345
+              terms:
+                type: object
+                description: Terms about the business agreement with Moank
+                properties:
+                  financingLimit:
+                    type: number
+                    example: 10000
+                  usedFinancingLimit:
+                    type: number
+                    example: 1000
+                  usedFinancingLimitPercentage:
+                    type: number
+                    example: 10
+                  currency:
+                    type: string
+                    example: SEK
+
+    decision:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - id
+            - debtors
+            - creditorId
+            - product
+            - decision
+            properties:
+              id:
+                type: string
+                description: Decision's unique identifier
+                example: "123"
+              creditorId:
+                type: string
+                description: Creditor's unique identifier in the system
+                example: "123"
+              debtors:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - id
+                    - nationalIdentifier
+                    - country
+                    - name
+                    - type
+                    - contanctEmail
+                    - phone
+                  properties:
+                    id:
+                      type: string
+                      description: Debtor's unique identifier
+                      example: "123"
+                    name:
+                      type: string
+                      description: Full business name of the creditor
+                      example: Debtor AB
+                    nationalIdentifier:
+                      type: string
+                    country:
+                      type: string
+                    type:
+                      type: string
+                    contactEmail:
+                      type: string
+                      description: Email used to contact the debtor
+                      example: contact@debtor.com
+                    phone:
+                      type: string
+                      description: Phone number used to contact the debtor
+                      example: +46701234567
+                    mainAddress:
+                      type: object
+                      properties:
+                        streetAddress:
+                          type: string
+                        additionalStreetAddress:
+                          type: string
+                        town:
+                          type: string
+                        postcode:
+                          type: string
+              product:
+                type: object
+                required:
+                  - productId
+                  - currency
+                properties:
+                  productId:
+                    description: Unique identifier of the requested product received by moank
+                    type: string
+                    example: "FI-TPC-123"
+                  currency:
+                    description: Requested currency for the business terms
+                    type: string
+                    example: SEK
+              decision:
+                type: object
+                required:
+                  - status
+                  - terms
+                  - currency
+                properties:
+                  status:
+                    description: Status of the decision process
+                    type: string
+                    example: granted
+                    enum:
+                      - granted
+                      - referred
+                      - denied
+                  currency:
+                    description: Currency for the business terms
+                    type: string
+                    example: SEK
+                  terms:
+                    type: object
+                    description: Terms about the business agreement with Moank
+                    required:
+                      - limit
+                      - maxLTV
+                    properties:
+                      limit:
+                        type: number
+                      maxLTV:
+                        type: number
+
+    account:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - id
+            - debtors
+            - creditorId
+            - product
+            - decision
+            properties:
+              id:
+                type: string
+                description: Account's unique identifier
+                example: "123"
+              creditorId:
+                type: string
+                description: Creditor's unique identifier in the system
+                example: "123"
+              debtors:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - id
+                    - nationalIdentifier
+                    - country
+                    - name
+                    - type
+                    - contanctEmail
+                    - phone
+                  properties:
+                    id:
+                      type: string
+                      description: Debtor's unique identifier
+                      example: "123"
+                    name:
+                      type: string
+                      description: Full business name of the creditor
+                      example: Debtor AB
+                    nationalIdentifier:
+                      type: string
+                    country:
+                      type: string
+                    type:
+                      type: string
+                    contactEmail:
+                      type: string
+                      description: Email used to contact the debtor
+                      example: contact@debtor.com
+                    phone:
+                      type: string
+                      description: Phone number used to contact the debtor
+                      example: +46701234567
+                    mainAddress:
+                      type: object
+                      properties:
+                        streetAddress:
+                          type: string
+                        additionalStreetAddress:
+                          type: string
+                        town:
+                          type: string
+                        postcode:
+                          type: string
+              product:
+                type: object
+                required:
+                  - productId
+                  - currency
+                  - terms
+                  - usage
+                properties:
+                  productId:
+                    description: Unique identifier of the requested product received by moank
+                    type: string
+                    example: "FI-TPC-123"
+                  currency:
+                    description: Requested currency for the business terms
+                    type: string
+                    example: SEK
+                  terms:
+                    type: object
+                    description: Terms about the business agreement with Moank
+                    required:
+                      - limit
+                      - maxLTV
+                    properties:
+                      limit:
+                        example: 10000
+                        type: number
+                        minimum: 0
+                      maxLTV:
+                        type: number
+                        example: 5000
+                        minimum: 0
+                  usage:
+                    type: object
+                    description: Information about the current usage of the agreeded terms
+                    required:
+                      - usedLimit
+                      - currentLTV
+                    properties:
+                      usedLimit:
+                        type: number
+                        minimum: 0
+                        example: 4000
+                      currentLTV:
+                        type: number
+                        description: In percentage
+                        example: 70
+                        minimum: 0
+                        maximum: 100
+
+    claim:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - accountId
+            - lineItems
+            properties:
+              accountId:
+                type: string
+                description: Account's unique identifier
+                example: "123"
+              lineItems:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - amount
+                    - vatAmount
+                    - vatPercentage
+                    - unit
+                    - quantity
+                    - description
+                  properties:
+                    amount:
+                      type: number
+                      description: Amount of the single article per unit including VAT
+                      example: 10000
+                      minimum: 0
+                    quantity:
+                      type: number
+                      description: Number of item with the same article number
+                      example: 2
+                      minimum: 0
+                    vatPercent:
+                      type: number
+                      description: Vat percentage applied to the article as integer
+                      example: 25
+                      minimum: 0
+                    vatAmount:
+                      type: number
+                      description: Vat amount of the article per unit
+                      example: 2500
+                      minimum: 0
+                    description:
+                      type: string
+                      description: Extended description of the article
+                      example: "Potato"
+                    unit:
+                      type: string
+                      description: The unit measurement of the article. This is used to have a better description when the article is not a single countable object
+                      example: "kilogram"
+
+    dataError:
+      description: Invalid data
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/dataError"
+
+    authError:
+      description: Invalid authentication
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/authError"
+
+    notFoundError:
+      description: Application not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/notFoundError"
+
+    serverError:
+      description: Internal Server Error. If the problem persists contact the technical support
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/serverError"
+
+    serviceError:
+      description: Service Error. If the problem persists contact the technical support
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/serviceError"
+
+  schemas:
+    error:
+      type: object
+      required:
+      - status
+      - message
+      - errors
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Main error reason
+        errors:
+          type: array
+          description: List of errors messages to describe the issue in more details
+          items:
+            type: string
+
+    dataError:
+      allOf:
+        - $ref: "#/components/schemas/error"
+        - type: object
+          properties:
+            status:
+              example: 400
+            message:
+              example: INVALID_REQUEST
+            errors:
+              type: array
+              items:
+                example: Field ... should be defined
+
+    authError:
+      allOf:
+        - $ref: "#/components/schemas/error"
+        - type: object
+          properties:
+            status:
+              example: 401
+            message:
+              example: Unauthorized
+
+    notFoundError:
+      allOf:
+        - $ref: "#/components/schemas/error"
+        - type: object
+          properties:
+            status:
+              example: 404
+            message:
+              example: Application not found
+
+    serverError:
+      allOf:
+        - $ref: "#/components/schemas/error"
+        - type: object
+          properties:
+            status:
+              example: 500
+            message:
+              example: Internal Server Error
+
+    serviceError:
+      allOf:
+        - $ref: "#/components/schemas/error"
+        - type: object
+          properties:
+            status:
+              example: 503
+            message:
+              example: Service unavailable
+
+  securitySchemes:
+    basic_auth:
+      type: "http"
+      scheme: "basic"
