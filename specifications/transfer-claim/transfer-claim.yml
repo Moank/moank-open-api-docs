@@ -363,6 +363,7 @@ components:
             required:
             - accountId
             - lineItems
+            - financing
             properties:
               accountId:
                 type: string
@@ -408,6 +409,17 @@ components:
                       type: string
                       description: The unit measurement of the article. This is used to have a better description when the article is not a single countable object
                       example: "kilogram"
+              financing:
+                type: object
+                properties:
+                  amount:
+                    description: Amount to finance of the claim total amount
+                    minimun: 0
+                    example: 18000
+                  ltv:
+                    description: Percentage to finance of the claim total amount
+                    minimun: 0
+                    example: 90
 
   responses:
     creditor:
@@ -726,6 +738,7 @@ components:
             required:
             - accountId
             - lineItems
+            - financing
             properties:
               accountId:
                 type: string
@@ -771,6 +784,17 @@ components:
                       type: string
                       description: The unit measurement of the article. This is used to have a better description when the article is not a single countable object
                       example: "kilogram"
+              financing:
+                type: object
+                properties:
+                  amount:
+                    description: Amount to finance of the claim total amount
+                    minimun: 0
+                    example: 18000
+                  ltv:
+                    description: Percentage to finance of the claim total amount
+                    minimun: 0
+                    example: 90
 
     dataError:
       description: Invalid data
