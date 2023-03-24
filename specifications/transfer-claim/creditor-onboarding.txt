@@ -1,0 +1,18 @@
+participant Partner
+participant Moank
+
+Partner->Moank: POST: /creditor
+activate Moank
+note over Partner, Moank: The partner request onboarding of a new creditor
+rbox over Moank: Process request
+Moank-->Partner: Creditor data
+note over Moank,Partner: The creditor data are not including the business terms
+deactivate Moank
+
+rbox over Moank: Manual process\nto set the terms
+
+Partner->Moank: Get: /creditor/:id
+activate Moank
+Moank-->Partner: Creditor data
+note over Moank,Partner: The creditor data including the business terms
+deactivate Moank

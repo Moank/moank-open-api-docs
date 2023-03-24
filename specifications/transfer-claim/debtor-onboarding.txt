@@ -1,0 +1,18 @@
+participant Partner
+participant Moank
+
+Partner->Moank: POST: /decision
+activate Moank
+note over Partner, Moank: The partner request a credit decision to Moank
+rbox over Moank: Process request
+Moank-->Partner: Decision data
+note over Moank,Partner: The decision data inlcuding the decision status and the terms from Moank
+deactivate Moank
+
+Partner->Moank: POST: /account
+activate Moank
+note over Partner, Moank: The partner request to convert a previous granted decision in an account
+rbox over Moank: Process request
+Moank-->Partner: Account data
+note over Moank,Partner:The account data inlcuding the business terms Moank set for the debtor and their usage
+deactivate Moank

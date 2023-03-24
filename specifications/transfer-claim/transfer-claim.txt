@@ -1,0 +1,10 @@
+participant Partner
+participant Moank
+
+Partner->Moank: POST: /claim
+activate Moank
+note over Partner, Moank: The partner request a transfer of claim for a debtor based on its account terms
+rbox over Moank: Process request
+Moank-->Partner: Claim data
+note over Moank,Partner: The claim data processed by Moank
+deactivate Moank
