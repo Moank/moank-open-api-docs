@@ -226,7 +226,7 @@ components:
               nationalIdentifier:
                 description: National identifier of the creditor in unique per country
                 type: string
-                example: 5566778899
+                example: "5566778899"
               country:
                 description: Country where the national identifier is registered
                 type: string
@@ -245,7 +245,7 @@ components:
               phone:
                 type: string
                 description: Phone number used to contact the creditor
-                example: +46701234567
+                example: "+46701234567"
               mainAddress:
                 type: object
                 description: Address information of the creditor
@@ -261,7 +261,7 @@ components:
                     example: Somewhere
                   postcode:
                     type: string
-                    example: 12345
+                    example: "12345"
 
     decisionCreate:
       required: true
@@ -296,7 +296,7 @@ components:
                     nationalIdentifier:
                       description: National identifier of the debtor in unique per country
                       type: string
-                      example: 5544332211
+                      example: "5544332211"
                     country:
                       description: Country where the national identifier is registered
                       type: string
@@ -315,7 +315,7 @@ components:
                     phone:
                       type: string
                       description: Phone number used to contact the creditor
-                      example: +46701234567
+                      example: "+46701234567"
                     mainAddress:
                       type: object
                       description: Address information of the debtor
@@ -331,7 +331,7 @@ components:
                           example: Nicetown
                         postcode:
                           type: string
-                          example: 54321
+                          example: "54321"
               product:
                 type: object
                 required:
@@ -455,7 +455,7 @@ components:
               nationalIdentifier:
                 description: National identifier of the creditor in unique per country
                 type: string
-                example: 5566778899
+                example: "5566778899"
               country:
                 description: Country where the national identifier is registered
                 type: string
@@ -474,7 +474,7 @@ components:
               phone:
                 type: string
                 description: Phone number used to contact the creditor
-                example: +46701234567
+                example: "+46701234567"
               mainAddress:
                 type: object
                 description: Address information of the creditor
@@ -490,7 +490,7 @@ components:
                     example: Somewhere
                   postcode:
                     type: string
-                    example: 12345
+                    example: "12345"
               terms:
                 type: object
                 description: Terms about the business agreement with Moank
@@ -563,18 +563,23 @@ components:
                     phone:
                       type: string
                       description: Phone number used to contact the debtor
-                      example: +46701234567
+                      example: "+46701234567"
                     mainAddress:
                       type: object
+                      description: Address information of the debtor
                       properties:
                         streetAddress:
                           type: string
+                          example: Overthere 32
                         additionalStreetAddress:
                           type: string
+                          example: 2th floor
                         town:
                           type: string
+                          example: Nicetown
                         postcode:
                           type: string
+                          example: "54321"
               product:
                 type: object
                 required:
@@ -675,7 +680,7 @@ components:
                     phone:
                       type: string
                       description: Phone number used to contact the debtor
-                      example: +46701234567
+                      example: "+46701234567"
                     mainAddress:
                       type: object
                       properties:
