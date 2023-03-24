@@ -6,6 +6,9 @@ info:
     Draft API
     The Moank Transfer of Claim API can be used by Moank's partners in order to provide financial products to their end customers within their own application/website.
 
+    # Sequence Diagram
+    <a href="./specifications/transfer-claim/api-diagram.svg" target="_blank">![Sequence Diagram](./specifications/transfer-claim/api-diagram.svg)</a>
+
 servers:
 - url: https://api.moank.se/1.0
   description: Production server
