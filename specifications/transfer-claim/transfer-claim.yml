@@ -8,12 +8,15 @@ info:
 
     # Sequence Diagrams
     **Onboarding Creditor**
+
     <a href="./specifications/transfer-claim/creditor-onboarding.svg" target="_blank">![Sequence Diagram](./specifications/transfer-claim/creditor-onboarding.svg)</a>
 
     **Onboarding Debtor**
-    <a href="./specifications/transfer-claim/debtor-onboarding.svg" target="_blank">![Sequence Diagram](./specifications/transfer-claim/.svg)</a>
+
+    <a href="./specifications/transfer-claim/debtor-onboarding.svg" target="_blank">![Sequence Diagram](./specifications/transfer-claim.svg)</a>
 
     **Transfer Claim**
+
     <a href="./specifications/transfer-claim/transfer-claim.svg" target="_blank">![Sequence Diagram](./specifications/transfer-claim/transfer-claim.svg)</a>
 
 servers:
