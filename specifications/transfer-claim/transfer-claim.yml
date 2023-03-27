@@ -31,7 +31,7 @@ paths:
       tags:
         - Creditor endpoints
       summary: Create new creditor
-      description: Used to add a new creditor into the system. The Moank service will process it and set the business terms for it
+      description: Used to add a new creditor into the system. The Moank service will process it and set the business terms for it. By "creditor" is meant the current creditor of the claim before the transfer of the claim to Moank. Moank is buying the claim from the creditor. Creditors are usually merchants or other financers that issued the claim in the first place.
       requestBody:
         $ref: "#/components/requestBodies/creditorCreate"
       responses:
@@ -51,7 +51,7 @@ paths:
       tags:
         - Creditor endpoints
       summary: Get creditor
-      description: Used to fetch a previously created creditor and visualise the usage of the agreeded terms
+      description: Used to fetch a previously created creditor and visualise the usage of the agreeded terms.
       parameters:
       - name: creditorId
         in: path
@@ -76,7 +76,7 @@ paths:
       tags:
         - Decision endpoints
       summary: Create new decision
-      description: Request decision on a new debtor for an approved creditor
+      description: Request decision on a new debtor for an approved creditor.
       requestBody:
         $ref: "#/components/requestBodies/decisionCreate"
       responses:
@@ -96,7 +96,7 @@ paths:
       tags:
         - Decision endpoints
       summary: Fetch a decision
-      description: Use to retrive information on a previously created decision
+      description: Use to retrive information on a previously created decision.
       parameters:
       - name: decisionId
         in: path
@@ -121,7 +121,7 @@ paths:
       tags:
         - Account endpoints
       summary: Create an account
-      description: Used to convert a previouly debtor's granted decision in an account to allow the business
+      description: Used to convert a previouly debtor's granted decision in an account to allow the business.
       requestBody:
         $ref: "#/components/requestBodies/accountCreate"
       responses:
@@ -141,7 +141,7 @@ paths:
       tags:
         - Account endpoints
       summary: Fetch an account
-      description: Used to fetch a previously created account and visualise the usage of the agreeded terms
+      description: Used to fetch a previously created account and visualise the usage of the agreeded terms.
       parameters:
       - name: accountId
         in: path
@@ -166,7 +166,7 @@ paths:
       tags:
         - Claim endpoints
       summary: Transfer a claim
-      description: Allow the transfer of a claim between the creditor and the debtor of the account to Moank
+      description: Allow the transfer of a claim between the creditor and the debtor of the account to Moank.
       requestBody:
         $ref: "#/components/requestBodies/claimCreate"
       responses:
@@ -278,7 +278,7 @@ components:
             - product
             properties:
               creditorId:
-                description: Creditor's unique identifier in the system
+                description: Creditor's unique identifier in the system. Creditor to buy the claims from
                 example: "123"
               debtors:
                 type: array
@@ -449,7 +449,7 @@ components:
             properties:
               id:
                 type: string
-                description: Creditor's unique identifier in the system
+                description: Creditor's unique identifier in the system. Creditor to buy the claims from
                 example: "123"
               name:
                 type: string
@@ -530,7 +530,7 @@ components:
                 example: "123"
               creditorId:
                 type: string
-                description: Creditor's unique identifier in the system
+                description: Creditor's unique identifier in the system. Creditor to buy the claims from
                 example: "123"
               debtors:
                 type: array
@@ -647,7 +647,7 @@ components:
                 example: "123"
               creditorId:
                 type: string
-                description: Creditor's unique identifier in the system
+                description: Creditor's unique identifier in the system. Creditor to buy the claims from
                 example: "123"
               debtors:
                 type: array
