@@ -534,7 +534,6 @@ components:
             - id
             - debtors
             - creditorId
-            - product
             - decision
             properties:
               id:
@@ -596,20 +595,6 @@ components:
                         postcode:
                           type: string
                           example: "54321"
-              product:
-                type: object
-                required:
-                  - productId
-                  - currency
-                properties:
-                  productId:
-                    description: Unique identifier of the requested product received by moank
-                    type: string
-                    example: "FI-TPC-123"
-                  currency:
-                    description: Requested currency for the business terms
-                    type: string
-                    example: SEK
               decision:
                 type: object
                 required:
@@ -632,9 +617,6 @@ components:
                   terms:
                     type: object
                     description: Terms about the business agreement with Moank
-                    required:
-                      - limit
-                      - maxLTV
                     properties:
                       limit:
                         type: number
