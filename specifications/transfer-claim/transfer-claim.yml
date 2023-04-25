@@ -633,8 +633,8 @@ components:
             - id
             - debtors
             - creditorId
-            - product
-            - decision
+            - terms
+            - usage
             properties:
               id:
                 type: string
@@ -690,54 +690,43 @@ components:
                           type: string
                         postcode:
                           type: string
-              product:
+              terms:
                 type: object
+                description: Terms about the business agreement with Moank
                 required:
-                  - productId
+                  - limit
+                  - maxLTV
                   - currency
-                  - terms
-                  - usage
                 properties:
-                  productId:
-                    description: Unique identifier of the requested product received by moank
-                    type: string
-                    example: "FI-TPC-123"
+                  limit:
+                    example: 10000
+                    type: number
+                    minimum: 0
+                  maxLTV:
+                    type: number
+                    example: 5000
+                    minimum: 0
                   currency:
                     description: Requested currency for the business terms
-                    type: string
-                    example: SEK
-                  terms:
-                    type: object
-                    description: Terms about the business agreement with Moank
-                    required:
-                      - limit
-                      - maxLTV
-                    properties:
-                      limit:
-                        example: 10000
-                        type: number
-                        minimum: 0
-                      maxLTV:
-                        type: number
-                        example: 5000
-                        minimum: 0
-                  usage:
-                    type: object
-                    description: Information about the current usage of the agreeded terms
-                    required:
-                      - usedLimit
-                      - currentLTV
-                    properties:
-                      usedLimit:
-                        type: number
-                        minimum: 0
-                        example: 4000
-                      currentLTV:
-                        type: number
-                        description: In percentage
-                        example: 70
-                        minimum: 0
-                        maximum: 100
+                        type: string
+                        example: SEK
+              usage:
+                type: object
+                description: Information about the current usage of the agreeded terms
+                required:
+                  - usedLimit
+                  - currentLTV
+                properties:
+                  usedLimit:
+                    type: number
+                    minimum: 0
+                    example: 4000
+                  currentLTV:
+                    type: number
+                    description: In percentage
+                    example: 70
+                    minimum: 0
+                    maximum: 100
 
     claim:
       description: Successful operation
