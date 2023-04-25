@@ -420,6 +420,18 @@ components:
                       type: string
                       description: The unit measurement of the article. This is used to have a better description when the article is not a single countable object
                       example: "kilogram"
+              extra:
+                type: object
+                properties:
+                  claimReference:
+                    description: Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier is the payment reference of the invoice issued by the creditor
+                    example: 'CLM-2023-001'
+                  issueDate:
+                    description: Date when the claim has been issued by the creditor in ISO format
+                    example: '2023-04-25T08:00:00.000Z'
+                  termsOfPayment:
+                    description: Repayment period of the claim from the issued date
+                    example: 60
               financing:
                 type: object
                 properties:
