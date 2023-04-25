@@ -378,7 +378,7 @@ components:
             properties:
               accountId:
                 type: string
-                description: Account's unique identifier
+                description: Account's unique identifier. This identify the creditor and debtor(s) connected to the claim
                 example: "123"
               lineItems:
                 type: array
@@ -741,7 +741,7 @@ components:
             properties:
               accountId:
                 type: string
-                description: Account's unique identifier
+                description: Account's unique identifier. This identify the creditor and debtor(s) connected to the claim
                 example: "123"
               lineItems:
                 type: array
