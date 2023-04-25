@@ -281,6 +281,7 @@ components:
                 description: Creditor's unique identifier in the system. Creditor to buy the claims from
                 example: "123"
               debtors:
+                description: List of debtors the are related to the claims to transfer. e.g. If the claim is an invoice, it will be the debtor reported in the document. If the claim is a loan with multiple applicants, the debtors will be all the applicants in the loan agreement.
                 type: array
                 items:
                   type: object
