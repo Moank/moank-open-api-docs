@@ -290,7 +290,7 @@ components:
                     - country
                     - name
                     - type
-                    - contanctEmail
+                    - contactEmail
                     - phone
                   properties:
                     name:
@@ -387,7 +387,7 @@ components:
                   required:
                     - amount
                     - vatAmount
-                    - vatPercentage
+                    - vatPercent
                     - unit
                     - quantity
                     - description
