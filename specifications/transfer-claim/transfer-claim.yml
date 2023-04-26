@@ -437,11 +437,11 @@ components:
                 properties:
                   amount:
                     description: Amount to finance of the claim total amount
-                    minimun: 0
+                    minimum: 0
                     example: 18000
                   ltv:
                     description: Percentage to finance of the claim total amount
-                    minimun: 0
+                    minimum: 0
                     example: 90
 
   responses:
@@ -708,8 +708,8 @@ components:
                     minimum: 0
                   currency:
                     description: Requested currency for the business terms
-                        type: string
-                        example: SEK
+                    type: string
+                    example: SEK
               usage:
                 type: object
                 description: Information about the current usage of the agreeded terms
@@ -788,11 +788,11 @@ components:
                 properties:
                   amount:
                     description: Amount to finance of the claim total amount
-                    minimun: 0
+                    minimum: 0
                     example: 18000
                   ltv:
                     description: Percentage to finance of the claim total amount
-                    minimun: 0
+                    minimum: 0
                     example: 90
 
     dataError:
