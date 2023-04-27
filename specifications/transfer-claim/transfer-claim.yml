@@ -457,6 +457,7 @@ components:
               - country
               - name
               - type
+              - status
               - contactEmail
               - phone
             properties:
@@ -483,6 +484,14 @@ components:
                 enum:
                   - company
                   - private
+              status:
+                description: Status of creditor decision
+                type: string
+                example: pending
+                enum:
+                  - denied
+                  - pending
+                  - granted
               contactEmail:
                 type: string
                 description: Email used to contact the creditor
