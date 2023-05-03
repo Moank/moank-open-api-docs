@@ -55,7 +55,6 @@ paths:
       parameters:
       - name: creditorId
         in: path
-        description: something
         required: true
         schema:
           type: string
@@ -100,7 +99,6 @@ paths:
       parameters:
       - name: decisionId
         in: path
-        description: something
         required: true
         schema:
           type: string
@@ -145,7 +143,6 @@ paths:
       parameters:
       - name: accountId
         in: path
-        description: something
         required: true
         schema:
           type: string
@@ -181,30 +178,29 @@ paths:
       security:
       - basic_auth: []
 
-  # /claim/{accountId}:
-  #   get:
-  #     tags:
-  #       - Claim endpoints
-  #     summary: something
-  #     description: something
-  #     parameters:
-  #     - name: accountId
-  #       in: path
-  #       description: something
-  #       required: true
-  #       schema:
-  #         type: string
-  #     responses:
-  #       200:
-  #         $ref: '#/components/responses/claim'
-  #       400:
-  #         $ref: "#/components/responses/dataError"
-  #       401:
-  #         $ref: "#/components/responses/authError"
-  #       500:
-  #         $ref: "#/components/responses/serverError"
-  #     security:
-  #     - basic_auth: []
+  /claim/{claimId}:
+    get:
+      tags:
+        - Claim endpoints
+      summary: Fetch a claim
+      description: Use to retrive information on a previously created claim.
+      parameters:
+      - name: claimId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          $ref: '#/components/responses/claim'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
 
 components:
   requestBodies:
@@ -747,6 +743,7 @@ components:
             - accountId
             - lineItems
             - financing
+            - claimStatus
             properties:
               accountId:
                 type: string
@@ -795,6 +792,14 @@ components:
               financing:
                 type: object
                 properties:
+                  financingStatus:
+                    type: string
+                    description: Status of the claim financing
+                    enum:
+                      - referred
+                      - granted
+                      - denied
+                    example: granted
                   amount:
                     description: Amount to finance of the claim total amount
                     minimum: 0
@@ -803,7 +808,31 @@ components:
                     description: Percentage to finance of the claim total amount
                     minimum: 0
                     example: 90
-
+              claimStatus:
+                type: string
+                description: Status of claim
+                enum:
+                  - paid
+                  - waiting-for-payment
+                  - not-invoiced
+                  - late
+                example: not-invoiced
+              extra:
+                type: object
+                properties:
+                  claimReference:
+                    type: string
+                    description: Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier is the payment reference of the invoice issued by the creditor
+                    example: CLM-2023-001
+                  termsOfPayment:
+                    type: number
+                    description: Repayment period of the claim from the issued date
+                    example: 60
+                  issueDate:
+                    type: string
+                    description: Date when the claim has been issued by the creditor in ISO format
+                    example: '2023-04-28T12:18:06.849Z'
+                    format: date
     dataError:
       description: Invalid data
       content:
