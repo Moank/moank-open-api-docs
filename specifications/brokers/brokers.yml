@@ -22,6 +22,7 @@ info:
 
     Event |Description  |Extra information
     ------|-------------|-----------------
+    `submitted`         |Triggered when the customer has completed the bank flow and has sent all the required information.
     `debt-notice-sent`  |Triggered when Moank sends the debt notice to the customer. This mean that the customer went through all the routine checks performed by Moank's underwriters.|-
     `debt-notice-signed`|Triggered when the customer has signed his debt notice using BankID.  |-
     `paid-out`          |Triggered when Moank has paid out the money to the end customer.  |Paid out amount
