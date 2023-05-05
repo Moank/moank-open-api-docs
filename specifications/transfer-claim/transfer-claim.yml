@@ -265,7 +265,22 @@ components:
                   postcode:
                     type: string
                     example: "12345"
-
+              extraData:
+                description: List of extra information to provide to Moank for the decision process based on the agreement
+                type: array
+                items:
+                  type: object
+                  required:
+                    - dataFormat
+                    - data
+                  properties:
+                    dataFormat:
+                      type: string
+                      description: Enum provided by Moank based on the agreement
+                      example: "JSON-UC"
+                    data:
+                      description: The type and format of this field depends on the `dataFormat` value
+                      type: string
     decisionCreate:
       required: true
       content:
