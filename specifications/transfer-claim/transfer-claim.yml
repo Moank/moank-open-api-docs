@@ -310,6 +310,7 @@ components:
             - product
             properties:
               creditorId:
+                type: string
                 description: Creditor's unique identifier in the system. Creditor to buy the claims from
                 example: "123"
               debtors:
@@ -843,11 +844,16 @@ components:
           schema:
             type: object
             required:
+            - id
             - accountId
             - lineItems
             - financing
             - claimStatus
             properties:
+              id:
+                type: string
+                description: Claim's unique identifier. This identify the claim and could be used in a later stage to report a payment on it
+                example: "123"
               accountId:
                 type: string
                 description: Account's unique identifier. This identify the creditor and debtor(s) connected to the claim
