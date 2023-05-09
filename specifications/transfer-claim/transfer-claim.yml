@@ -281,6 +281,22 @@ components:
                   postcode:
                     type: string
                     example: "12345"
+              extraData:
+                description: List of extra information to provide to Moank for the decision process based on the agreement
+                type: array
+                items:
+                  type: object
+                  required:
+                    - dataFormat
+                    - data
+                  properties:
+                    dataFormat:
+                      type: string
+                      description: Enum provided by Moank based on the agreement
+                      example: "JSON-UC"
+                    data:
+                      description: The type and format of this field depends on the `dataFormat` value
+                      type: string
 
     decisionCreate:
       required: true
@@ -294,6 +310,7 @@ components:
             - product
             properties:
               creditorId:
+                type: string
                 description: Creditor's unique identifier in the system. Creditor to buy the claims from
                 example: "123"
               debtors:
@@ -352,6 +369,22 @@ components:
                         postcode:
                           type: string
                           example: "54321"
+                    extraData:
+                      description: List of extra information to provide to Moank for the decision process based on the agreement
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - dataFormat
+                          - data
+                        properties:
+                          dataFormat:
+                            type: string
+                            description: Enum provided by Moank based on the agreement
+                            example: "JSON-UC"
+                          data:
+                            description: The type and format of this field depends on the `dataFormat` value
+                            type: string
               product:
                 type: object
                 required:
@@ -811,11 +844,16 @@ components:
           schema:
             type: object
             required:
+            - id
             - accountId
             - lineItems
             - financing
             - claimStatus
             properties:
+              id:
+                type: string
+                description: Claim's unique identifier. This identify the claim and could be used in a later stage to report a payment on it
+                example: "123"
               accountId:
                 type: string
                 description: Account's unique identifier. This identify the creditor and debtor(s) connected to the claim
