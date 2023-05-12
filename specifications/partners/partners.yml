@@ -42,7 +42,7 @@ info:
     ------|-----------
     `submitted` |Triggered when the customer has completed the bank flow and has sent all the required information.
     `granted` |Triggered when the customer went through all the checks performed by Moank's underwriters.
-    `signed`  |Triggered when the customer has signed his debt notice using BankID.
+    `agreement-signed`  |Triggered when the customer has signed his debt notice using BankID.
     `payed-out`|Triggered when Moank has paid out the money to the end customer or the Partner.
     `denied`   |Triggered when Moank denies a customer because of one of the routine checks performed by Moank's underwriters.
     `expired` |Triggered when the customer’s application has expired. If not paid out, an application expires 30 days after being created.
