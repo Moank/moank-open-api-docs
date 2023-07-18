@@ -20,9 +20,9 @@ info:
     <a href="./specifications/transfer-claim/transfer-claim.svg" target="_blank">![Sequence Diagram](./specifications/transfer-claim/transfer-claim.svg)</a>
 
 servers:
-- url: https://api.moank.se/1.0
+- url: https://api.moank.se/api/hooks/factoring
   description: Production server
-- url: https://staging.api.moank.se/1.0
+- url: https://staging.api.moank.se/api/hooks/factoring/
   description: Staging server
 
 paths:
