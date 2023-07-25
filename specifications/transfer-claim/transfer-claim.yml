@@ -253,9 +253,9 @@ components:
               type:
                 description: Type of the creditor
                 type: string
-                example: company
+                example: business
                 enum:
-                  - company
+                  - business
                   - private
               contactEmail:
                 type: string
@@ -341,9 +341,9 @@ components:
                     type:
                       description: Type of the debtor
                       type: string
-                      example: company
+                      example: business
                       enum:
-                        - company
+                        - business
                         - private
                     contactEmail:
                       type: string
@@ -579,9 +579,9 @@ components:
               type:
                 description: Type of the creditor
                 type: string
-                example: company
+                example: business
                 enum:
-                  - company
+                  - business
                   - private
               status:
                 description: Status of creditor decision
