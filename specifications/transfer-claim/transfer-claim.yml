@@ -51,7 +51,7 @@ paths:
       tags:
         - Creditor endpoints
       summary: Get creditor
-      description: Used to fetch a previously created creditor and visualise the usage of the agreeded terms.
+      description: Used to fetch a previously created creditor and visualise the usage of the agreed terms.
       parameters:
       - name: creditorId
         in: path
@@ -148,7 +148,7 @@ paths:
       tags:
         - Account endpoints
       summary: Create an account
-      description: Used to convert a previouly debtor's granted decision in an account to allow the business.
+      description: Used to convert a previously debtor's granted decision in an account to allow the business.
       requestBody:
         $ref: "#/components/requestBodies/accountCreate"
       responses:
@@ -168,7 +168,7 @@ paths:
       tags:
         - Account endpoints
       summary: Fetch an account
-      description: Used to fetch a previously created account and visualise the usage of the agreeded terms.
+      description: Used to fetch a previously created account and visualise the usage of the agreed terms.
       parameters:
       - name: accountId
         in: path
@@ -212,7 +212,7 @@ paths:
       tags:
         - Claim endpoints
       summary: Fetch a claim
-      description: Use to retrive information on a previously created claim.
+      description: Use to retrieve information on a previously created claim.
       parameters:
       - name: claimId
         in: path
