@@ -285,7 +285,6 @@ components:
                 example: business
                 enum:
                   - business
-                  - private
               contactEmail:
                 type: string
                 description: Email used to contact the creditor
@@ -373,7 +372,8 @@ components:
                       example: business
                       enum:
                         - business
-                        - private
+                        - private (deprecated)
+                        - consumer
                     contactEmail:
                       type: string
                       description: Email used to contact the debtor
@@ -611,7 +611,6 @@ components:
                 example: business
                 enum:
                   - business
-                  - private
               status:
                 description: Status of creditor decision
                 type: string
