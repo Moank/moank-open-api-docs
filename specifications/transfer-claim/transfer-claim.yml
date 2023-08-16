@@ -1176,7 +1176,7 @@ components:
       properties:
         description:
           type: string
-          description: Field ... should be defined
+          description: Human readable description of the error like "Field ... should be defined"
 
     duplicatedIdentifierDetail:
       type: object
@@ -1187,10 +1187,10 @@ components:
       properties:
         description:
           type: string
-          description: Creditor already existing in the system
+          description: Human readable description of the error like "Creditor already existing in the system"
         code:
+          description: duplicated-identifier
           type: string
-          example: duplicated-identifier
         extra:
           type: object
           required:
