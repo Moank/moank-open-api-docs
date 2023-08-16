@@ -39,6 +39,8 @@ paths:
           $ref: '#/components/responses/creditor'
         400:
           $ref: "#/components/responses/dataError"
+        409:
+          $ref: "#/components/responses/conflictError"
         401:
           $ref: "#/components/responses/authError"
         500:
@@ -112,6 +114,8 @@ paths:
           $ref: '#/components/responses/decision'
         400:
           $ref: "#/components/responses/dataError"
+        409:
+          $ref: "#/components/responses/conflictError"
         401:
           $ref: "#/components/responses/authError"
         500:
@@ -1038,6 +1042,13 @@ components:
           schema:
             $ref: "#/components/schemas/dataError"
 
+    conflictError:
+      description: Request cannot be process due to conflicts between data in the request and data in the system
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/conflictError"
+
     authError:
       description: Invalid authentication
       content:
@@ -1085,6 +1096,14 @@ components:
           description: List of errors messages to describe the issue in more details
           items:
             type: string
+        details:
+          type: array
+          items:
+            type: object
+            description: Details of the error with additional information based on the error code
+            oneOf:
+              - $ref: '#/components/schemas/defaultDetail'
+              - $ref: '#/components/schemas/duplicatedIdentifierDetail'
 
     dataError:
       allOf:
@@ -1094,11 +1113,21 @@ components:
             status:
               example: 400
             message:
-              example: INVALID_REQUEST
+              example: Data Error
             errors:
               type: array
               items:
                 example: Field ... should be defined
+
+    conflictError:
+      allOf:
+        - $ref: "#/components/schemas/error"
+        - type: object
+          properties:
+            status:
+              example: 409
+            message:
+              example: Conflict
 
     authError:
       allOf:
@@ -1139,6 +1168,38 @@ components:
               example: 503
             message:
               example: Service unavailable
+
+    defaultDetail:
+      type: object
+      required:
+      - description
+      properties:
+        description:
+          type: string
+          description: Field ... should be defined
+
+    duplicatedIdentifierDetail:
+      type: object
+      required:
+      - description
+      - code
+      - extra
+      properties:
+        description:
+          type: string
+          description: Creditor already existing in the system
+        code:
+          type: string
+          example: duplicated-identifier
+        extra:
+          type: object
+          required:
+            - resourceId
+          properties:
+            resourceId:
+              type: string
+              description: Id of the resource already existing with the same identifier sent in the request
+
 
   securitySchemes:
     basic_auth:
