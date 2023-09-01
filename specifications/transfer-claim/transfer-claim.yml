@@ -586,8 +586,6 @@ components:
               - name
               - type
               - status
-              - contactEmail
-              - phone
             properties:
               id:
                 type: string
