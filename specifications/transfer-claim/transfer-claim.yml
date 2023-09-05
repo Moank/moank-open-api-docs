@@ -630,10 +630,17 @@ components:
                 enum:
                   - business
               status:
-                description: Status of creditor decision
+                description: |
+                  Status of creditor decision
+                  Possible values are
+                  * created: The application has been created and queued for processing but not processed yet
+                  * denied: The application has been denied
+                  * pending: The application has been refered
+                  * granted: The application has been granted
                 type: string
                 example: pending
                 enum:
+                  - created
                   - denied
                   - pending
                   - granted
@@ -819,10 +826,17 @@ components:
                   - currency
                 properties:
                   status:
-                    description: Status of the decision process
+                    description: |
+                      Status of the decision process
+                      Possible values are
+                      * created (The application has been created and queued for processing but not processed yet)
+                      * denied (The application has been denied)
+                      * pending (The application has been refered)
+                      * granted (The application has been granted)
                     type: string
                     example: granted
                     enum:
+                      - created
                       - granted
                       - referred
                       - denied
@@ -1010,8 +1024,15 @@ components:
                 properties:
                   financingStatus:
                     type: string
-                    description: Status of the claim financing
+                    description: |
+                      Status of the claim financing
+                      Possible values are
+                      * created (The application has been created and queued for processing but not processed yet)
+                      * denied (The application has been denied)
+                      * pending (The application has been refered)
+                      * granted (The application has been granted)
                     enum:
+                      - created
                       - referred
                       - granted
                       - denied
