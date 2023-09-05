@@ -328,7 +328,7 @@ components:
                       example: "JSON-UC"
                     data:
                       description: The type and format of this field depends on the `dataFormat` value
-                      type: string
+                      type: object
 
     decisionCreate:
       required: true
@@ -417,7 +417,7 @@ components:
                             example: "JSON-UC"
                           data:
                             description: The type and format of this field depends on the `dataFormat` value
-                            type: string
+                            type: object
               product:
                 type: object
                 required:
@@ -525,6 +525,22 @@ components:
                     description: Percentage to finance of the claim total amount
                     minimum: 0
                     example: 90
+              extraData:
+                description: List of extra information to provide to Moank for the decision process based on the agreement
+                type: array
+                items:
+                  type: object
+                  required:
+                    - dataFormat
+                    - data
+                  properties:
+                    dataFormat:
+                      type: string
+                      description: Enum provided by Moank based on the agreement
+                      example: "DATA-V1"
+                    data:
+                      description: The type and format of this field depends on the `dataFormat` value
+                      type: object
 
     paymentCreate:
       required: true
