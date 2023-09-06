@@ -631,12 +631,12 @@ components:
                   - business
               status:
                 description: |
-                  Status of creditor decision
+                  Status of creditor's financing decision
                   Possible values are
-                  * created: The application has been created and queued for processing but not processed yet
-                  * denied: The application has been denied
-                  * pending: The application has been refered
-                  * granted: The application has been granted
+                  * created: The creditor information has been created and queued for processing
+                  * denied: The Creditor has been denied
+                  * pending: The Creditor decision requires manual review
+                  * granted: The Creditor has been granted
                 type: string
                 example: pending
                 enum:
@@ -827,18 +827,18 @@ components:
                 properties:
                   status:
                     description: |
-                      Status of the decision process
+                      Status of the Decision process
                       Possible values are
-                      * created (The application has been created and queued for processing but not processed yet)
-                      * denied (The application has been denied)
-                      * pending (The application has been refered)
-                      * granted (The application has been granted)
+                      * created: The Decision data has been created and queued for processing
+                      * denied: The Decision has been denied
+                      * pending: The Decision requires manual review
+                      * granted:  The Decision has been granted
                     type: string
                     example: granted
                     enum:
                       - created
                       - granted
-                      - referred
+                      - pending
                       - denied
                   currency:
                     description: Currency for the business terms in ISO 4217 format
@@ -1025,15 +1025,15 @@ components:
                   financingStatus:
                     type: string
                     description: |
-                      Status of the claim financing
+                      Status of the Claim financing
                       Possible values are
-                      * created (The application has been created and queued for processing but not processed yet)
-                      * denied (The application has been denied)
-                      * pending (The application has been refered)
-                      * granted (The application has been granted)
+                      * created: The Claim has been created and queued for processing
+                      * denied: The Claim financement has been denied
+                      * pending: The Claim financement requires a manual review
+                      * granted: The Claim financement has been granted
                     enum:
                       - created
-                      - referred
+                      - pending
                       - granted
                       - denied
                     example: granted
