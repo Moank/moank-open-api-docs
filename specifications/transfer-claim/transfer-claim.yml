@@ -630,10 +630,17 @@ components:
                 enum:
                   - business
               status:
-                description: Status of creditor decision
+                description: |
+                  Status of creditor's financing decision
+                  Possible values are
+                  * created: The creditor information has been created and queued for processing
+                  * denied: The Creditor has been denied
+                  * pending: The Creditor decision requires manual review
+                  * granted: The Creditor has been granted
                 type: string
                 example: pending
                 enum:
+                  - created
                   - denied
                   - pending
                   - granted
@@ -819,12 +826,19 @@ components:
                   - currency
                 properties:
                   status:
-                    description: Status of the decision process
+                    description: |
+                      Status of the Decision process
+                      Possible values are
+                      * created: The Decision data has been created and queued for processing
+                      * denied: The Decision has been denied
+                      * pending: The Decision requires manual review
+                      * granted:  The Decision has been granted
                     type: string
                     example: granted
                     enum:
+                      - created
                       - granted
-                      - referred
+                      - pending
                       - denied
                   currency:
                     description: Currency for the business terms in ISO 4217 format
@@ -1010,9 +1024,16 @@ components:
                 properties:
                   financingStatus:
                     type: string
-                    description: Status of the claim financing
+                    description: |
+                      Status of the Claim financing
+                      Possible values are
+                      * created: The Claim has been created and queued for processing
+                      * denied: The Claim financement has been denied
+                      * pending: The Claim financement requires a manual review
+                      * granted: The Claim financement has been granted
                     enum:
-                      - referred
+                      - created
+                      - pending
                       - granted
                       - denied
                     example: granted
