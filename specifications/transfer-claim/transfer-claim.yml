@@ -691,61 +691,7 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            required:
-              - financer
-              - currency
-              - createdAt
-              - closedAt
-              - payoutReference
-              - transactions
-            properties:
-              financer:
-                description: Name that should appear on the bank transaction received by the creditor.
-                type: string
-                example: Moank AB
-              currency:
-                  type: string
-                  description: Currency of the payment received by the creditor in ISO 4217 format
-                  example: "SEK"
-              createdAt:
-                description: Date the transactions started to accumulate towards the settlement
-                type: string
-                example: '2023-04-28T12:18:06.849Z'
-                format: date
-              closedAt:
-                description: Date the payout was issued
-                type: string
-                example: '2023-04-28T12:18:06.849Z'
-                format: date
-              payoutReference:
-                description: The payout reference
-                type: string
-                example: 'A fancy reference'
-              transactions:
-                type: array
-                description: Transactions that lead to the settlement
-                items:
-                  type: object
-                  required:
-                    - amount
-                    - date
-                    - description
-                  properties:
-                    amount:
-                      type: number
-                      description: Amount of the transaction
-                      example: '10000'
-                    date:
-                      description: Date the transaction
-                      type: string
-                      example: '2023-04-28T12:18:06.849Z'
-                      format: date
-                    description:
-                      description: Details explanation of the reason for the transaction
-                      type: string
-                      example: 'A fancy description'
-
+            $ref: "#/components/schemas/settlement"
 
     decision:
       description: Successful operation
@@ -1113,6 +1059,62 @@ components:
             $ref: "#/components/schemas/serviceError"
 
   schemas:
+    settlement:
+      type: object
+      required:
+        - financer
+        - currency
+        - createdAt
+        - closedAt
+        - payoutReference
+        - transactions
+      properties:
+        financer:
+          description: Name that should appear on the bank transaction received by the creditor.
+          type: string
+          example: Moank AB
+        currency:
+            type: string
+            description: Currency of the payment received by the creditor in ISO 4217 format
+            example: "SEK"
+        createdAt:
+          description: Date the transactions started to accumulate towards the settlement
+          type: string
+          example: '2023-04-28T12:18:06.849Z'
+          format: date
+        closedAt:
+          description: Date the payout was issued
+          type: string
+          example: '2023-04-28T12:18:06.849Z'
+          format: date
+        payoutReference:
+          description: The payout reference
+          type: string
+          example: 'A fancy reference'
+        transactions:
+          type: array
+          description: Transactions that lead to the settlement
+          items:
+            type: object
+            required:
+              - amount
+              - date
+              - description
+            properties:
+              amount:
+                type: number
+                description: Amount of the transaction
+                example: '10000'
+              date:
+                description: Date the transaction
+                type: string
+                example: '2023-04-28T12:18:06.849Z'
+                format: date
+              description:
+                description: Details explanation of the reason for the transaction
+                type: string
+                example: 'A fancy description'
+
     error:
       type: object
       required:
