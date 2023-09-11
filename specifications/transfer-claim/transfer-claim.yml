@@ -93,7 +93,7 @@ paths:
             example: 0
         - in: query
           name: _page
-          description: A cursor for use in pagination. It defines the size of the list. For instance, if page is 20, start is 20 and there are 100 objects in the system, you will receive 20 objects (20-39).
+          description: A cursor for use in pagination. It defines the size of the list. For instance, if _page is 20, start is 20 and there are 100 objects in the system, you will receive 20 objects (20-39). The maximun value for a page is 25.
           schema:
             type: number
             default: 10
