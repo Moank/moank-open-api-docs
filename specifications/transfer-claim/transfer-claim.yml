@@ -77,13 +77,27 @@ paths:
       tags:
         - Creditor endpoints
       summary: Get list of settlement details for payouts
-      description: Used to fetch the list of details for payouts to the creditor.
+      description: Used to fetch the list of details for payouts to the creditor. The list is sorted with the most recent payouts first.
       parameters:
         - name: creditorId
           in: path
           required: true
           schema:
             type: string
+        - in: query
+          name: _start
+          description: A cursor for use in pagination. The counting convention starts from 0. It defines your place in the list. For instance, if start is 50 and there are 100 objects in the system, you will receive 50 objects (50-99).
+          schema:
+            type: number
+            default: 0
+            example: 0
+        - in: query
+          name: _page
+          description: A cursor for use in pagination. It defines the size of the list. For instance, if page is 20, start is 20 and there are 100 objects in the system, you will receive 20 objects (20-39).
+          schema:
+            type: number
+            default: 10
+            example: 10
       responses:
         200:
           $ref: '#/components/responses/settlementList'
