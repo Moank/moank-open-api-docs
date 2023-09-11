@@ -72,6 +72,44 @@ paths:
       security:
       - basic_auth: []
 
+  /creditor/{creditorId}/settlement:
+    get:
+      tags:
+        - Creditor endpoints
+      summary: Get list of settlement details for payouts
+      description: Used to fetch the list of details for payouts to the creditor. The list is sorted with the most recent payouts first.
+      parameters:
+        - name: creditorId
+          in: path
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: _start
+          description: A cursor for use in pagination. The counting convention starts from 0. It defines your place in the list. For instance, if start is 50 and there are 100 objects in the system, you will receive 50 objects (50-99).
+          schema:
+            type: number
+            default: 0
+            example: 0
+        - in: query
+          name: _page
+          description: A cursor for use in pagination. It defines the size of the list. For instance, if _page is 20, start is 20 and there are 100 objects in the system, you will receive 20 objects (20-39). The maximun value for a page is 25.
+          schema:
+            type: number
+            default: 10
+            example: 10
+      responses:
+        200:
+          $ref: '#/components/responses/settlementList'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
   /creditor/{creditorId}/settlement/{payoutReference}:
     get:
       tags:
@@ -691,61 +729,16 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            required:
-              - financer
-              - currency
-              - createdAt
-              - closedAt
-              - payoutReference
-              - transactions
-            properties:
-              financer:
-                description: Name that should appear on the bank transaction received by the creditor.
-                type: string
-                example: Moank AB
-              currency:
-                  type: string
-                  description: Currency of the payment received by the creditor in ISO 4217 format
-                  example: "SEK"
-              createdAt:
-                description: Date the transactions started to accumulate towards the settlement
-                type: string
-                example: '2023-04-28T12:18:06.849Z'
-                format: date
-              closedAt:
-                description: Date the payout was issued
-                type: string
-                example: '2023-04-28T12:18:06.849Z'
-                format: date
-              payoutReference:
-                description: The payout reference
-                type: string
-                example: 'A fancy reference'
-              transactions:
-                type: array
-                description: Transactions that lead to the settlement
-                items:
-                  type: object
-                  required:
-                    - amount
-                    - date
-                    - description
-                  properties:
-                    amount:
-                      type: number
-                      description: Amount of the transaction
-                      example: '10000'
-                    date:
-                      description: Date the transaction
-                      type: string
-                      example: '2023-04-28T12:18:06.849Z'
-                      format: date
-                    description:
-                      description: Details explanation of the reason for the transaction
-                      type: string
-                      example: 'A fancy description'
+            $ref: "#/components/schemas/settlement"
 
+    settlementList:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/settlement"
 
     decision:
       description: Successful operation
@@ -1070,6 +1063,7 @@ components:
                     description: Date when the claim has been issued by the creditor in ISO format
                     example: '2023-04-28T12:18:06.849Z'
                     format: date
+
     dataError:
       description: Invalid data
       content:
@@ -1113,6 +1107,62 @@ components:
             $ref: "#/components/schemas/serviceError"
 
   schemas:
+    settlement:
+      type: object
+      required:
+        - financer
+        - currency
+        - createdAt
+        - closedAt
+        - payoutReference
+        - transactions
+      properties:
+        financer:
+          description: Name that should appear on the bank transaction received by the creditor.
+          type: string
+          example: Moank AB
+        currency:
+            type: string
+            description: Currency of the payment received by the creditor in ISO 4217 format
+            example: "SEK"
+        createdAt:
+          description: Date the transactions started to accumulate towards the settlement
+          type: string
+          example: '2023-04-28T12:18:06.849Z'
+          format: date
+        closedAt:
+          description: Date the payout was issued
+          type: string
+          example: '2023-04-28T12:18:06.849Z'
+          format: date
+        payoutReference:
+          description: The payout reference
+          type: string
+          example: 'A fancy reference'
+        transactions:
+          type: array
+          description: Transactions that lead to the settlement
+          items:
+            type: object
+            required:
+              - amount
+              - date
+              - description
+            properties:
+              amount:
+                type: number
+                description: Amount of the transaction
+                example: '10000'
+              date:
+                description: Date the transaction
+                type: string
+                example: '2023-04-28T12:18:06.849Z'
+                format: date
+              description:
+                description: Details explanation of the reason for the transaction
+                type: string
+                example: 'A fancy description'
+
     error:
       type: object
       required:
