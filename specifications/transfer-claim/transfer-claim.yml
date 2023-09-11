@@ -72,6 +72,30 @@ paths:
       security:
       - basic_auth: []
 
+  /creditor/{creditorId}/settlement:
+    get:
+      tags:
+        - Creditor endpoints
+      summary: Get list of settlement details for payouts
+      description: Used to fetch the list of details for payouts to the creditor.
+      parameters:
+        - name: creditorId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/settlementList'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
   /creditor/{creditorId}/settlement/{payoutReference}:
     get:
       tags:
@@ -693,6 +717,15 @@ components:
           schema:
             $ref: "#/components/schemas/settlement"
 
+    settlementList:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/settlement"
+
     decision:
       description: Successful operation
       content:
@@ -1016,6 +1049,7 @@ components:
                     description: Date when the claim has been issued by the creditor in ISO format
                     example: '2023-04-28T12:18:06.849Z'
                     format: date
+
     dataError:
       description: Invalid data
       content:
