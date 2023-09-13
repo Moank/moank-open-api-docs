@@ -544,8 +544,12 @@ components:
                 type: object
                 properties:
                   claimReference:
-                    description: Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier is the payment reference of the invoice issued by the creditor
+                    description: Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier of the invoice issued by the creditor
                     example: 'CLM-2023-001'
+                  paymentReference:
+                    type: string
+                    description: Creditor unique payment reference for the claim, if the payment reference is missing the claim reference identifier will be used as payment reference. e.g. If an invoice is the transfered claim, the reference the customer have to use in the payment for the invoice should be used.
+                    example: PAY-2023-001
                   issueDate:
                     description: Date when the claim has been issued by the creditor in ISO format
                     example: '2023-04-25T08:00:00.000Z'
@@ -1052,8 +1056,12 @@ components:
                 properties:
                   claimReference:
                     type: string
-                    description: Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier is the payment reference of the invoice issued by the creditor
+                    description: Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier of the invoice issued by the creditor
                     example: CLM-2023-001
+                  paymentReference:
+                    type: string
+                    description: Creditor unique payment reference for the claim, if the payment reference is missing the claim reference identifier will be used as payment reference. e.g. If an invoice is the transfered claim, the reference the customer have to use in the payment for the invoice should be used.
+                    example: PAY-2023-001
                   termsOfPayment:
                     type: number
                     description: Repayment period of the claim from the issued date
