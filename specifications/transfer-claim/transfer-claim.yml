@@ -321,6 +321,10 @@ components:
                 description: Country where the national identifier is registered
                 type: string
                 example: SE
+              alias:
+                description: Unique alias of the creditor in the partner's system. If not provided, a randomly generated one will be assigned
+                type: string
+                example: creditor-123
               type:
                 description: Type of the creditor
                 type: string
@@ -408,6 +412,10 @@ components:
                       description: Country where the national identifier is registered
                       type: string
                       example: SE
+                    alias:
+                      description: Unique alias of the debtor in the partner's system. If not provided, a randomly generated one will be assigned
+                      type: string
+                      example: debtor-123
                     type:
                       description: Type of the debtor
                       type: string
@@ -648,6 +656,7 @@ components:
               - name
               - type
               - status
+              - alias
             properties:
               id:
                 type: string
@@ -665,6 +674,10 @@ components:
                 description: Country where the national identifier is registered
                 type: string
                 example: SE
+              alias:
+                description: Unique alias of the creditor in the partner's system. If it has not been provided, a randomly generated one has been assigned
+                type: string
+                example: creditor-123
               type:
                 description: Type of the creditor
                 type: string
@@ -776,6 +789,7 @@ components:
                     - type
                     - contanctEmail
                     - phone
+                    - alias
                   properties:
                     id:
                       type: string
@@ -783,12 +797,16 @@ components:
                       example: "123"
                     name:
                       type: string
-                      description: Full business name of the creditor
+                      description: Full business name of the debtor
                       example: Debtor AB
                     nationalIdentifier:
                       type: string
                     country:
                       type: string
+                    alias:
+                      description: Unique alias of the debtor in the partner's system. If it has not been provided, a randomly generated one has been assigned
+                      type: string
+                      example: debtor-123
                     type:
                       type: string
                     contactEmail:
@@ -883,6 +901,7 @@ components:
                     - type
                     - contanctEmail
                     - phone
+                    - alias
                   properties:
                     id:
                       type: string
@@ -890,12 +909,16 @@ components:
                       example: "123"
                     name:
                       type: string
-                      description: Full business name of the creditor
+                      description: Full business name of the debtor
                       example: Debtor AB
                     nationalIdentifier:
                       type: string
                     country:
                       type: string
+                    alias:
+                      description: Unique alias of the debtor in the partner's system. If it has not been provided, a randomly generated one has been assigned
+                      type: string
+                      example: debtor-123
                     type:
                       type: string
                     contactEmail:
