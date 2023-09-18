@@ -273,6 +273,31 @@ paths:
       security:
       - basic_auth: []
 
+  /claim/{claimId}/withdraw:
+    put:
+      tags:
+        - Claim endpoints
+      summary: Withdraw a claim financing request
+      description: |
+        Use to withdraw a claim financing request as long as it is not in a final status such as: granted or denied
+      parameters:
+      - name: claimId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          $ref: '#/components/responses/claim'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
   /payment:
     post:
       tags:
