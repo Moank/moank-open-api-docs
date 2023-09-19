@@ -185,6 +185,33 @@ paths:
       security:
       - basic_auth: []
 
+  /decision/{decisionId}/withdraw:
+    put:
+      tags:
+        - Decision endpoints
+      summary: Withdraw a decision request
+      description: |
+        Use to withdraw a decision request as long as it is not in a final status such as: granted or denied
+      parameters:
+      - name: decisionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          $ref: '#/components/responses/decision'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        409:
+          $ref: "#/components/responses/conflictError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
   /account:
     post:
       tags:
