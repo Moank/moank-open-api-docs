@@ -1,10 +1,10 @@
 openapi: 3.0.0
 info:
-  title: Moank Transfer of Claim API
+  title: Moank Factoring API
   version: 1.0.0
   description: |
     Draft API
-    The Moank Transfer of Claim API can be used by Moank's partners in order to provide financial products to their end customers within their own application/website.
+    The Moank Factoring API can be used by Moank's partners in order to provide financial products to their end customers within their own application/website.
 
     # Sequence Diagrams
     **Onboarding Creditor**
