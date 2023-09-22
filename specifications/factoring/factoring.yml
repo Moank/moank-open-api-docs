@@ -36,7 +36,7 @@ paths:
         $ref: "#/components/requestBodies/creditorCreate"
       responses:
         200:
-          $ref: '#/components/responses/creditor'
+          $ref: "#/components/responses/creditor"
         400:
           $ref: "#/components/responses/dataError"
         409:
@@ -47,6 +47,54 @@ paths:
           $ref: "#/components/responses/serverError"
       security:
       - basic_auth: []
+
+    get:
+      tags:
+        - Creditor endpoints
+      summary: List creditors
+      description: Used to list all creditors owned by the partner.
+      parameters:
+        - in: query
+          name: _start
+          description: A cursor for use in pagination. The counting convention starts from 0. It defines your place on the list. For inscance, if start is 50 and there are 100 objects returned from the request, you will receive 50 objects (50-99).
+          schema:
+            type: number
+            default: 0
+            example: 0
+        - in: query
+          name: _page
+          description: A cursor for use in pagination. It defines the number of items fetched. For instance, if _start is 10, _page is also 10 andthere are 100 objects returned from the request, you will receive 10 objects (10-19). The maximum _page size allowed is 20.
+          schema:
+            type: number
+            default: 10
+            example: 15
+        - in: query
+          name: nationalIdentifier
+          description: A cursor for use in querying. It queries creditors on their nationalIdentifier.
+          schema:
+            type: string
+            example: 'nationalId1234'
+        - in: query
+          name: alias
+          description: A cursor for use in querying. It queries creditors on their alias.
+          schema:
+            type: string
+            example: 'Acme'
+        - in: query
+          name: name
+          description: A cursor for use in querying. It queries creditors on their name.
+          schema:
+            type: string
+            example: 'Acme AB'
+      responses:
+        200:
+          $ref: "#/components/responses/creditors"
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
 
   /creditor/{creditorId}:
     get:
@@ -700,98 +748,16 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            required:
-              - id
-              - nationalIdentifier
-              - country
-              - name
-              - type
-              - status
-              - alias
-            properties:
-              id:
-                type: string
-                description: Creditor's unique identifier in the system. Creditor to buy the claims from
-                example: "123"
-              name:
-                type: string
-                description: Full legal name of the creditor
-                example: Acme AB
-              nationalIdentifier:
-                description: National identifier of the creditor in unique per country
-                type: string
-                example: "5566778899"
-              country:
-                description: Country where the national identifier is registered
-                type: string
-                example: SE
-              alias:
-                description: Unique alias of the creditor in the partner's system. If it has not been provided, a randomly generated one has been assigned
-                type: string
-                example: creditor-123
-              type:
-                description: Type of the creditor
-                type: string
-                example: business
-                enum:
-                  - business
-              status:
-                description: |
-                  Status of creditor's financing decision
-                  Possible values are
-                  * created: The creditor information has been created and queued for processing
-                  * denied: The Creditor has been denied
-                  * pending: The Creditor decision requires manual review
-                  * granted: The Creditor has been granted
-                type: string
-                example: pending
-                enum:
-                  - created
-                  - denied
-                  - pending
-                  - granted
-              contactEmail:
-                type: string
-                description: Email used to contact the creditor
-                example: contact@creditor.com
-              phone:
-                type: string
-                description: Phone number used to contact the creditor
-                example: "+46701234567"
-              mainAddress:
-                type: object
-                description: Address information of the creditor
-                properties:
-                  streetAddress:
-                    type: string
-                    example: Fake Street 123
-                  additionalStreetAddress:
-                    type: string
-                    example: 8th floor
-                  town:
-                    type: string
-                    example: Somewhere
-                  postcode:
-                    type: string
-                    example: "12345"
-              terms:
-                type: object
-                description: Terms about the business agreement with Moank
-                properties:
-                  financingLimit:
-                    type: number
-                    example: 10000
-                  usedFinancingLimit:
-                    type: number
-                    example: 1000
-                  usedFinancingLimitPercentage:
-                    type: number
-                    example: 10
-                  currency:
-                    type: string
-                    description: In ISO 4217 format
-                    example: SEK
+            $ref: "#/components/schemas/creditor"
+
+    creditors:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/creditor"
 
     settlement:
       description: Successful operation
@@ -1190,6 +1156,100 @@ components:
             $ref: "#/components/schemas/serviceError"
 
   schemas:
+    creditor:
+      type: object
+      required:
+              - id
+              - nationalIdentifier
+              - country
+              - name
+              - type
+              - status
+              - alias
+      properties:
+        id:
+          type: string
+          description: Creditor's unique identifier in the system. Creditor to buy the claims from
+          example: "123"
+        name:
+          type: string
+          description: Full legal name of the creditor
+          example: Acme AB
+        nationalIdentifier:
+          description: National identifier of the creditor in unique per country
+          type: string
+          example: "5566778899"
+        country:
+          description: Country where the national identifier is registered
+          type: string
+          example: SE
+        alias:
+          description: Unique alias of the creditor in the partner's system. If it has not been provided, a randomly generated one has been assigned
+          type: string
+          example: creditor-123
+        type:
+          description: Type of the creditor
+          type: string
+          example: business
+          enum:
+            - business
+        status:
+          description: |
+            Status of creditor's financing decision
+            Possible values are
+            * created: The creditor information has been created and queued for processing
+            * denied: The Creditor has been denied
+            * pending: The Creditor decision requires manual review
+            * granted: The Creditor has been granted
+          type: string
+          example: pending
+          enum:
+            - created
+            - denied
+            - pending
+            - granted
+        contactEmail:
+          type: string
+          description: Email used to contact the creditor
+          example: contact@creditor.com
+        phone:
+          type: string
+          description: Phone number used to contact the creditor
+          example: "+46701234567"
+        mainAddress:
+          type: object
+          description: Address information of the creditor
+          properties:
+            streetAddress:
+              type: string
+              example: Fake Street 123
+            additionalStreetAddress:
+              type: string
+              example: 8th floor
+            town:
+              type: string
+              example: Somewhere
+            postcode:
+              type: string
+              example: "12345"
+        terms:
+          type: object
+          description: Terms about the business agreement with Moank
+          properties:
+            financingLimit:
+              type: number
+              example: 10000
+            usedFinancingLimit:
+              type: number
+              example: 1000
+            usedFinancingLimitPercentage:
+              type: number
+              example: 10
+            currency:
+              type: string
+              description: In ISO 4217 format
+              example: SEK
+
     settlement:
       type: object
       required:
