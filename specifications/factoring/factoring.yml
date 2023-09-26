@@ -63,26 +63,26 @@ paths:
             example: 0
         - in: query
           name: _page
-          description: A cursor for use in pagination. It defines the number of items fetched. For instance, if _start is 10, _page is also 10 andthere are 100 objects returned from the request, you will receive 10 objects (10-19). The maximum _page size allowed is 20.
+          description: A cursor for use in pagination. It defines the number of items fetched. For instance, if _start is 10, _page is also 10 and there are 100 objects returned from the request, you will receive 10 objects (10-19). The maximum _page size allowed is 20.
           schema:
             type: number
             default: 10
             example: 15
         - in: query
           name: nationalIdentifier
-          description: A cursor for use in querying. It queries creditors on their nationalIdentifier.
+          description: A filter for use in querying. It queries creditors on their nationalIdentifier.
           schema:
             type: string
             example: 'nationalId1234'
         - in: query
           name: alias
-          description: A cursor for use in querying. It queries creditors on their alias.
+          description: A filter for use in querying. It queries creditors on their alias.
           schema:
             type: string
             example: 'Acme'
         - in: query
           name: name
-          description: A cursor for use in querying. It queries creditors on their name.
+          description: A filter for use in querying. It queries creditors on their name.
           schema:
             type: string
             example: 'Acme AB'
