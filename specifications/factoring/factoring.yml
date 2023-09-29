@@ -1017,6 +1017,11 @@ components:
                 type: string
                 description: Account's unique identifier. This identify the creditor and debtor(s) connected to the claim
                 example: "123"
+              createdAt:
+                type: string
+                description: Date when the claim has been created in ISO format
+                example: '2023-04-28T12:18:06.849Z'
+                format: date
               lineItems:
                 type: array
                 items:
@@ -1083,15 +1088,98 @@ components:
                     description: Percentage to finance of the claim total amount
                     minimum: 0
                     example: 90
+                  fees:
+                    description: Financing fees applied to the claim
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        amount:
+                          type: number
+                          description: The fee amount. If the amount value is negative, the creditor owes the fee to the financer. If the amount value is positive the financer owes the fee to the creditor.
+                          example: -50
+                        date:
+                          type: string
+                          description: The date when the fee was created in ISO format
+                          example: '2023-04-28T12:18:06.849Z'
+                          format: date
+                        feeType:
+                          type: string
+                          description: The type of the fee
+                          example: reminder
+                  financer:
+                    description: Information on the financer of the claim
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: Financer name
+                        example: Acme AB
+                      identifier:
+                        type: string
+                        example: "12345678"
+                      country:
+                        description: Country where the national identifier is registered
+                        type: string
+                        example: SE
+                  financedAt:
+                    type: string
+                    description: Date when the claim was financed in ISO format.
+                    example: '2023-04-28T12:18:06.849Z'
+                    format: date
+                  finacialProduct:
+                    type: string
+                    description: The type of financial product applied to the claim financing
+                    example: undisclosed-factoring-non-recoursing
               claimStatus:
+                deprecated: true
                 type: string
-                description: Status of claim
+                description: |
+                  Status of claim. Deprecated: Moved to claim.status
                 enum:
                   - paid
                   - waiting-for-payment
                   - not-invoiced
                   - late
-                example: not-invoiced
+                example: waiting-for-payment
+              claim:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Status of claim
+                    enum:
+                      - paid
+                      - waiting-for-payment
+                      - not-invoiced
+                      - late
+                    example: not-invoiced
+                  payments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        amount:
+                          type: number
+                          description: Payment amount
+                          example: 1000
+                        date:
+                          type: string
+                          description: The date when the payment was registered in ISO format
+                          example: '2023-04-28T12:18:06.849Z'
+                          format: date
+                    originalAmount:
+                      type: number
+                      description: The original amount of the claim
+                      example: 1500
+                    balance:
+                      type: number
+                      description: The current balance of the claim
+                      example: -500
+                    overdueDays:
+                      type: number
+                      description: The number of days the claim full payment is overdue. If the number is negative, the due date of the payments is still in the future. If the number is positive, the claim is now late.
+                      example: 5
               extra:
                 type: object
                 properties:
