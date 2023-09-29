@@ -1131,9 +1131,11 @@ components:
                     type: string
                     description: The type of financial product applied to the claim financing
                     example: undisclosed-factoring-non-recoursing
-              claimStatus (deprecated):
+              claimStatus:
+                deprecated: true
                 type: string
-                description: Status of claim
+                description: |
+                  Status of claim. Deprecated: Moved to claim.status
                 enum:
                   - paid
                   - waiting-for-payment
