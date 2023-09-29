@@ -1141,7 +1141,7 @@ components:
                   - waiting-for-payment
                   - not-invoiced
                   - late
-                example: not-invoiced
+                example: waiting-for-payment
               claim:
                 type: object
                 properties:
