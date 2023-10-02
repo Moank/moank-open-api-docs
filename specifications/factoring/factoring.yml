@@ -465,6 +465,33 @@ paths:
       security:
       - basic_auth: []
 
+  /claim/{claimId}/transaction:
+    put:
+      tags:
+        - Claim endpoints
+      summary: Report a transaction in a claim
+      description: Use to report a transaction in a claim
+      parameters:
+      - name: claimId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        $ref: "#/components/requestBodies/createTransaction"
+
+      responses:
+        200:
+          $ref: '#/components/responses/claim'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
   /claim/{claimId}/withdraw:
     put:
       tags:
@@ -512,6 +539,29 @@ paths:
 
 components:
   requestBodies:
+    createTransaction:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - amount
+              - type
+            properties:
+              amount:
+                type: number
+                description: The amount of the reported transaction
+                example: 30
+              type:
+                type: string
+                description: The type of the reported transaction
+                example: late
+                enum:
+                  - late
+                  - reminder
+                  - late-interest
+
     creditorCreate:
       required: true
       content:
