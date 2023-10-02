@@ -324,6 +324,116 @@ paths:
       security:
       - basic_auth: []
 
+    get:
+      tags:
+        - Claim endpoints
+      summary: List claims
+      description: List all the claims transferred by the creditor to Moank
+      parameters:
+        - in: query
+          name: _start
+          description: A cursor for use in pagination. The counting convention starts from 0. It defines your place on the list. For inscance, if start is 50 and there are 100 objects returned from the request, you will receive 50 objects (50-99).
+          schema:
+            type: number
+            default: 0
+            example: 0
+        - in: query
+          name: _page
+          description: A cursor for use in pagination. It defines the number of items fetched. For instance, if _start is 10, _page is also 10 and there are 100 objects returned from the request, you will receive 10 objects (10-19). The maximum _page size allowed is 20.
+          schema:
+            type: number
+            default: 10
+            example: 15
+        - in: query
+          name: paymentReference
+          description: A filter for use in querying. It queries claims on the unique creditor payment reference.
+          schema:
+            type: string
+            example: PAY-2023-001
+        - in: query
+          name: claimReference
+          description: A filter for use in querying. It queries the claims on their unique reference.
+          schema:
+            type: string
+            example: CLM-2023-001
+        - in: query
+          name: debtorId
+          description: A filter for use in querying. It queries the claims on their debtor's id.
+          schema:
+            type: string
+            example: "123"
+        - in: query
+          name: financingDateFrom
+          description: A filter for use in querying. It queries the claims on their financing date, returning every claim financed from the specified date.
+          schema:
+            type: string
+            format: date
+            example: "2023-04-25T08:00:00.000Z"
+        - in: query
+          name: financingDateTo
+          description: A filter for use in querying. It queries the claims on their financing date, returning every claim financed before the specified date.
+          schema:
+            type: string
+            format: date
+            example: "2023-04-25T08:00:00.000Z"
+        - in: query
+          name: claimStatus
+          description: A filter for use in querying. It queries the claims on their status.
+          schema:
+            type: string
+            enum:
+              - paid
+              - waiting-for-payment
+              - not-invoiced
+              - late
+            example: not-invoiced
+        - in: query
+          name: createdDateFrom
+          description: A filter for use in querying. It queries the claims on their creation date, returning every claim created from the specified date.
+          schema:
+            type: string
+            format: date
+            example: "2023-04-25T08:00:00.000Z"
+        - in: query
+          name: createdDateTo
+          description: A filter for use in querying. It queries the claims on their creation date, returning every claim created before the specified date.
+          schema:
+            type: string
+            format: date
+            example: "2023-04-25T08:00:00.000Z"
+        - in: query
+          name: dueDateFrom
+          description: A filter for use in querying. It queries the claims on their due date, returning every claim whose due date is after the specified date.
+          schema:
+            type: string
+            format: date
+            example: "2023-04-25T08:00:00.000Z"
+        - in: query
+          name: dueDateTo
+          description: A filter for use in querying. It queries the claims on their due date, returning every claim whosedue date is before the specified date.
+          schema:
+            type: string
+            format: date
+            example: "2023-04-25T08:00:00.000Z"
+        - in: query
+          name: isFinanced
+          description: A filter for use in querying. It queries the claims on whether they have been financed or not.
+          schema:
+            type: boolean
+            example: true
+
+      responses:
+        200:
+          $ref: '#/components/responses/claims'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
   /claim/{claimId}:
     get:
       tags:
@@ -1001,7 +1111,156 @@ components:
       content:
         application/json:
           schema:
-            type: object
+            $ref: "#/components/schemas/claim"
+
+    claims:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/claim"
+
+    dataError:
+      description: Invalid data
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/dataError"
+
+    conflictError:
+      description: Request cannot be process due to conflicts between data in the request and data in the system
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/conflictError"
+
+    authError:
+      description: Invalid authentication
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/authError"
+
+    notFoundError:
+      description: Application not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/notFoundError"
+
+    serverError:
+      description: Internal Server Error. If the problem persists contact the technical support
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/serverError"
+
+    serviceError:
+      description: Service Error. If the problem persists contact the technical support
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/serviceError"
+
+  schemas:
+    creditor:
+      type: object
+      required:
+              - id
+              - nationalIdentifier
+              - country
+              - name
+              - type
+              - status
+              - alias
+      properties:
+        id:
+          type: string
+          description: Creditor's unique identifier in the system. Creditor to buy the claims from
+          example: "123"
+        name:
+          type: string
+          description: Full legal name of the creditor
+          example: Acme AB
+        nationalIdentifier:
+          description: National identifier of the creditor in unique per country
+          type: string
+          example: "5566778899"
+        country:
+          description: Country where the national identifier is registered
+          type: string
+          example: SE
+        alias:
+          description: Unique alias of the creditor in the partner's system. If it has not been provided, a randomly generated one has been assigned
+          type: string
+          example: creditor-123
+        type:
+          description: Type of the creditor
+          type: string
+          example: business
+          enum:
+            - business
+        status:
+          description: |
+            Status of creditor's financing decision
+            Possible values are
+            * created: The creditor information has been created and queued for processing
+            * denied: The Creditor has been denied
+            * pending: The Creditor decision requires manual review
+            * granted: The Creditor has been granted
+          type: string
+          example: pending
+          enum:
+            - created
+            - denied
+            - pending
+            - granted
+        contactEmail:
+          type: string
+          description: Email used to contact the creditor
+          example: contact@creditor.com
+        phone:
+          type: string
+          description: Phone number used to contact the creditor
+          example: "+46701234567"
+        mainAddress:
+          type: object
+          description: Address information of the creditor
+          properties:
+            streetAddress:
+              type: string
+              example: Fake Street 123
+            additionalStreetAddress:
+              type: string
+              example: 8th floor
+            town:
+              type: string
+              example: Somewhere
+            postcode:
+              type: string
+              example: "12345"
+        terms:
+          type: object
+          description: Terms about the business agreement with Moank
+          properties:
+            financingLimit:
+              type: number
+              example: 10000
+            usedFinancingLimit:
+              type: number
+              example: 1000
+            usedFinancingLimitPercentage:
+              type: number
+              example: 10
+            currency:
+              type: string
+              description: In ISO 4217 format
+              example: SEK
+
+    claim:
+      type: object
             required:
             - id
             - accountId
@@ -1200,143 +1459,6 @@ components:
                     description: Date when the claim has been issued by the creditor in ISO format
                     example: '2023-04-28T12:18:06.849Z'
                     format: date
-
-    dataError:
-      description: Invalid data
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/dataError"
-
-    conflictError:
-      description: Request cannot be process due to conflicts between data in the request and data in the system
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/conflictError"
-
-    authError:
-      description: Invalid authentication
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/authError"
-
-    notFoundError:
-      description: Application not found
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/notFoundError"
-
-    serverError:
-      description: Internal Server Error. If the problem persists contact the technical support
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/serverError"
-
-    serviceError:
-      description: Service Error. If the problem persists contact the technical support
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/serviceError"
-
-  schemas:
-    creditor:
-      type: object
-      required:
-              - id
-              - nationalIdentifier
-              - country
-              - name
-              - type
-              - status
-              - alias
-      properties:
-        id:
-          type: string
-          description: Creditor's unique identifier in the system. Creditor to buy the claims from
-          example: "123"
-        name:
-          type: string
-          description: Full legal name of the creditor
-          example: Acme AB
-        nationalIdentifier:
-          description: National identifier of the creditor in unique per country
-          type: string
-          example: "5566778899"
-        country:
-          description: Country where the national identifier is registered
-          type: string
-          example: SE
-        alias:
-          description: Unique alias of the creditor in the partner's system. If it has not been provided, a randomly generated one has been assigned
-          type: string
-          example: creditor-123
-        type:
-          description: Type of the creditor
-          type: string
-          example: business
-          enum:
-            - business
-        status:
-          description: |
-            Status of creditor's financing decision
-            Possible values are
-            * created: The creditor information has been created and queued for processing
-            * denied: The Creditor has been denied
-            * pending: The Creditor decision requires manual review
-            * granted: The Creditor has been granted
-          type: string
-          example: pending
-          enum:
-            - created
-            - denied
-            - pending
-            - granted
-        contactEmail:
-          type: string
-          description: Email used to contact the creditor
-          example: contact@creditor.com
-        phone:
-          type: string
-          description: Phone number used to contact the creditor
-          example: "+46701234567"
-        mainAddress:
-          type: object
-          description: Address information of the creditor
-          properties:
-            streetAddress:
-              type: string
-              example: Fake Street 123
-            additionalStreetAddress:
-              type: string
-              example: 8th floor
-            town:
-              type: string
-              example: Somewhere
-            postcode:
-              type: string
-              example: "12345"
-        terms:
-          type: object
-          description: Terms about the business agreement with Moank
-          properties:
-            financingLimit:
-              type: number
-              example: 10000
-            usedFinancingLimit:
-              type: number
-              example: 1000
-            usedFinancingLimitPercentage:
-              type: number
-              example: 10
-            currency:
-              type: string
-              description: In ISO 4217 format
-              example: SEK
 
     settlement:
       type: object
