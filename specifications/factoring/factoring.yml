@@ -357,8 +357,8 @@ paths:
             type: string
             example: CLM-2023-001
         - in: query
-          name: debtorId
-          description: A filter for use in querying. It queries the claims on their debtor's id.
+          name: accountId
+          description: A filter for use in querying. It queries the claims on the account they are connected to.
           schema:
             type: string
             example: "123"
