@@ -1,0 +1,4246 @@
+{
+	"info": {
+		"_postman_id": "1bf9bed2-9ae2-4fd4-b18c-0a1529635901",
+		"name": "Moank Factoring API",
+		"description": "Draft API\nThe Moank Factoring API can be used by Moank's partners in order to provide financial products to their end customers within their own application/website.\n\n# Sequence Diagrams\n**Onboarding Creditor**\n\n<a href=\"./specifications/factoring/creditor-onboarding.svg\" target=\"_blank\">![Sequence Diagram](./specifications/factoring/creditor-onboarding.svg)</a>\n\n**Onboarding Debtor**\n\n<a href=\"./specifications/factoring/debtor-onboarding.svg\" target=\"_blank\">![Sequence Diagram](./specifications/factoring/debtor-onboarding.svg)</a>\n\n**Transfer Claim**\n\n<a href=\"./specifications/factoring/factoring.svg\" target=\"_blank\">![Sequence Diagram](./specifications/factoring/factoring.svg)</a>\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23832184"
+	},
+	"item": [
+		{
+			"name": "creditor",
+			"item": [
+				{
+					"name": "{creditorId}",
+					"item": [
+						{
+							"name": "settlement",
+							"item": [
+								{
+									"name": "{payoutReference}",
+									"item": [
+										{
+											"name": "Get settlement details for payout",
+											"request": {
+												"auth": {
+													"type": "basic",
+													"basic": [
+														{
+															"key": "username",
+															"value": "{{basicAuthUsername}}",
+															"type": "string"
+														},
+														{
+															"key": "password",
+															"value": "{{basicAuthPassword}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/creditor/{{creditorId}}/settlement/:payoutReference",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"creditor",
+														"{{creditorId}}",
+														"settlement",
+														":payoutReference"
+													],
+													"variable": [
+														{
+															"key": "payoutReference",
+															"value": "<string>"
+														}
+													]
+												},
+												"description": "Used to fetch the details of a payout to the creditor."
+											},
+											"response": [
+												{
+													"name": "Successful operation",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															},
+															{
+																"description": "Added as a part of security scheme: basic",
+																"key": "Authorization",
+																"value": "Basic <credentials>"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/creditor/:creditorId/settlement/:payoutReference",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"creditor",
+																":creditorId",
+																"settlement",
+																":payoutReference"
+															],
+															"variable": [
+																{
+																	"key": "creditorId"
+																},
+																{
+																	"key": "payoutReference"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"financer\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"createdAt\": \"<date>\",\n  \"closedAt\": \"<date>\",\n  \"payoutReference\": \"<string>\",\n  \"transactions\": [\n    {\n      \"amount\": \"<number>\",\n      \"date\": \"<date>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"date\": \"<date>\",\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+												},
+												{
+													"name": "Invalid data",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															},
+															{
+																"description": "Added as a part of security scheme: basic",
+																"key": "Authorization",
+																"value": "Basic <credentials>"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/creditor/:creditorId/settlement/:payoutReference",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"creditor",
+																":creditorId",
+																"settlement",
+																":payoutReference"
+															],
+															"variable": [
+																{
+																	"key": "creditorId"
+																},
+																{
+																	"key": "payoutReference"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+												},
+												{
+													"name": "Invalid authentication",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															},
+															{
+																"description": "Added as a part of security scheme: basic",
+																"key": "Authorization",
+																"value": "Basic <credentials>"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/creditor/:creditorId/settlement/:payoutReference",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"creditor",
+																":creditorId",
+																"settlement",
+																":payoutReference"
+															],
+															"variable": [
+																{
+																	"key": "creditorId"
+																},
+																{
+																	"key": "payoutReference"
+																}
+															]
+														}
+													},
+													"status": "Unauthorized",
+													"code": 401,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+												},
+												{
+													"name": "Internal Server Error. If the problem persists contact the technical support",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															},
+															{
+																"description": "Added as a part of security scheme: basic",
+																"key": "Authorization",
+																"value": "Basic <credentials>"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/creditor/:creditorId/settlement/:payoutReference",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"creditor",
+																":creditorId",
+																"settlement",
+																":payoutReference"
+															],
+															"variable": [
+																{
+																	"key": "creditorId"
+																},
+																{
+																	"key": "payoutReference"
+																}
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Get list of settlement details for payouts",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{basicAuthUsername}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{basicAuthPassword}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/creditor/{{creditorId}}/settlement?_start=0&_page=10",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"creditor",
+												"{{creditorId}}",
+												"settlement"
+											],
+											"query": [
+												{
+													"key": "_start",
+													"value": "0",
+													"description": "A cursor for use in pagination. The counting convention starts from 0. It defines your place in the list. For instance, if start is 50 and there are 100 objects in the system, you will receive 50 objects (50-99)."
+												},
+												{
+													"key": "_page",
+													"value": "10",
+													"description": "A cursor for use in pagination. It defines the size of the list. For instance, if _page is 20, start is 20 and there are 100 objects in the system, you will receive 20 objects (20-39). The maximun value for a page is 25."
+												}
+											]
+										},
+										"description": "Used to fetch the list of details for payouts to the creditor. The list is sorted with the most recent payouts first."
+									},
+									"response": [
+										{
+											"name": "Successful operation",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: basic",
+														"key": "Authorization",
+														"value": "Basic <credentials>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/creditor/:creditorId/settlement?_start=0&_page=10",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"creditor",
+														":creditorId",
+														"settlement"
+													],
+													"query": [
+														{
+															"key": "_start",
+															"value": "0",
+															"description": "A cursor for use in pagination. The counting convention starts from 0. It defines your place in the list. For instance, if start is 50 and there are 100 objects in the system, you will receive 50 objects (50-99)."
+														},
+														{
+															"key": "_page",
+															"value": "10",
+															"description": "A cursor for use in pagination. It defines the size of the list. For instance, if _page is 20, start is 20 and there are 100 objects in the system, you will receive 20 objects (20-39). The maximun value for a page is 25."
+														}
+													],
+													"variable": [
+														{
+															"key": "creditorId"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"financer\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"createdAt\": \"<date>\",\n    \"closedAt\": \"<date>\",\n    \"payoutReference\": \"<string>\",\n    \"transactions\": [\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"financer\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"createdAt\": \"<date>\",\n    \"closedAt\": \"<date>\",\n    \"payoutReference\": \"<string>\",\n    \"transactions\": [\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  }\n]"
+										},
+										{
+											"name": "Invalid data",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: basic",
+														"key": "Authorization",
+														"value": "Basic <credentials>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/creditor/:creditorId/settlement?_start=0&_page=10",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"creditor",
+														":creditorId",
+														"settlement"
+													],
+													"query": [
+														{
+															"key": "_start",
+															"value": "0",
+															"description": "A cursor for use in pagination. The counting convention starts from 0. It defines your place in the list. For instance, if start is 50 and there are 100 objects in the system, you will receive 50 objects (50-99)."
+														},
+														{
+															"key": "_page",
+															"value": "10",
+															"description": "A cursor for use in pagination. It defines the size of the list. For instance, if _page is 20, start is 20 and there are 100 objects in the system, you will receive 20 objects (20-39). The maximun value for a page is 25."
+														}
+													],
+													"variable": [
+														{
+															"key": "creditorId"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+										},
+										{
+											"name": "Invalid authentication",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: basic",
+														"key": "Authorization",
+														"value": "Basic <credentials>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/creditor/:creditorId/settlement?_start=0&_page=10",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"creditor",
+														":creditorId",
+														"settlement"
+													],
+													"query": [
+														{
+															"key": "_start",
+															"value": "0",
+															"description": "A cursor for use in pagination. The counting convention starts from 0. It defines your place in the list. For instance, if start is 50 and there are 100 objects in the system, you will receive 50 objects (50-99)."
+														},
+														{
+															"key": "_page",
+															"value": "10",
+															"description": "A cursor for use in pagination. It defines the size of the list. For instance, if _page is 20, start is 20 and there are 100 objects in the system, you will receive 20 objects (20-39). The maximun value for a page is 25."
+														}
+													],
+													"variable": [
+														{
+															"key": "creditorId"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+										},
+										{
+											"name": "Internal Server Error. If the problem persists contact the technical support",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: basic",
+														"key": "Authorization",
+														"value": "Basic <credentials>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/creditor/:creditorId/settlement?_start=0&_page=10",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"creditor",
+														":creditorId",
+														"settlement"
+													],
+													"query": [
+														{
+															"key": "_start",
+															"value": "0",
+															"description": "A cursor for use in pagination. The counting convention starts from 0. It defines your place in the list. For instance, if start is 50 and there are 100 objects in the system, you will receive 50 objects (50-99)."
+														},
+														{
+															"key": "_page",
+															"value": "10",
+															"description": "A cursor for use in pagination. It defines the size of the list. For instance, if _page is 20, start is 20 and there are 100 objects in the system, you will receive 20 objects (20-39). The maximun value for a page is 25."
+														}
+													],
+													"variable": [
+														{
+															"key": "creditorId"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Get creditor",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{basicAuthUsername}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{basicAuthPassword}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/creditor/{{creditorId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"creditor",
+										"{{creditorId}}"
+									]
+								},
+								"description": "Used to fetch a previously created creditor and visualise the usage of the agreed terms."
+							},
+							"response": [
+								{
+									"name": "Successful operation",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/creditor/:creditorId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"creditor",
+												":creditorId"
+											],
+											"variable": [
+												{
+													"key": "creditorId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": \"<string>\",\n  \"nationalIdentifier\": \"<string>\",\n  \"country\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"business\",\n  \"status\": \"pending\",\n  \"alias\": \"<string>\",\n  \"contactEmail\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"mainAddress\": {\n    \"streetAddress\": \"<string>\",\n    \"additionalStreetAddress\": \"<string>\",\n    \"town\": \"<string>\",\n    \"postcode\": \"<string>\"\n  },\n  \"terms\": {\n    \"financingLimit\": \"<number>\",\n    \"usedFinancingLimit\": \"<number>\",\n    \"usedFinancingLimitPercentage\": \"<number>\",\n    \"currency\": \"<string>\"\n  }\n}"
+								},
+								{
+									"name": "Invalid data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/creditor/:creditorId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"creditor",
+												":creditorId"
+											],
+											"variable": [
+												{
+													"key": "creditorId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "Invalid authentication",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/creditor/:creditorId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"creditor",
+												":creditorId"
+											],
+											"variable": [
+												{
+													"key": "creditorId"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "Internal Server Error. If the problem persists contact the technical support",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/creditor/:creditorId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"creditor",
+												":creditorId"
+											],
+											"variable": [
+												{
+													"key": "creditorId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Create new creditor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response body has ids\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(!!jsonData.id).to.eql(true);",
+									"    pm.collectionVariables.set(\"creditorId\", jsonData.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basicAuthPassword}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basicAuthUsername}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nationalIdentifier\": \"{{$randomInt}}{{$randomInt}}{{$randomInt}}{{$randomInt}}\",\n    \"country\": \"SE\",\n    \"name\": \"{{$randomCompanyName}} AB\",\n    \"type\": \"business\",\n    \"contactEmail\": \"{{$randomEmail}}\",\n    \"phone\": \"+46760000000\",\n    \"mainAddress\": {\n        \"streetAddress\": \"{{$randomStreetAddress}}\",\n        \"additionalStreetAddress\": \"8th floor\",\n        \"town\": \"Somewhere\",\n        \"postcode\": \"12345\"\n    },\n    \"extraData\": []\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/creditor",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"creditor"
+							]
+						},
+						"description": "Used to add a new creditor into the system. The Moank service will process it and set the business terms for it. By \"creditor\" is meant the current creditor of the claim before the transfer of the claim to Moank. Moank is buying the claim from the creditor. Creditors are usually merchants or other financers that issued the claim in the first place."
+					},
+					"response": [
+						{
+							"name": "Successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nationalIdentifier\": \"<string>\",\n  \"country\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"business\",\n  \"contactEmail\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"alias\": \"<string>\",\n  \"mainAddress\": {\n    \"streetAddress\": \"<string>\",\n    \"additionalStreetAddress\": \"<string>\",\n    \"town\": \"<string>\",\n    \"postcode\": \"<string>\"\n  },\n  \"extraData\": [\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    },\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/creditor",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"creditor"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<string>\",\n  \"nationalIdentifier\": \"<string>\",\n  \"country\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"business\",\n  \"status\": \"pending\",\n  \"alias\": \"<string>\",\n  \"contactEmail\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"mainAddress\": {\n    \"streetAddress\": \"<string>\",\n    \"additionalStreetAddress\": \"<string>\",\n    \"town\": \"<string>\",\n    \"postcode\": \"<string>\"\n  },\n  \"terms\": {\n    \"financingLimit\": \"<number>\",\n    \"usedFinancingLimit\": \"<number>\",\n    \"usedFinancingLimitPercentage\": \"<number>\",\n    \"currency\": \"<string>\"\n  }\n}"
+						},
+						{
+							"name": "Invalid data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nationalIdentifier\": \"<string>\",\n  \"country\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"business\",\n  \"contactEmail\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"alias\": \"<string>\",\n  \"mainAddress\": {\n    \"streetAddress\": \"<string>\",\n    \"additionalStreetAddress\": \"<string>\",\n    \"town\": \"<string>\",\n    \"postcode\": \"<string>\"\n  },\n  \"extraData\": [\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    },\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/creditor",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"creditor"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Invalid authentication",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nationalIdentifier\": \"<string>\",\n  \"country\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"business\",\n  \"contactEmail\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"alias\": \"<string>\",\n  \"mainAddress\": {\n    \"streetAddress\": \"<string>\",\n    \"additionalStreetAddress\": \"<string>\",\n    \"town\": \"<string>\",\n    \"postcode\": \"<string>\"\n  },\n  \"extraData\": [\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    },\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/creditor",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"creditor"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Request cannot be process due to conflicts between data in the request and data in the system",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nationalIdentifier\": \"<string>\",\n  \"country\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"business\",\n  \"contactEmail\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"alias\": \"<string>\",\n  \"mainAddress\": {\n    \"streetAddress\": \"<string>\",\n    \"additionalStreetAddress\": \"<string>\",\n    \"town\": \"<string>\",\n    \"postcode\": \"<string>\"\n  },\n  \"extraData\": [\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    },\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/creditor",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"creditor"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Internal Server Error. If the problem persists contact the technical support",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nationalIdentifier\": \"<string>\",\n  \"country\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"business\",\n  \"contactEmail\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"alias\": \"<string>\",\n  \"mainAddress\": {\n    \"streetAddress\": \"<string>\",\n    \"additionalStreetAddress\": \"<string>\",\n    \"town\": \"<string>\",\n    \"postcode\": \"<string>\"\n  },\n  \"extraData\": [\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    },\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/creditor",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"creditor"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "List creditors",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{basicAuthPassword}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{basicAuthUsername}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/creditor?_start=0&_page=10",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"creditor"
+							],
+							"query": [
+								{
+									"key": "_start",
+									"value": "0",
+									"description": "A cursor for use in pagination. The counting convention starts from 0. It defines your place on the list. For inscance, if start is 50 and there are 100 objects returned from the request, you will receive 50 objects (50-99)."
+								},
+								{
+									"key": "_page",
+									"value": "10",
+									"description": "A cursor for use in pagination. It defines the number of items fetched. For instance, if _start is 10, _page is also 10 and there are 100 objects returned from the request, you will receive 10 objects (10-19). The maximum _page size allowed is 20."
+								},
+								{
+									"key": "nationalIdentifier",
+									"value": "<string>",
+									"description": "A filter for use in querying. It queries creditors on their nationalIdentifier.",
+									"disabled": true
+								},
+								{
+									"key": "alias",
+									"value": "<string>",
+									"description": "A filter for use in querying. It queries creditors on their alias.",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "<string>",
+									"description": "A filter for use in querying. It queries creditors on their name.",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Used to list all creditors owned by the partner."
+					},
+					"response": [
+						{
+							"name": "Successful operation",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/creditor?_start=0&_page=10&nationalIdentifier=<string>&alias=<string>&name=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"creditor"
+									],
+									"query": [
+										{
+											"key": "_start",
+											"value": "0",
+											"description": "A cursor for use in pagination. The counting convention starts from 0. It defines your place on the list. For inscance, if start is 50 and there are 100 objects returned from the request, you will receive 50 objects (50-99)."
+										},
+										{
+											"key": "_page",
+											"value": "10",
+											"description": "A cursor for use in pagination. It defines the number of items fetched. For instance, if _start is 10, _page is also 10 and there are 100 objects returned from the request, you will receive 10 objects (10-19). The maximum _page size allowed is 20."
+										},
+										{
+											"key": "nationalIdentifier",
+											"value": "<string>",
+											"description": "A filter for use in querying. It queries creditors on their nationalIdentifier."
+										},
+										{
+											"key": "alias",
+											"value": "<string>",
+											"description": "A filter for use in querying. It queries creditors on their alias."
+										},
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "A filter for use in querying. It queries creditors on their name."
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"id\": \"<string>\",\n    \"nationalIdentifier\": \"<string>\",\n    \"country\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"business\",\n    \"status\": \"pending\",\n    \"alias\": \"<string>\",\n    \"contactEmail\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"mainAddress\": {\n      \"streetAddress\": \"<string>\",\n      \"additionalStreetAddress\": \"<string>\",\n      \"town\": \"<string>\",\n      \"postcode\": \"<string>\"\n    },\n    \"terms\": {\n      \"financingLimit\": \"<number>\",\n      \"usedFinancingLimit\": \"<number>\",\n      \"usedFinancingLimitPercentage\": \"<number>\",\n      \"currency\": \"<string>\"\n    }\n  },\n  {\n    \"id\": \"<string>\",\n    \"nationalIdentifier\": \"<string>\",\n    \"country\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"business\",\n    \"status\": \"denied\",\n    \"alias\": \"<string>\",\n    \"contactEmail\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"mainAddress\": {\n      \"streetAddress\": \"<string>\",\n      \"additionalStreetAddress\": \"<string>\",\n      \"town\": \"<string>\",\n      \"postcode\": \"<string>\"\n    },\n    \"terms\": {\n      \"financingLimit\": \"<number>\",\n      \"usedFinancingLimit\": \"<number>\",\n      \"usedFinancingLimitPercentage\": \"<number>\",\n      \"currency\": \"<string>\"\n    }\n  }\n]"
+						},
+						{
+							"name": "Invalid data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/creditor?_start=0&_page=10&nationalIdentifier=<string>&alias=<string>&name=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"creditor"
+									],
+									"query": [
+										{
+											"key": "_start",
+											"value": "0",
+											"description": "A cursor for use in pagination. The counting convention starts from 0. It defines your place on the list. For inscance, if start is 50 and there are 100 objects returned from the request, you will receive 50 objects (50-99)."
+										},
+										{
+											"key": "_page",
+											"value": "10",
+											"description": "A cursor for use in pagination. It defines the number of items fetched. For instance, if _start is 10, _page is also 10 and there are 100 objects returned from the request, you will receive 10 objects (10-19). The maximum _page size allowed is 20."
+										},
+										{
+											"key": "nationalIdentifier",
+											"value": "<string>",
+											"description": "A filter for use in querying. It queries creditors on their nationalIdentifier."
+										},
+										{
+											"key": "alias",
+											"value": "<string>",
+											"description": "A filter for use in querying. It queries creditors on their alias."
+										},
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "A filter for use in querying. It queries creditors on their name."
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Invalid authentication",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/creditor?_start=0&_page=10&nationalIdentifier=<string>&alias=<string>&name=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"creditor"
+									],
+									"query": [
+										{
+											"key": "_start",
+											"value": "0",
+											"description": "A cursor for use in pagination. The counting convention starts from 0. It defines your place on the list. For inscance, if start is 50 and there are 100 objects returned from the request, you will receive 50 objects (50-99)."
+										},
+										{
+											"key": "_page",
+											"value": "10",
+											"description": "A cursor for use in pagination. It defines the number of items fetched. For instance, if _start is 10, _page is also 10 and there are 100 objects returned from the request, you will receive 10 objects (10-19). The maximum _page size allowed is 20."
+										},
+										{
+											"key": "nationalIdentifier",
+											"value": "<string>",
+											"description": "A filter for use in querying. It queries creditors on their nationalIdentifier."
+										},
+										{
+											"key": "alias",
+											"value": "<string>",
+											"description": "A filter for use in querying. It queries creditors on their alias."
+										},
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "A filter for use in querying. It queries creditors on their name."
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Internal Server Error. If the problem persists contact the technical support",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/creditor?_start=0&_page=10&nationalIdentifier=<string>&alias=<string>&name=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"creditor"
+									],
+									"query": [
+										{
+											"key": "_start",
+											"value": "0",
+											"description": "A cursor for use in pagination. The counting convention starts from 0. It defines your place on the list. For inscance, if start is 50 and there are 100 objects returned from the request, you will receive 50 objects (50-99)."
+										},
+										{
+											"key": "_page",
+											"value": "10",
+											"description": "A cursor for use in pagination. It defines the number of items fetched. For instance, if _start is 10, _page is also 10 and there are 100 objects returned from the request, you will receive 10 objects (10-19). The maximum _page size allowed is 20."
+										},
+										{
+											"key": "nationalIdentifier",
+											"value": "<string>",
+											"description": "A filter for use in querying. It queries creditors on their nationalIdentifier."
+										},
+										{
+											"key": "alias",
+											"value": "<string>",
+											"description": "A filter for use in querying. It queries creditors on their alias."
+										},
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "A filter for use in querying. It queries creditors on their name."
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "decision",
+			"item": [
+				{
+					"name": "{decisionId}",
+					"item": [
+						{
+							"name": "withdraw",
+							"item": [
+								{
+									"name": "Withdraw a decision request",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{basicAuthUsername}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{basicAuthPassword}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/decision/{{decisionId}}/withdraw",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"decision",
+												"{{decisionId}}",
+												"withdraw"
+											]
+										},
+										"description": "Use to withdraw a decision request as long as it is not in a final status such as: granted or denied\n"
+									},
+									"response": [
+										{
+											"name": "Successful operation",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: basic",
+														"key": "Authorization",
+														"value": "Basic <credentials>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/decision/:decisionId/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"decision",
+														":decisionId",
+														"withdraw"
+													],
+													"variable": [
+														{
+															"key": "decisionId"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<string>\",\n  \"debtors\": [\n    {\n      \"id\": \"<string>\",\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"contactEmail\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"contactEmail\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      }\n    }\n  ],\n  \"creditorId\": \"<string>\",\n  \"decision\": {\n    \"status\": \"created\",\n    \"terms\": {\n      \"limit\": \"<number>\",\n      \"maxLTV\": \"<number>\"\n    },\n    \"currency\": \"<string>\"\n  }\n}"
+										},
+										{
+											"name": "Invalid data",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: basic",
+														"key": "Authorization",
+														"value": "Basic <credentials>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/decision/:decisionId/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"decision",
+														":decisionId",
+														"withdraw"
+													],
+													"variable": [
+														{
+															"key": "decisionId"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+										},
+										{
+											"name": "Invalid authentication",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: basic",
+														"key": "Authorization",
+														"value": "Basic <credentials>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/decision/:decisionId/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"decision",
+														":decisionId",
+														"withdraw"
+													],
+													"variable": [
+														{
+															"key": "decisionId"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+										},
+										{
+											"name": "Request cannot be process due to conflicts between data in the request and data in the system",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: basic",
+														"key": "Authorization",
+														"value": "Basic <credentials>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/decision/:decisionId/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"decision",
+														":decisionId",
+														"withdraw"
+													],
+													"variable": [
+														{
+															"key": "decisionId"
+														}
+													]
+												}
+											},
+											"status": "Conflict",
+											"code": 409,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+										},
+										{
+											"name": "Internal Server Error. If the problem persists contact the technical support",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: basic",
+														"key": "Authorization",
+														"value": "Basic <credentials>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/decision/:decisionId/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"decision",
+														":decisionId",
+														"withdraw"
+													],
+													"variable": [
+														{
+															"key": "decisionId"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Fetch a decision",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{basicAuthUsername}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{basicAuthPassword}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/decision/{{decisionId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"decision",
+										"{{decisionId}}"
+									]
+								},
+								"description": "Use to retrive information on a previously created decision."
+							},
+							"response": [
+								{
+									"name": "Successful operation",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/decision/:decisionId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"decision",
+												":decisionId"
+											],
+											"variable": [
+												{
+													"key": "decisionId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": \"<string>\",\n  \"debtors\": [\n    {\n      \"id\": \"<string>\",\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"contactEmail\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"contactEmail\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      }\n    }\n  ],\n  \"creditorId\": \"<string>\",\n  \"decision\": {\n    \"status\": \"created\",\n    \"terms\": {\n      \"limit\": \"<number>\",\n      \"maxLTV\": \"<number>\"\n    },\n    \"currency\": \"<string>\"\n  }\n}"
+								},
+								{
+									"name": "Invalid data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/decision/:decisionId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"decision",
+												":decisionId"
+											],
+											"variable": [
+												{
+													"key": "decisionId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "Invalid authentication",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/decision/:decisionId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"decision",
+												":decisionId"
+											],
+											"variable": [
+												{
+													"key": "decisionId"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "Internal Server Error. If the problem persists contact the technical support",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/decision/:decisionId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"decision",
+												":decisionId"
+											],
+											"variable": [
+												{
+													"key": "decisionId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Create new decision",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response body has ids\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(!!jsonData.id).to.eql(true);",
+									"    pm.collectionVariables.set(\"decisionId\", jsonData.id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{basicAuthUsername}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{basicAuthPassword}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"creditorId\": \"{{creditorId}}\",\n  \"debtors\": [\n    {\n      \"name\": \"{{$randomCompanyName}} AB\",\n      \"nationalIdentifier\": \"{{$randomInt}}{{$randomInt}}{{$randomInt}}\",\n      \"country\": \"SE\",\n      \"alias\": \"{{$randomFirstName}}-{{$randomInt}}\",\n      \"type\": \"customer\",\n      \"contactEmail\": \"{{$randomEmail}}\",\n      \"phone\": \"+46760000000\",\n      \"mainAddress\": {\n        \"streetAddress\": \"{{$randomStreetAddress}}\",\n        \"additionalStreetAddress\": \"2th floor\",\n        \"town\": \"Nicetown\",\n        \"postcode\": \"54321\"\n      },\n      \"extraData\": []\n    }\n  ],\n  \"product\": {\n    \"productId\": \"invoier-01\",\n    \"currency\": \"SEK\"\n  }\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/decision",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"decision"
+							]
+						},
+						"description": "Request decision on a new debtor for an approved creditor."
+					},
+					"response": [
+						{
+							"name": "Successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"creditorId\": \"<string>\",\n  \"debtors\": [\n    {\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"business\",\n      \"contactEmail\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      },\n      \"extraData\": [\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        },\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        }\n      ]\n    },\n    {\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"consumer\",\n      \"contactEmail\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      },\n      \"extraData\": [\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        },\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        }\n      ]\n    }\n  ],\n  \"product\": {\n    \"productId\": \"<string>\",\n    \"currency\": \"<string>\"\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/decision",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"decision"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<string>\",\n  \"debtors\": [\n    {\n      \"id\": \"<string>\",\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"contactEmail\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"contactEmail\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      }\n    }\n  ],\n  \"creditorId\": \"<string>\",\n  \"decision\": {\n    \"status\": \"created\",\n    \"terms\": {\n      \"limit\": \"<number>\",\n      \"maxLTV\": \"<number>\"\n    },\n    \"currency\": \"<string>\"\n  }\n}"
+						},
+						{
+							"name": "Invalid data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"creditorId\": \"<string>\",\n  \"debtors\": [\n    {\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"business\",\n      \"contactEmail\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      },\n      \"extraData\": [\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        },\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        }\n      ]\n    },\n    {\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"consumer\",\n      \"contactEmail\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      },\n      \"extraData\": [\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        },\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        }\n      ]\n    }\n  ],\n  \"product\": {\n    \"productId\": \"<string>\",\n    \"currency\": \"<string>\"\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/decision",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"decision"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Invalid authentication",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"creditorId\": \"<string>\",\n  \"debtors\": [\n    {\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"business\",\n      \"contactEmail\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      },\n      \"extraData\": [\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        },\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        }\n      ]\n    },\n    {\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"consumer\",\n      \"contactEmail\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      },\n      \"extraData\": [\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        },\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        }\n      ]\n    }\n  ],\n  \"product\": {\n    \"productId\": \"<string>\",\n    \"currency\": \"<string>\"\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/decision",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"decision"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Request cannot be process due to conflicts between data in the request and data in the system",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"creditorId\": \"<string>\",\n  \"debtors\": [\n    {\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"business\",\n      \"contactEmail\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      },\n      \"extraData\": [\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        },\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        }\n      ]\n    },\n    {\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"consumer\",\n      \"contactEmail\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      },\n      \"extraData\": [\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        },\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        }\n      ]\n    }\n  ],\n  \"product\": {\n    \"productId\": \"<string>\",\n    \"currency\": \"<string>\"\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/decision",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"decision"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Internal Server Error. If the problem persists contact the technical support",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"creditorId\": \"<string>\",\n  \"debtors\": [\n    {\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"business\",\n      \"contactEmail\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      },\n      \"extraData\": [\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        },\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        }\n      ]\n    },\n    {\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"consumer\",\n      \"contactEmail\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      },\n      \"extraData\": [\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        },\n        {\n          \"dataFormat\": \"<string>\",\n          \"data\": {}\n        }\n      ]\n    }\n  ],\n  \"product\": {\n    \"productId\": \"<string>\",\n    \"currency\": \"<string>\"\n  }\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/decision",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"decision"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "account",
+			"item": [
+				{
+					"name": "{accountId}",
+					"item": [
+						{
+							"name": "Fetch an account",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{basicAuthUsername}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{basicAuthPassword}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/account/{{accountId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"account",
+										"{{accountId}}"
+									]
+								},
+								"description": "Used to fetch a previously created account and visualise the usage of the agreed terms."
+							},
+							"response": [
+								{
+									"name": "Successful operation",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/account/:accountId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"account",
+												":accountId"
+											],
+											"variable": [
+												{
+													"key": "accountId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": \"<string>\",\n  \"debtors\": [\n    {\n      \"id\": \"<string>\",\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"contactEmail\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"contactEmail\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      }\n    }\n  ],\n  \"creditorId\": \"<string>\",\n  \"terms\": {\n    \"limit\": \"<number>\",\n    \"maxLTV\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"usage\": {\n    \"usedLimit\": \"<number>\",\n    \"currentLTV\": \"<number>\"\n  }\n}"
+								},
+								{
+									"name": "Invalid data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/account/:accountId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"account",
+												":accountId"
+											],
+											"variable": [
+												{
+													"key": "accountId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "Invalid authentication",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/account/:accountId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"account",
+												":accountId"
+											],
+											"variable": [
+												{
+													"key": "accountId"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "Internal Server Error. If the problem persists contact the technical support",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/account/:accountId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"account",
+												":accountId"
+											],
+											"variable": [
+												{
+													"key": "accountId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Create an account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response body has ids\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(!!jsonData.id).to.eql(true);",
+									"    pm.expect(!!jsonData.terms && !!jsonData.terms.currency).to.eql(true);",
+									"    pm.collectionVariables.set(\"accountId\", jsonData.id);",
+									"    pm.collectionVariables.set(\"paymentCurrency\", jsonData.terms.currency);",
+									"",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{basicAuthUsername}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{basicAuthPassword}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"decisionId\": \"{{decisionId}}\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/account",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"account"
+							]
+						},
+						"description": "Used to convert a previously debtor's granted decision in an account to allow the business."
+					},
+					"response": [
+						{
+							"name": "Successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"decisionId\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/account",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"account"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<string>\",\n  \"debtors\": [\n    {\n      \"id\": \"<string>\",\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"contactEmail\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"nationalIdentifier\": \"<string>\",\n      \"country\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"contactEmail\": \"<string>\",\n      \"mainAddress\": {\n        \"streetAddress\": \"<string>\",\n        \"additionalStreetAddress\": \"<string>\",\n        \"town\": \"<string>\",\n        \"postcode\": \"<string>\"\n      }\n    }\n  ],\n  \"creditorId\": \"<string>\",\n  \"terms\": {\n    \"limit\": \"<number>\",\n    \"maxLTV\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"usage\": {\n    \"usedLimit\": \"<number>\",\n    \"currentLTV\": \"<number>\"\n  }\n}"
+						},
+						{
+							"name": "Invalid data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"decisionId\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/account",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"account"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Invalid authentication",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"decisionId\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/account",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"account"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Internal Server Error. If the problem persists contact the technical support",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"decisionId\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/account",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"account"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "claim",
+			"item": [
+				{
+					"name": "{claimId}",
+					"item": [
+						{
+							"name": "withdraw",
+							"item": [
+								{
+									"name": "Withdraw a claim financing request",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "{{basicAuthUsername}}",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "{{basicAuthPassword}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/claim/{{claimId}}/withdraw",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"claim",
+												"{{claimId}}",
+												"withdraw"
+											]
+										},
+										"description": "Use to withdraw a claim financing request as long as it is not in a final status such as: granted or denied\n"
+									},
+									"response": [
+										{
+											"name": "Successful operation",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: basic",
+														"key": "Authorization",
+														"value": "Basic <credentials>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/claim/:claimId/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"claim",
+														":claimId",
+														"withdraw"
+													],
+													"variable": [
+														{
+															"key": "claimId"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"<string>\",\n  \"accountId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\",\n      \"vatPercent\": \"<number>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\",\n      \"vatPercent\": \"<number>\"\n    }\n  ],\n  \"financing\": {\n    \"financingStatus\": \"created\",\n    \"amount\": 13896714,\n    \"ltv\": 2538488,\n    \"fees\": [\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\",\n        \"feeType\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\",\n        \"feeType\": \"<string>\"\n      }\n    ],\n    \"financer\": {\n      \"name\": \"<string>\",\n      \"identifier\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    \"financedAt\": \"<date>\",\n    \"finacialProduct\": \"<string>\"\n  },\n  \"claimStatus\": \"not-invoiced\",\n  \"createdAt\": \"<date>\",\n  \"claim\": {\n    \"status\": \"late\",\n    \"payments\": [\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\"\n      }\n    ]\n  },\n  \"extra\": {\n    \"claimReference\": \"<string>\",\n    \"paymentReference\": \"<string>\",\n    \"termsOfPayment\": \"<number>\",\n    \"issueDate\": \"<date>\"\n  }\n}"
+										},
+										{
+											"name": "Invalid data",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: basic",
+														"key": "Authorization",
+														"value": "Basic <credentials>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/claim/:claimId/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"claim",
+														":claimId",
+														"withdraw"
+													],
+													"variable": [
+														{
+															"key": "claimId"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+										},
+										{
+											"name": "Invalid authentication",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: basic",
+														"key": "Authorization",
+														"value": "Basic <credentials>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/claim/:claimId/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"claim",
+														":claimId",
+														"withdraw"
+													],
+													"variable": [
+														{
+															"key": "claimId"
+														}
+													]
+												}
+											},
+											"status": "Unauthorized",
+											"code": 401,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+										},
+										{
+											"name": "Internal Server Error. If the problem persists contact the technical support",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"description": "Added as a part of security scheme: basic",
+														"key": "Authorization",
+														"value": "Basic <credentials>"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/claim/:claimId/withdraw",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"claim",
+														":claimId",
+														"withdraw"
+													],
+													"variable": [
+														{
+															"key": "claimId"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Fetch a claim",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{basicAuthUsername}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{basicAuthPassword}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/claim/{{claimId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"claim",
+										"{{claimId}}"
+									]
+								},
+								"description": "Use to retrieve information on a previously created claim."
+							},
+							"response": [
+								{
+									"name": "Successful operation",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/claim/:claimId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"claim",
+												":claimId"
+											],
+											"variable": [
+												{
+													"key": "claimId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": \"<string>\",\n  \"accountId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\",\n      \"vatPercent\": \"<number>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\",\n      \"vatPercent\": \"<number>\"\n    }\n  ],\n  \"financing\": {\n    \"financingStatus\": \"created\",\n    \"amount\": 13896714,\n    \"ltv\": 2538488,\n    \"fees\": [\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\",\n        \"feeType\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\",\n        \"feeType\": \"<string>\"\n      }\n    ],\n    \"financer\": {\n      \"name\": \"<string>\",\n      \"identifier\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    \"financedAt\": \"<date>\",\n    \"finacialProduct\": \"<string>\"\n  },\n  \"claimStatus\": \"not-invoiced\",\n  \"createdAt\": \"<date>\",\n  \"claim\": {\n    \"status\": \"late\",\n    \"payments\": [\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\"\n      }\n    ]\n  },\n  \"extra\": {\n    \"claimReference\": \"<string>\",\n    \"paymentReference\": \"<string>\",\n    \"termsOfPayment\": \"<number>\",\n    \"issueDate\": \"<date>\"\n  }\n}"
+								},
+								{
+									"name": "Invalid data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/claim/:claimId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"claim",
+												":claimId"
+											],
+											"variable": [
+												{
+													"key": "claimId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "Invalid authentication",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/claim/:claimId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"claim",
+												":claimId"
+											],
+											"variable": [
+												{
+													"key": "claimId"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "Internal Server Error. If the problem persists contact the technical support",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/claim/:claimId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"claim",
+												":claimId"
+											],
+											"variable": [
+												{
+													"key": "claimId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Create a claim transaction",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{basicAuthUsername}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{basicAuthPassword}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount\": 1000,\n    \"type\": \"late\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/claim/{{claimId}}/transaction",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"claim",
+										"{{claimId}}",
+										"transaction"
+									]
+								},
+								"description": "Use to retrieve information on a previously created claim."
+							},
+							"response": [
+								{
+									"name": "Successful operation",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/claim/:claimId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"claim",
+												":claimId"
+											],
+											"variable": [
+												{
+													"key": "claimId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": \"<string>\",\n  \"accountId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\",\n      \"vatPercent\": \"<number>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\",\n      \"vatPercent\": \"<number>\"\n    }\n  ],\n  \"financing\": {\n    \"financingStatus\": \"created\",\n    \"amount\": 13896714,\n    \"ltv\": 2538488,\n    \"fees\": [\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\",\n        \"feeType\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\",\n        \"feeType\": \"<string>\"\n      }\n    ],\n    \"financer\": {\n      \"name\": \"<string>\",\n      \"identifier\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    \"financedAt\": \"<date>\",\n    \"finacialProduct\": \"<string>\"\n  },\n  \"claimStatus\": \"not-invoiced\",\n  \"createdAt\": \"<date>\",\n  \"claim\": {\n    \"status\": \"late\",\n    \"payments\": [\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\"\n      }\n    ]\n  },\n  \"extra\": {\n    \"claimReference\": \"<string>\",\n    \"paymentReference\": \"<string>\",\n    \"termsOfPayment\": \"<number>\",\n    \"issueDate\": \"<date>\"\n  }\n}"
+								},
+								{
+									"name": "Invalid data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/claim/:claimId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"claim",
+												":claimId"
+											],
+											"variable": [
+												{
+													"key": "claimId"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "Invalid authentication",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/claim/:claimId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"claim",
+												":claimId"
+											],
+											"variable": [
+												{
+													"key": "claimId"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "Internal Server Error. If the problem persists contact the technical support",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"description": "Added as a part of security scheme: basic",
+												"key": "Authorization",
+												"value": "Basic <credentials>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/claim/:claimId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"claim",
+												":claimId"
+											],
+											"variable": [
+												{
+													"key": "claimId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Transfer a claim",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response body has ids\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(!!jsonData.id).to.eql(true);",
+									"    pm.expect(!!jsonData.lineItems).to.eql(true);",
+									"    pm.collectionVariables.set(\"claimId\", jsonData.id);",
+									"    pm.collectionVariables.set(\"paymentAmount\", jsonData.lineItems.reduce((tot, item) => tot + (item.amount * item.quantity), 0));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{basicAuthUsername}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{basicAuthPassword}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accountId\": \"{{accountId}}\",\n    \"lineItems\": [\n        {\n            \"amount\": 10000,\n            \"quantity\": 2,\n            \"vatPercent\": 25,\n            \"vatAmount\": 2500,\n            \"description\": \"{{$randomProductName}}\",\n            \"unit\": \"kilogram\"\n        }\n    ],\n    \"extra\": {\n        \"claimReference\": \"{{$randomPassword}}\",\n        \"paymentReference\": \"{{$randomPassword}}\",\n        \"issueDate\": \"{{$isoTimestamp}}\",\n        \"termsOfPayment\": 60\n    },\n    \"financing\": {\n        \"amount\": 18000,\n        \"ltv\": 90\n    },\n    \"extraData\": []\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/claim",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"claim"
+							]
+						},
+						"description": "Allow the transfer of a claim between the creditor and the debtor of the account to Moank."
+					},
+					"response": [
+						{
+							"name": "Successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"financing\": {\n    \"amount\": 19011609,\n    \"ltv\": 4154469\n  },\n  \"extra\": {\n    \"claimReference\": {\n      \"description\": \"Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier of the invoice issued by the creditor\",\n      \"example\": \"CLM-2023-001\"\n    },\n    \"paymentReference\": \"<string>\",\n    \"issueDate\": {\n      \"description\": \"Date when the claim has been issued by the creditor in ISO format\",\n      \"example\": \"2023-04-25T08:00:00.000Z\"\n    },\n    \"termsOfPayment\": {\n      \"description\": \"Repayment period of the claim from the issued date\",\n      \"example\": 60\n    }\n  },\n  \"extraData\": [\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    },\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/claim",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"claim"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<string>\",\n  \"accountId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\",\n      \"vatPercent\": \"<number>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\",\n      \"vatPercent\": \"<number>\"\n    }\n  ],\n  \"financing\": {\n    \"financingStatus\": \"created\",\n    \"amount\": 13896714,\n    \"ltv\": 2538488,\n    \"fees\": [\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\",\n        \"feeType\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\",\n        \"feeType\": \"<string>\"\n      }\n    ],\n    \"financer\": {\n      \"name\": \"<string>\",\n      \"identifier\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    \"financedAt\": \"<date>\",\n    \"finacialProduct\": \"<string>\"\n  },\n  \"claimStatus\": \"not-invoiced\",\n  \"createdAt\": \"<date>\",\n  \"claim\": {\n    \"status\": \"late\",\n    \"payments\": [\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\"\n      }\n    ]\n  },\n  \"extra\": {\n    \"claimReference\": \"<string>\",\n    \"paymentReference\": \"<string>\",\n    \"termsOfPayment\": \"<number>\",\n    \"issueDate\": \"<date>\"\n  }\n}"
+						},
+						{
+							"name": "Invalid data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"financing\": {\n    \"amount\": 19011609,\n    \"ltv\": 4154469\n  },\n  \"extra\": {\n    \"claimReference\": {\n      \"description\": \"Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier of the invoice issued by the creditor\",\n      \"example\": \"CLM-2023-001\"\n    },\n    \"paymentReference\": \"<string>\",\n    \"issueDate\": {\n      \"description\": \"Date when the claim has been issued by the creditor in ISO format\",\n      \"example\": \"2023-04-25T08:00:00.000Z\"\n    },\n    \"termsOfPayment\": {\n      \"description\": \"Repayment period of the claim from the issued date\",\n      \"example\": 60\n    }\n  },\n  \"extraData\": [\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    },\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/claim",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"claim"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Invalid authentication",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"financing\": {\n    \"amount\": 19011609,\n    \"ltv\": 4154469\n  },\n  \"extra\": {\n    \"claimReference\": {\n      \"description\": \"Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier of the invoice issued by the creditor\",\n      \"example\": \"CLM-2023-001\"\n    },\n    \"paymentReference\": \"<string>\",\n    \"issueDate\": {\n      \"description\": \"Date when the claim has been issued by the creditor in ISO format\",\n      \"example\": \"2023-04-25T08:00:00.000Z\"\n    },\n    \"termsOfPayment\": {\n      \"description\": \"Repayment period of the claim from the issued date\",\n      \"example\": 60\n    }\n  },\n  \"extraData\": [\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    },\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/claim",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"claim"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Internal Server Error. If the problem persists contact the technical support",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"financing\": {\n    \"amount\": 19011609,\n    \"ltv\": 4154469\n  },\n  \"extra\": {\n    \"claimReference\": {\n      \"description\": \"Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier of the invoice issued by the creditor\",\n      \"example\": \"CLM-2023-001\"\n    },\n    \"paymentReference\": \"<string>\",\n    \"issueDate\": {\n      \"description\": \"Date when the claim has been issued by the creditor in ISO format\",\n      \"example\": \"2023-04-25T08:00:00.000Z\"\n    },\n    \"termsOfPayment\": {\n      \"description\": \"Repayment period of the claim from the issued date\",\n      \"example\": 60\n    }\n  },\n  \"extraData\": [\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    },\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/claim",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"claim"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "List Claims",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{basicAuthUsername}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{basicAuthPassword}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/claim",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"claim"
+							]
+						},
+						"description": "Allow the transfer of a claim between the creditor and the debtor of the account to Moank."
+					},
+					"response": [
+						{
+							"name": "Successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"financing\": {\n    \"amount\": 19011609,\n    \"ltv\": 4154469\n  },\n  \"extra\": {\n    \"claimReference\": {\n      \"description\": \"Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier of the invoice issued by the creditor\",\n      \"example\": \"CLM-2023-001\"\n    },\n    \"paymentReference\": \"<string>\",\n    \"issueDate\": {\n      \"description\": \"Date when the claim has been issued by the creditor in ISO format\",\n      \"example\": \"2023-04-25T08:00:00.000Z\"\n    },\n    \"termsOfPayment\": {\n      \"description\": \"Repayment period of the claim from the issued date\",\n      \"example\": 60\n    }\n  },\n  \"extraData\": [\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    },\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/claim",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"claim"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": \"<string>\",\n  \"accountId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\",\n      \"vatPercent\": \"<number>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\",\n      \"vatPercent\": \"<number>\"\n    }\n  ],\n  \"financing\": {\n    \"financingStatus\": \"created\",\n    \"amount\": 13896714,\n    \"ltv\": 2538488,\n    \"fees\": [\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\",\n        \"feeType\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\",\n        \"feeType\": \"<string>\"\n      }\n    ],\n    \"financer\": {\n      \"name\": \"<string>\",\n      \"identifier\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    \"financedAt\": \"<date>\",\n    \"finacialProduct\": \"<string>\"\n  },\n  \"claimStatus\": \"not-invoiced\",\n  \"createdAt\": \"<date>\",\n  \"claim\": {\n    \"status\": \"late\",\n    \"payments\": [\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"date\": \"<date>\"\n      }\n    ]\n  },\n  \"extra\": {\n    \"claimReference\": \"<string>\",\n    \"paymentReference\": \"<string>\",\n    \"termsOfPayment\": \"<number>\",\n    \"issueDate\": \"<date>\"\n  }\n}"
+						},
+						{
+							"name": "Invalid data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"financing\": {\n    \"amount\": 19011609,\n    \"ltv\": 4154469\n  },\n  \"extra\": {\n    \"claimReference\": {\n      \"description\": \"Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier of the invoice issued by the creditor\",\n      \"example\": \"CLM-2023-001\"\n    },\n    \"paymentReference\": \"<string>\",\n    \"issueDate\": {\n      \"description\": \"Date when the claim has been issued by the creditor in ISO format\",\n      \"example\": \"2023-04-25T08:00:00.000Z\"\n    },\n    \"termsOfPayment\": {\n      \"description\": \"Repayment period of the claim from the issued date\",\n      \"example\": 60\n    }\n  },\n  \"extraData\": [\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    },\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/claim",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"claim"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Invalid authentication",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"financing\": {\n    \"amount\": 19011609,\n    \"ltv\": 4154469\n  },\n  \"extra\": {\n    \"claimReference\": {\n      \"description\": \"Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier of the invoice issued by the creditor\",\n      \"example\": \"CLM-2023-001\"\n    },\n    \"paymentReference\": \"<string>\",\n    \"issueDate\": {\n      \"description\": \"Date when the claim has been issued by the creditor in ISO format\",\n      \"example\": \"2023-04-25T08:00:00.000Z\"\n    },\n    \"termsOfPayment\": {\n      \"description\": \"Repayment period of the claim from the issued date\",\n      \"example\": 60\n    }\n  },\n  \"extraData\": [\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    },\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/claim",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"claim"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Internal Server Error. If the problem persists contact the technical support",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"vatAmount\": \"<number>\",\n      \"vatPercent\": \"<number>\",\n      \"unit\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"financing\": {\n    \"amount\": 19011609,\n    \"ltv\": 4154469\n  },\n  \"extra\": {\n    \"claimReference\": {\n      \"description\": \"Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier of the invoice issued by the creditor\",\n      \"example\": \"CLM-2023-001\"\n    },\n    \"paymentReference\": \"<string>\",\n    \"issueDate\": {\n      \"description\": \"Date when the claim has been issued by the creditor in ISO format\",\n      \"example\": \"2023-04-25T08:00:00.000Z\"\n    },\n    \"termsOfPayment\": {\n      \"description\": \"Repayment period of the claim from the issued date\",\n      \"example\": 60\n    }\n  },\n  \"extraData\": [\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    },\n    {\n      \"dataFormat\": \"<string>\",\n      \"data\": {}\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/claim",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"claim"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "payment",
+			"item": [
+				{
+					"name": "Register a payment from the debtor",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{basicAuthUsername}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{basicAuthPassword}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bankReferenceId\": \"{{$randomLoremWord}}{{$randomInt}}{{$randomInt}}\",\n    \"transactionDate\": \"{{$isoTimestamp}}\",\n    \"transactionAmount\": \"{{paymentAmount}}\",\n    \"currency\": \"{{paymentCurrency}}\",\n    \"payerName\": \"{{$randomFullName}}\",\n    \"accountId\": \"{{accountId}}\",\n    \"claimId\": \"{{claimId}}\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/payment/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payment",
+								""
+							]
+						},
+						"description": "Allow the partner to notify payments from the debtors received by the creditor."
+					},
+					"response": [
+						{
+							"name": "Successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"bankReferenceId\": \"<string>\",\n  \"transactionDate\": \"<date>\",\n  \"transactionAmount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"payerName\": \"<string>\",\n  \"accountId\": \"<string>\",\n  \"claimId\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/payment",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"payment"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						},
+						{
+							"name": "Invalid data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"bankReferenceId\": \"<string>\",\n  \"transactionDate\": \"<date>\",\n  \"transactionAmount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"payerName\": \"<string>\",\n  \"accountId\": \"<string>\",\n  \"claimId\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/payment",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"payment"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Invalid authentication",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"bankReferenceId\": \"<string>\",\n  \"transactionDate\": \"<date>\",\n  \"transactionAmount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"payerName\": \"<string>\",\n  \"accountId\": \"<string>\",\n  \"claimId\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/payment",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"payment"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Internal Server Error. If the problem persists contact the technical support",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"description": "Added as a part of security scheme: basic",
+										"key": "Authorization",
+										"value": "Basic <credentials>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"bankReferenceId\": \"<string>\",\n  \"transactionDate\": \"<date>\",\n  \"transactionAmount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"payerName\": \"<string>\",\n  \"accountId\": \"<string>\",\n  \"claimId\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/payment",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"payment"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"details\": [\n    {\n      \"description\": \"<string>\"\n    },\n    {\n      \"description\": \"<string>\"\n    }\n  ]\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://staging.api.moank.se/api/hooks/factoring"
+		},
+		{
+			"key": "basicAuthUsername",
+			"value": "request",
+			"type": "string"
+		},
+		{
+			"key": "basicAuthPassword",
+			"value": "request",
+			"type": "string"
+		},
+		{
+			"key": "creditorId",
+			"value": ""
+		},
+		{
+			"key": "decisionId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "accountId",
+			"value": ""
+		},
+		{
+			"key": "paymentCurrency",
+			"value": ""
+		},
+		{
+			"key": "claimId",
+			"value": ""
+		},
+		{
+			"key": "paymentAmount",
+			"value": ""
+		}
+	]
+}

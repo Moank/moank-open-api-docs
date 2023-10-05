@@ -19,6 +19,13 @@ info:
 
     <a href="./specifications/factoring/factoring.svg" target="_blank">![Sequence Diagram](./specifications/factoring/factoring.svg)</a>
 
+    ## Testing
+    Moank Factoring API has a staging environment to support the partner's developers in integrating with the service. Is available to download from the following links the [Postman](<https://www.postman.com/>) collection that will allow exploring the APIs before writing the first line of code.
+    A pair of valid API credentials are required to have access to the staging environment and they can be provided by Moank Factoring API's team on request.
+    - <a href="./factoring/postman/MoankFactoringAPI.postman_collection.json" download>MoankFactoringAPI Postman Collection</a>
+    > Postman has good documentation and if is needed some help in utilising the above files, here is a good <a href="https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman" target="_blank">tutorial</a> from their official website.
+
+
 servers:
 - url: https://api.moank.se/api/hooks/factoring
   description: Production server
