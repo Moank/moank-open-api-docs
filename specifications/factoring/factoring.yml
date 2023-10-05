@@ -858,6 +858,22 @@ components:
                         postcode:
                           type: string
                           example: "54321"
+                    extraData:
+                      description: List of extra information provided to Moank for the decision process based on the agreement
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - dataFormat
+                          - data
+                        properties:
+                          dataFormat:
+                            type: string
+                            description: Enum provided by Moank based on the agreement
+                            example: "JSON-UC"
+                          data:
+                            description: The type and format of this field depends on the `dataFormat` value
+                            type: object
               decision:
                 type: object
                 required:
@@ -965,6 +981,22 @@ components:
                           type: string
                         postcode:
                           type: string
+                    extraData:
+                      description: List of extra information provided to Moank for the decision process based on the agreement
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - dataFormat
+                          - data
+                        properties:
+                          dataFormat:
+                            type: string
+                            description: Enum provided by Moank based on the agreement
+                            example: "JSON-UC"
+                          data:
+                            description: The type and format of this field depends on the `dataFormat` value
+                            type: object
               terms:
                 type: object
                 description: Terms about the business agreement with Moank
@@ -1215,6 +1247,22 @@ components:
                     description: Date when the claim has been issued by the creditor in ISO format
                     example: '2023-04-28T12:18:06.849Z'
                     format: date
+              extraData:
+                description: List of extra information provided to Moank for the decision process based on the agreement
+                type: array
+                items:
+                  type: object
+                  required:
+                    - dataFormat
+                    - data
+                  properties:
+                    dataFormat:
+                      type: string
+                      description: Enum provided by Moank based on the agreement
+                      example: "DATA-V1"
+                    data:
+                      description: The type and format of this field depends on the `dataFormat` value
+                      type: object
 
     dataError:
       description: Invalid data
