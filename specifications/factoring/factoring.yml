@@ -1215,18 +1215,18 @@ components:
                           description: The date when the payment was registered in ISO format
                           example: '2023-04-28T12:18:06.849Z'
                           format: date
-                    originalAmount:
-                      type: number
-                      description: The original amount of the claim
-                      example: 1500
-                    balance:
-                      type: number
-                      description: The current balance of the claim
-                      example: -500
-                    overdueDays:
-                      type: number
-                      description: The number of days the claim full payment is overdue. If the number is negative, the due date of the payments is still in the future. If the number is positive, the claim is now late.
-                      example: 5
+                  originalAmount:
+                    type: number
+                    description: The original amount of the claim
+                    example: 1500
+                  balance:
+                    type: number
+                    description: The current balance of the claim
+                    example: -500
+                  overdueDays:
+                    type: number
+                    description: The number of days the claim full payment is overdue. If the number is negative, the due date of the payments is still in the future. If the number is positive, the claim is now late.
+                    example: 5
               extra:
                 type: object
                 properties:
