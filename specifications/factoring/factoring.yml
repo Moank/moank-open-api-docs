@@ -1087,14 +1087,22 @@ components:
                       - granted
                       - denied
                     example: granted
-                  amount:
-                    description: Amount to finance of the claim total amount
+                  requestedAmount:
+                    description: Requested amount to finance of the claim total amount
                     minimum: 0
                     example: 18000
-                  ltv:
-                    description: Percentage to finance of the claim total amount
+                  requestedLtv:
+                    description: Requested percentage to finance of the claim total amount
                     minimum: 0
                     example: 90
+                  amount:
+                    description: Actual financed amount in the claim
+                    minimum: 0
+                    example: 16000
+                  ltv:
+                    description: Percentage of financed amount of the claim total amount
+                    minimum: 0
+                    example: 80
                   fees:
                     description: Financing fees applied to the claim
                     type: array
