@@ -561,6 +561,10 @@ components:
                   - late
                   - reminder
                   - late-interest
+              description:
+                type: string
+                description: The description of the transaction
+                example: This is an example transaction
 
     creditorCreate:
       required: true
