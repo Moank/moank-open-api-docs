@@ -561,6 +561,7 @@ components:
                   - late
                   - reminder
                   - late-interest
+                  - administration
               description:
                 type: string
                 description: The description of the transaction
