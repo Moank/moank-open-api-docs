@@ -1409,6 +1409,7 @@ components:
             - waiting-for-payment
             - not-invoiced
             - late
+            - recoursed
           example: waiting-for-payment
         claim:
           type: object
@@ -1421,6 +1422,7 @@ components:
                 - waiting-for-payment
                 - not-invoiced
                 - late
+                - recoursed
               example: not-invoiced
             payments:
               type: array
