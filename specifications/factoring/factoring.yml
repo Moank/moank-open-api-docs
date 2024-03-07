@@ -127,6 +127,37 @@ paths:
       security:
       - basic_auth: []
 
+  /creditor/{creditorId}/payment:
+    get:
+      tags:
+        - Creditor endpoints
+      summary: Get creditor
+      description: Used to fetch a creditor's registered payments at a specific date.
+      parameters:
+      - name: creditorId
+        in: path
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: date
+        description: The date of the payments to fetch
+        required: true
+        schema:
+          type: string
+          example: "2024-02-28"
+      responses:
+        200:
+          $ref: '#/components/responses/payments'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
   /creditor/{creditorId}/settlement:
     get:
       tags:
@@ -931,6 +962,14 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/creditor"
+    payments:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/payment"
 
     settlement:
       description: Successful operation
@@ -1260,6 +1299,43 @@ components:
             $ref: "#/components/schemas/serviceError"
 
   schemas:
+    payment:
+      type: object
+      required:
+        - id
+        - claimId
+        - amount
+        - currency
+        - date
+        - registeredAt
+      properties:
+        id:
+          type: string
+          description: Payment's unique identifier
+          example: "123"
+        claimId:
+          type: string
+          description: The claim id where this payment was registered
+          example: "123"  
+        amount:
+          type: number
+          description: Payment amount
+          example: 1000
+        currency:
+          type: string
+          description: Currency of the payment in ISO 4217 format
+          example: SEK
+        date:
+          type: string
+          description: The date when the payment was made in ISO format
+          example: '2023-04-28T12:18:06.849Z'
+          format: date
+        registeredAt:
+          type: string
+          description: The date when the payment was registered in ISO format
+          example: '2023-04-28T12:18:06.849Z'
+          format: date
+
     claim:
       type: object
       required:
