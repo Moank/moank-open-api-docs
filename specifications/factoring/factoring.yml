@@ -132,7 +132,7 @@ paths:
       tags:
         - Creditor endpoints
       summary: Get creditor
-      description: Used to fetch a creditor's regis tered payments at a specific date.
+      description: Used to fetch a creditor's registered payments at a specific date.
       parameters:
       - name: creditorId
         in: path
