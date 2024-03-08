@@ -132,7 +132,7 @@ paths:
       tags:
         - Creditor endpoints
       summary: Get payments in creditor's claims
-      description: Used to fetch a creditor's claims registered payments at a specific date.
+      description: Used to fetch a the payments at a specific date registered in the claims owned by a creditor.
       parameters:
       - name: creditorId
         in: path
