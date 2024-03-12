@@ -879,6 +879,10 @@ components:
                     description: Percentage to finance of the claim total amount
                     minimum: 0
                     example: 90
+              currency:
+                type: string
+                description: Currency for the business terms in ISO 4217 format
+                example: SEK
               extraData:
                 description: List of extra information to provide to Moank for the decision process based on the agreement
                 type: array
@@ -1451,6 +1455,10 @@ components:
                     type: string
                     description: The type of the fee
                     example: reminder
+            currency:
+              type: string
+              description: Currency for the business terms in ISO 4217 format
+              example: SEK
             financer:
               description: Information on the financer of the claim
               type: object
@@ -1524,6 +1532,10 @@ components:
               type: number
               description: The number of days the claim full payment is overdue. If the number is negative, the due date of the payments is still in the future. If the number is positive, the claim is now late.
               example: 5
+            currency:
+              type: string
+              description: Currency for the business terms in ISO 4217 format
+              example: SEK
         extra:
           type: object
           properties:
