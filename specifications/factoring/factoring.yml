@@ -808,6 +808,10 @@ components:
                 type: string
                 description: Account's unique identifier. This identify the creditor and debtor(s) connected to the claim
                 example: "123"
+              currency:
+                type: string
+                description: Currency of the line items in ISO 4217 format. if not specified, will be asserted that the currency of the line items is the same of the account
+                example: SEK
               lineItems:
                 type: array
                 items:
@@ -1443,6 +1447,10 @@ components:
                     type: string
                     description: The type of the fee
                     example: reminder
+            currency:
+              type: string
+              description: Currency of the financement in ISO 4217 format
+              example: SEK
             financer:
               description: Information on the financer of the claim
               type: object
@@ -1516,6 +1524,10 @@ components:
               type: number
               description: The number of days the claim full payment is overdue. If the number is negative, the due date of the payments is still in the future. If the number is positive, the claim is now late.
               example: 5
+            currency:
+              type: string
+              description: Currency for claim in ISO 4217 format
+              example: SEK
         extra:
           type: object
           properties:
