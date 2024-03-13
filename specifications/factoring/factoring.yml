@@ -812,6 +812,10 @@ components:
                 type: string
                 description: Account's unique identifier. This identify the creditor and debtor(s) connected to the claim
                 example: "123"
+              currency:
+                type: string
+                description: Currency of the line items in ISO 4217 format. if not specified, will be asserted that the currency of the line items is the same of the account
+                example: SEK
               lineItems:
                 type: array
                 items:
@@ -879,10 +883,6 @@ components:
                     description: Percentage to finance of the claim total amount
                     minimum: 0
                     example: 90
-              currency:
-                type: string
-                description: Currency for the business terms in ISO 4217 format
-                example: SEK
               extraData:
                 description: List of extra information to provide to Moank for the decision process based on the agreement
                 type: array
@@ -1457,7 +1457,7 @@ components:
                     example: reminder
             currency:
               type: string
-              description: Currency for the business terms in ISO 4217 format
+              description: Currency of the financement in ISO 4217 format
               example: SEK
             financer:
               description: Information on the financer of the claim
@@ -1534,7 +1534,9 @@ components:
               example: 5
             currency:
               type: string
-              description: Currency for the business terms in ISO 4217 format
+              description: Currency for claim in ISO 4217 format
+
+
               example: SEK
         extra:
           type: object
