@@ -1535,8 +1535,6 @@ components:
             currency:
               type: string
               description: Currency for claim in ISO 4217 format
-
-
               example: SEK
         extra:
           type: object
