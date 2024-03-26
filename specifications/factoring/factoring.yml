@@ -1512,6 +1512,10 @@ components:
                     description: The date when the payment was registered in ISO format
                     example: '2023-04-28T12:18:06.849Z'
                     format: date
+                  bankReferenceId:
+                    type: string
+                    description: Unique identifier of the transaction from the Creditor's bank
+                    example: "0001"
             originalAmount:
               type: number
               description: The original amount of the claim
