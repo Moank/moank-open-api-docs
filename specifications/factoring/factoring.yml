@@ -1464,7 +1464,7 @@ components:
                     enum:
                       - flat
                       - variable
-                    example: Flat
+                    example: flat
                   feeReferenceAmount:
                     type: string
                     description: Speficy on which amount the fee should be based on
