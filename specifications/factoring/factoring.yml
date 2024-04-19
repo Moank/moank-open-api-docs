@@ -1447,6 +1447,80 @@ components:
                     type: string
                     description: The type of the fee
                     example: reminder
+            feeSettings:
+              type: array
+              items:
+                type: object
+                required:
+                  - rateType
+                  - feeReferenceAmount
+                  - feeTrigger
+                  - billingMethod
+                  - percentageValue
+                properties:
+                  rateType:
+                    type: string
+                    description: Specify the method used to calculate the fee amount
+                    enum:
+                      - flat
+                      - variable
+                    example: flat
+                  feeReferenceAmount:
+                    type: string
+                    description: Speficy on which amount the fee should be based on
+                    enum:
+                      - invoice-amount
+                      - financed-amount
+                    example: invoice-amount
+                  feeTrigger:
+                    type: string
+                    description: Speficy when the fee has to be collected
+                    enum:
+                      - monthly-until-paid
+                      - on-financing
+                      - on-payment
+                    example: on-financing
+                  billingMethod:
+                    type: string
+                    description: Speficy the billing flow for the fees
+                    enum:
+                      - deduct
+                      - separate
+                    example: deduct
+                  percentageValue:
+                    type: string
+                    description: Percentage used to calculate the fee amount
+                    example: 10
+                    minimum: 0
+                  dayCountConvention:
+                    type: string
+                    description: Define the interest calculation method. Required when rateType is variable
+                    enum:
+                      - actual-360
+                      - actual-365
+                    example: actual-360
+                  cap:
+                    type: object
+                    description: An optional upper limit can be set on the fee amount to prevent it from exceeding a specified value
+                    properties:
+                      value:
+                        type: number
+                        description: The maximum value that the fee can reach
+                        example: 100
+                        minimum: 0
+                      currency:
+                        type: string
+                        description:  The unit of currency for the cap value
+                        example: SEK
+                  vatPercentage:
+                    type: number
+                    description: Specify the VAT rate on fees
+                    example: 10
+                    minimum: 0
+                  description:
+                    type: string
+                    description: Customised descriptions for the fee transaction
+                    example: "Financing fee"
             currency:
               type: string
               description: Currency of the financement in ISO 4217 format
