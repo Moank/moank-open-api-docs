@@ -1525,6 +1525,10 @@ components:
               type: string
               description: Currency of the financement in ISO 4217 format
               example: SEK
+            fxRate:
+              type: number
+              description: The exchange rate used by the system between the claim and the financing currencies
+              example: 11.95
             financer:
               description: Information on the financer of the claim
               type: object
