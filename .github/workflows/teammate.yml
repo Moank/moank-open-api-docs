@@ -47,19 +47,19 @@ jobs:
           -H 'cache-control: no-cache' \
           -d "{\"icon_emoji\":\":rocket:\", \"text\": \":rocket: <!subteam^S04PUH9CCHJ|@team-lime> <$PR_URL|$PR_TITLE> has been updated by $DEV\"}"
 
-    - name: Notify pull request commented
-      env:
-        NOTIFICATION_HOOK: ${{ secrets.NOTIFICATION_HOOK }}
-        PR_TITLE: ${{ github.event.pull_request.title }}
-        PR_URL: ${{ github.event.pull_request.html_url }}
-        DEV: ${{ github.event.sender.login }}
-      if: github.event_name == 'pull_request_review' && github.event.action == 'submitted' && github.event.review.state == 'commented'
-      run: |
-        curl --silent --show-error --fail -X POST \
-          $NOTIFICATION_HOOK \
-          -H 'Content-Type: application/json' \
-          -H 'cache-control: no-cache' \
-          -d "{\"icon_emoji\":\":speech_balloon:\", \"text\": \":speech_balloon: <!subteam^S04PUH9CCHJ|@team-lime> <$PR_URL|$PR_TITLE> has been commented by $DEV\"}"
+    # - name: Notify pull request commented
+    #   env:
+    #     NOTIFICATION_HOOK: ${{ secrets.NOTIFICATION_HOOK }}
+    #     PR_TITLE: ${{ github.event.pull_request.title }}
+    #     PR_URL: ${{ github.event.pull_request.html_url }}
+    #     DEV: ${{ github.event.sender.login }}
+    #   if: github.event_name == 'pull_request_review' && github.event.action == 'submitted' && github.event.review.state == 'commented'
+    #   run: |
+    #     curl --silent --show-error --fail -X POST \
+    #       $NOTIFICATION_HOOK \
+    #       -H 'Content-Type: application/json' \
+    #       -H 'cache-control: no-cache' \
+    #       -d "{\"icon_emoji\":\":speech_balloon:\", \"text\": \":speech_balloon: <!subteam^S04PUH9CCHJ|@team-lime> <$PR_URL|$PR_TITLE> has been commented by $DEV\"}"
 
     - name: Notify pull request changes requested
       env:
@@ -75,16 +75,16 @@ jobs:
           -H 'cache-control: no-cache' \
           -d "{\"icon_emoji\":\":x:\", \"text\": \":x: <!subteam^S04PUH9CCHJ|@team-lime> <$PR_URL|$PR_TITLE> changes are required by $DEV\"}"
 
-    - name: Notify pull request approved
-      env:
-        NOTIFICATION_HOOK: ${{ secrets.NOTIFICATION_HOOK }}
-        PR_TITLE: ${{ github.event.pull_request.title }}
-        PR_URL: ${{ github.event.pull_request.html_url }}
-        DEV: ${{ github.event.sender.login }}
-      if: github.event_name == 'pull_request_review' && github.event.action == 'submitted' && github.event.review.state == 'approved'
-      run: |
-        curl --silent --show-error --fail -X POST \
-          $NOTIFICATION_HOOK \
-          -H 'Content-Type: application/json' \
-          -H 'cache-control: no-cache' \
-          -d "{\"icon_emoji\":\":white_check_mark:\", \"text\": \":white_check_mark: <!subteam^S04PUH9CCHJ|@team-lime> <$PR_URL|$PR_TITLE> has been approved by $DEV\"}"
+    # - name: Notify pull request approved
+    #   env:
+    #     NOTIFICATION_HOOK: ${{ secrets.NOTIFICATION_HOOK }}
+    #     PR_TITLE: ${{ github.event.pull_request.title }}
+    #     PR_URL: ${{ github.event.pull_request.html_url }}
+    #     DEV: ${{ github.event.sender.login }}
+    #   if: github.event_name == 'pull_request_review' && github.event.action == 'submitted' && github.event.review.state == 'approved'
+    #   run: |
+    #     curl --silent --show-error --fail -X POST \
+    #       $NOTIFICATION_HOOK \
+    #       -H 'Content-Type: application/json' \
+    #       -H 'cache-control: no-cache' \
+    #       -d "{\"icon_emoji\":\":white_check_mark:\", \"text\": \":white_check_mark: <!subteam^S04PUH9CCHJ|@team-lime> <$PR_URL|$PR_TITLE> has been approved by $DEV\"}"
