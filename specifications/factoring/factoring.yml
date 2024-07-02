@@ -27,9 +27,9 @@ info:
 
 
 servers:
-- url: https://api.moank.se/api/hooks/factoring
+- url: https://factoring.moank.se
   description: Production server
-- url: https://staging.api.moank.se/api/hooks/factoring/
+- url: https://staging.factoring.moank.se
   description: Staging server
 
 paths:
