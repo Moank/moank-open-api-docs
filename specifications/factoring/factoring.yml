@@ -572,7 +572,7 @@ paths:
     post:
       tags:
         - Payment endpoints
-      summary: Register an idetified payment or an unidentified payment from the debtor
+      summary: Register an identified payment or an unidentified payment from the debtor
       description: Allow the partner to notify payments from the debtors received by the creditor.
       requestBody:
         $ref: "#/components/requestBodies/paymentCreateV2"
@@ -948,7 +948,7 @@ components:
                 format: date
               transactionAmount:
                 type: number
-                description: Amout of the payment received by the creditor
+                description: Amount of the payment received by the creditor
                 example: 1000
               currency:
                 type: string
@@ -956,7 +956,7 @@ components:
                 example: "EUR"
               payerName:
                 type: string
-                description: Name received in the payment datails
+                description: Name received in the payment details
                 example: "Debtor AB"
 
     paymentCreateV2:
@@ -988,7 +988,7 @@ components:
                 format: date
               transactionAmount:
                 type: number
-                description: Amout of the payment received by the creditor
+                description: Amount of the payment received by the creditor
                 example: 1000
               currency:
                 type: string
@@ -996,7 +996,7 @@ components:
                 example: "EUR"
               payerName:
                 type: string
-                description: Name received in the payment datails
+                description: Name received in the payment details
                 example: "Debtor AB"
               paymentType:
                 type: string
