@@ -568,6 +568,26 @@ paths:
       security:
       - basic_auth: []
 
+  /payment-v2:
+    post:
+      tags:
+        - Payment endpoints
+      summary: Register an identified payment or an unidentified payment from the debtor
+      description: Allow the partner to notify payments from the debtors received by the creditor.
+      requestBody:
+        $ref: "#/components/requestBodies/paymentCreateV2"
+      responses:
+        200:
+          $ref: '#/components/responses/empty'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
 components:
   requestBodies:
     createTransaction:
@@ -928,7 +948,7 @@ components:
                 format: date
               transactionAmount:
                 type: number
-                description: Amout of the payment received by the creditor
+                description: Amount of the payment received by the creditor
                 example: 1000
               currency:
                 type: string
@@ -936,8 +956,59 @@ components:
                 example: "EUR"
               payerName:
                 type: string
-                description: Name received in the payment datails
+                description: Name received in the payment details
                 example: "Debtor AB"
+
+    paymentCreateV2:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - bankReferenceId
+              - transactionDate
+              - transactionAmount
+              - currency
+              - payerName
+              - paymentType
+            properties:
+              claimId:
+                type: string
+                description: Claim's unique identifier. This identify the claim to report the identified payment into. Required for identified payments
+                example: "123"
+              bankReferenceId:
+                type: string
+                description: Unique identifier of the transaction from the Creditor's bank
+                example: "0001"
+              transactionDate:
+                type: string
+                description: Date when the payment has been received by the creditor in ISO format
+                example: "2023-04-28T12:18:06.849Z"
+                format: date
+              transactionAmount:
+                type: number
+                description: Amount of the payment received by the creditor
+                example: 1000
+              currency:
+                type: string
+                description: Currency of the payment received by the creditor in ISO 4217 format
+                example: "EUR"
+              payerName:
+                type: string
+                description: Name received in the payment details
+                example: "Debtor AB"
+              paymentType:
+                type: string
+                description: Type of payment the partner is reporting
+                enum:
+                  - identified-payment
+                  - unidentified-payment
+                example: identified-payment
+              paymentReference:
+                type: string
+                description: Creditor unique payment reference for the claim. Required for identified payments
+                example: PAY-2023-001
 
   responses:
     empty:
