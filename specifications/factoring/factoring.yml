@@ -552,7 +552,7 @@ paths:
     post:
       tags:
         - Payment endpoints
-      summary: Register a payment from the debtor
+      summary: Register a payment v1
       description: Allow the partner to notify payments from the debtors received by the creditor.
       requestBody:
         $ref: "#/components/requestBodies/paymentCreate"
@@ -572,7 +572,7 @@ paths:
     post:
       tags:
         - Payment endpoints
-      summary: Register an identified payment or an unidentified payment from the debtor
+      summary: Register a payment v2
       description: Allow the partner to notify payments from the debtors received by the creditor.
       requestBody:
         $ref: "#/components/requestBodies/paymentCreateV2"
