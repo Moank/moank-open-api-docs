@@ -828,6 +828,19 @@ components:
                 type: string
                 description: Account's unique identifier. This identify the creditor and debtor(s) connected to the claim
                 example: "123"
+              invoiceType:
+                type: string
+                description: |
+                  Type of the invoice to transfer.
+
+                  Setting this to `INVOICE_SERVICE` will ignore amount and ltv for the financing property.
+
+                  **Note:** `INVOICE_SERVICE` type must be used together with disclosed factoring, otherwise a `422` error will be thrown.
+                example: INVOICE
+                default: INVOICE
+                enum:
+                  - INVOICE
+                  - INVOICE_SERVICE
               currency:
                 type: string
                 description: Currency of the line items in ISO 4217 format. if not specified, will be asserted that the currency of the line items is the same of the account
@@ -890,6 +903,7 @@ components:
                     example: 60
               financing:
                 type: object
+                description: If invoiceType is set to to INVOICE_SERVICE, `amount` and `ltv` need to be set to zero or the financing object needs to be empty.
                 properties:
                   amount:
                     description: Amount to finance of the claim total amount
