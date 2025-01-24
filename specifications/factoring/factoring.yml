@@ -113,8 +113,11 @@ paths:
       - name: creditorId
         in: path
         required: true
+        description: Unique identifier of the creditor (MongoDB ObjectId)
         schema:
           type: string
+          pattern: '^[0-9a-fA-F]{24}$'
+          example: "507f1f77bcf86cd799439011"
       responses:
         200:
           $ref: '#/components/responses/creditor'
@@ -224,6 +227,42 @@ paths:
           $ref: "#/components/responses/serverError"
       security:
       - basic_auth: []
+
+  /creditor/{creditorId}/debtors:
+    get:
+      tags:
+        - Creditor endpoints
+      summary: Get creditor's debtors decisions
+      description: Used to fetch a list of debtors and their decisions for a specific creditor.
+      parameters:
+        - name: creditorId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: nationalIdentifier
+          in: query
+          required: true
+          description: National identifier to filter debtors
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/debtorDecision'
+        404:
+          $ref: "#/components/responses/notFoundError"
+        409:
+          $ref: "#/components/responses/conflictError"
+        422:
+          $ref: "#/components/responses/dataError"
+      security:
+        - basic_auth: []
 
   /decision:
     post:
@@ -1379,7 +1418,55 @@ components:
           schema:
             $ref: "#/components/schemas/serviceError"
 
+  securitySchemes:
+    basic_auth:
+      type: "http"
+      scheme: "basic"
+
   schemas:
+    debtorDecision:
+      description: Represents a debtor's decision information
+      type: object
+      required:
+        - debtorId
+        - debtorCountry
+        - debtorNationalIdentifier
+        - decisions
+      properties:
+        debtorId:
+          type: string
+          description: Unique identifier of the debtor (ObjectId string)
+          example: "507f1f77bcf86cd799439011"
+        debtorCountry:
+          type: string
+          description: Country code of the debtor
+          example: "SE"
+        debtorNationalIdentifier:
+          type: string
+          description: National identifier of the debtor
+          example: "5566778899"
+        decisions:
+          type: array
+          description: List of decisions associated with the debtor
+          items:
+            $ref: '#/components/schemas/debtorDecisionItem'
+
+    debtorDecisionItem:
+      description: Represents a single decision item for a debtor
+      type: object
+      required:
+        - id
+        - status
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the decision
+          example: "123"
+        status:
+          type: string
+          description: Status of the decision
+          example: "granted"
+
     payment:
       type: object
       required:
@@ -1637,7 +1724,6 @@ components:
             finacialProduct:
               type: string
               description: The type of financial product applied to the claim financing
-              example: undisclosed-factoring-non-recoursing
         claimStatus:
           deprecated: true
           type: string
@@ -2002,9 +2088,3 @@ components:
             resourceId:
               type: string
               description: Id of the resource already existing with the same identifier sent in the request
-
-
-  securitySchemes:
-    basic_auth:
-      type: "http"
-      scheme: "basic"
