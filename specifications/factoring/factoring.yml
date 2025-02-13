@@ -25,12 +25,11 @@ info:
     - <a href="./factoring/postman/MoankFactoringAPI.postman_collection.json" download>MoankFactoringAPI Postman Collection</a>
     > Postman has good documentation and if is needed some help in utilising the above files, here is a good <a href="https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman" target="_blank">tutorial</a> from their official website.
 
-
 servers:
-- url: https://factoring.moank.se
-  description: Production server
-- url: https://staging.factoring.moank.se
-  description: Staging server
+  - url: https://factoring.moank.se
+    description: Production server
+  - url: https://staging.factoring.moank.se
+    description: Staging server
 
 paths:
   /creditor:
@@ -53,7 +52,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
     get:
       tags:
@@ -80,19 +79,19 @@ paths:
           description: A filter for use in querying. It queries creditors on their nationalIdentifier.
           schema:
             type: string
-            example: 'nationalId1234'
+            example: "nationalId1234"
         - in: query
           name: alias
           description: A filter for use in querying. It queries creditors on their alias.
           schema:
             type: string
-            example: 'Acme'
+            example: "Acme"
         - in: query
           name: name
           description: A filter for use in querying. It queries creditors on their name.
           schema:
             type: string
-            example: 'Acme AB'
+            example: "Acme AB"
       responses:
         200:
           $ref: "#/components/responses/creditors"
@@ -110,17 +109,15 @@ paths:
       summary: Get creditor
       description: Used to fetch a previously created creditor and visualise the usage of the agreed terms.
       parameters:
-      - name: creditorId
-        in: path
-        required: true
-        description: Unique identifier of the creditor
-        schema:
-          type: string
-          pattern: '^[0-9a-fA-F]{24}$'
-          example: "507f1f77bcf86cd799439011"
+        - name: creditorId
+          in: path
+          required: true
+          description: Unique identifier of the creditor
+          schema:
+            type: string
       responses:
         200:
-          $ref: '#/components/responses/creditor'
+          $ref: "#/components/responses/creditor"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -128,7 +125,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
   /creditor/{creditorId}/payment:
     get:
@@ -137,21 +134,21 @@ paths:
       summary: Get payments in creditor's claims
       description: Used to fetch a the payments at a specific date registered in the claims owned by a creditor.
       parameters:
-      - name: creditorId
-        in: path
-        required: true
-        schema:
-          type: string
-      - in: query
-        name: date
-        description: The date of the payments to fetch
-        required: true
-        schema:
-          type: string
-          example: "2024-02-28"
+        - name: creditorId
+          in: path
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: date
+          description: The date of the payments to fetch
+          required: true
+          schema:
+            type: string
+            example: "2024-02-28"
       responses:
         200:
-          $ref: '#/components/responses/payments'
+          $ref: "#/components/responses/payments"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -159,7 +156,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
   /creditor/{creditorId}/settlement:
     get:
@@ -189,7 +186,7 @@ paths:
             example: 10
       responses:
         200:
-          $ref: '#/components/responses/settlementList'
+          $ref: "#/components/responses/settlementList"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -197,7 +194,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
   /creditor/{creditorId}/settlement/{payoutReference}:
     get:
@@ -218,7 +215,7 @@ paths:
             type: string
       responses:
         200:
-          $ref: '#/components/responses/settlement'
+          $ref: "#/components/responses/settlement"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -226,7 +223,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
   /creditor/{creditorId}/debtors:
     get:
@@ -280,7 +277,7 @@ paths:
         $ref: "#/components/requestBodies/decisionCreate"
       responses:
         200:
-          $ref: '#/components/responses/decision'
+          $ref: "#/components/responses/decision"
         400:
           $ref: "#/components/responses/dataError"
         409:
@@ -290,7 +287,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
   /decision/{decisionId}:
     get:
@@ -299,14 +296,14 @@ paths:
       summary: Fetch a decision
       description: Use to retrive information on a previously created decision.
       parameters:
-      - name: decisionId
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: decisionId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         200:
-          $ref: '#/components/responses/decision'
+          $ref: "#/components/responses/decision"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -314,7 +311,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
   /decision/{decisionId}/withdraw:
     put:
@@ -324,14 +321,14 @@ paths:
       description: |
         Use to withdraw a decision request as long as it is not in a final status such as: granted or denied
       parameters:
-      - name: decisionId
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: decisionId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         200:
-          $ref: '#/components/responses/decision'
+          $ref: "#/components/responses/decision"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -341,7 +338,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
   /account:
     post:
@@ -353,7 +350,7 @@ paths:
         $ref: "#/components/requestBodies/accountCreate"
       responses:
         200:
-          $ref: '#/components/responses/account'
+          $ref: "#/components/responses/account"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -361,7 +358,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
   /account/{accountId}:
     get:
@@ -370,14 +367,14 @@ paths:
       summary: Fetch an account
       description: Used to fetch a previously created account and visualise the usage of the agreed terms.
       parameters:
-      - name: accountId
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         200:
-          $ref: '#/components/responses/account'
+          $ref: "#/components/responses/account"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -385,7 +382,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
   /claim:
     post:
@@ -397,7 +394,7 @@ paths:
         $ref: "#/components/requestBodies/claimCreate"
       responses:
         200:
-          $ref: '#/components/responses/claim'
+          $ref: "#/components/responses/claim"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -405,7 +402,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
     get:
       tags:
@@ -507,7 +504,7 @@ paths:
 
       responses:
         200:
-          $ref: '#/components/responses/claims'
+          $ref: "#/components/responses/claims"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -515,7 +512,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
   /claim/{claimId}:
     get:
@@ -524,14 +521,14 @@ paths:
       summary: Fetch a claim
       description: Use to retrieve information on a previously created claim.
       parameters:
-      - name: claimId
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         200:
-          $ref: '#/components/responses/claim'
+          $ref: "#/components/responses/claim"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -539,7 +536,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
   /claim/{claimId}/transaction:
     post:
@@ -548,17 +545,17 @@ paths:
       summary: Report a transaction in a claim
       description: Use to report a transaction in a claim
       parameters:
-      - name: claimId
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         $ref: "#/components/requestBodies/createTransaction"
 
       responses:
         200:
-          $ref: '#/components/responses/claim'
+          $ref: "#/components/responses/claim"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -566,7 +563,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
   /claim/{claimId}/withdraw:
     put:
@@ -576,14 +573,14 @@ paths:
       description: |
         Use to withdraw a claim financing request as long as it is not in a final status such as: granted or denied
       parameters:
-      - name: claimId
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         200:
-          $ref: '#/components/responses/claim'
+          $ref: "#/components/responses/claim"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -591,7 +588,34 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
+
+  /claim/{claimId}/refinance:
+    put:
+      tags:
+        - Claim endpoints
+      summary: Refinance a claim
+      description: |
+        Use to refinance a claim that is on service
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: "#/components/requestBodies/claimRefinance"
+      responses:
+        200:
+          $ref: "#/components/responses/claim"
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+        - basic_auth: []
 
   /payment:
     post:
@@ -603,7 +627,7 @@ paths:
         $ref: "#/components/requestBodies/paymentCreate"
       responses:
         200:
-          $ref: '#/components/responses/empty'
+          $ref: "#/components/responses/empty"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -611,7 +635,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
   /payment-v2:
     post:
@@ -623,7 +647,7 @@ paths:
         $ref: "#/components/requestBodies/paymentCreateV2"
       responses:
         200:
-          $ref: '#/components/responses/empty'
+          $ref: "#/components/responses/empty"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -631,7 +655,7 @@ paths:
         500:
           $ref: "#/components/responses/serverError"
       security:
-      - basic_auth: []
+        - basic_auth: []
 
 components:
   requestBodies:
@@ -746,9 +770,9 @@ components:
           schema:
             type: object
             required:
-            - creditorId
-            - debtors
-            - product
+              - creditorId
+              - debtors
+              - product
             properties:
               creditorId:
                 type: string
@@ -851,7 +875,7 @@ components:
           schema:
             type: object
             required:
-            - decisionId
+              - decisionId
             properties:
               decisionId:
                 type: string
@@ -865,9 +889,9 @@ components:
           schema:
             type: object
             required:
-            - accountId
-            - lineItems
-            - financing
+              - accountId
+              - lineItems
+              - financing
             properties:
               accountId:
                 type: string
@@ -935,14 +959,14 @@ components:
                 properties:
                   claimReference:
                     description: Creditor unique reference of the claim. e.g. If an invoice is the transfered claim, the identifier of the invoice issued by the creditor
-                    example: 'CLM-2023-001'
+                    example: "CLM-2023-001"
                   paymentReference:
                     type: string
                     description: Creditor unique payment reference for the claim, if the payment reference is missing the claim reference identifier will be used as payment reference. e.g. If an invoice is the transfered claim, the reference the customer have to use in the payment for the invoice should be used.
                     example: PAY-2023-001
                   issueDate:
                     description: Date when the claim has been issued by the creditor in ISO format
-                    example: '2023-04-25T08:00:00.000Z'
+                    example: "2023-04-25T08:00:00.000Z"
                   termsOfPayment:
                     description: Repayment period of the claim from the issued date
                     example: 60
@@ -974,6 +998,20 @@ components:
                     data:
                       description: The type and format of this field depends on the `dataFormat` value
                       type: object
+
+    claimRefinance:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - requestedFinanceAmount
+            properties:
+              requestedFinanceAmount:
+                type: number
+                description: Requested financing amount of the claim
+                example: 1000
 
     paymentCreate:
       required: true
@@ -1124,10 +1162,10 @@ components:
           schema:
             type: object
             required:
-            - id
-            - debtors
-            - creditorId
-            - decision
+              - id
+              - debtors
+              - creditorId
+              - decision
             properties:
               id:
                 type: string
@@ -1249,11 +1287,11 @@ components:
           schema:
             type: object
             required:
-            - id
-            - debtors
-            - creditorId
-            - terms
-            - usage
+              - id
+              - debtors
+              - creditorId
+              - terms
+              - usage
             properties:
               id:
                 type: string
@@ -1495,7 +1533,7 @@ components:
         claimId:
           type: string
           description: The claim id where this payment was registered
-          example: "123"  
+          example: "123"
         amount:
           type: number
           description: Payment amount
@@ -1507,22 +1545,22 @@ components:
         date:
           type: string
           description: The date when the payment was made in ISO format
-          example: '2023-04-28T12:18:06.849Z'
+          example: "2023-04-28T12:18:06.849Z"
           format: date
         registeredAt:
           type: string
           description: The date when the payment was registered in ISO format
-          example: '2023-04-28T12:18:06.849Z'
+          example: "2023-04-28T12:18:06.849Z"
           format: date
 
     claim:
       type: object
       required:
-      - id
-      - accountId
-      - lineItems
-      - financing
-      - claimStatus
+        - id
+        - accountId
+        - lineItems
+        - financing
+        - claimStatus
       properties:
         id:
           type: string
@@ -1535,7 +1573,7 @@ components:
         createdAt:
           type: string
           description: Date when the claim has been created in ISO format
-          example: '2023-04-28T12:18:06.849Z'
+          example: "2023-04-28T12:18:06.849Z"
           format: date
         lineItems:
           type: array
@@ -1624,7 +1662,7 @@ components:
                   date:
                     type: string
                     description: The date when the fee was created in ISO format
-                    example: '2023-04-28T12:18:06.849Z'
+                    example: "2023-04-28T12:18:06.849Z"
                     format: date
                   feeType:
                     type: string
@@ -1693,7 +1731,7 @@ components:
                         minimum: 0
                       currency:
                         type: string
-                        description:  The unit of currency for the cap value
+                        description: The unit of currency for the cap value
                         example: SEK
                   vatPercentage:
                     type: number
@@ -1730,7 +1768,7 @@ components:
             financedAt:
               type: string
               description: Date when the claim was financed in ISO format.
-              example: '2023-04-28T12:18:06.849Z'
+              example: "2023-04-28T12:18:06.849Z"
               format: date
             finacialProduct:
               type: string
@@ -1770,7 +1808,7 @@ components:
                   date:
                     type: string
                     description: The date when the payment was registered in ISO format
-                    example: '2023-04-28T12:18:06.849Z'
+                    example: "2023-04-28T12:18:06.849Z"
                     format: date
                   bankReferenceId:
                     type: string
@@ -1810,7 +1848,7 @@ components:
             issueDate:
               type: string
               description: Date when the claim has been issued by the creditor in ISO format
-              example: '2023-04-28T12:18:06.849Z'
+              example: "2023-04-28T12:18:06.849Z"
               format: date
         extraData:
           description: List of extra information provided to Moank for the decision process based on the agreement
@@ -1831,13 +1869,13 @@ components:
     creditor:
       type: object
       required:
-              - id
-              - nationalIdentifier
-              - country
-              - name
-              - type
-              - status
-              - alias
+        - id
+        - nationalIdentifier
+        - country
+        - name
+        - type
+        - status
+        - alias
       properties:
         id:
           type: string
@@ -1937,23 +1975,23 @@ components:
           type: string
           example: Moank AB
         currency:
-            type: string
-            description: Currency of the payment received by the creditor in ISO 4217 format
-            example: "SEK"
+          type: string
+          description: Currency of the payment received by the creditor in ISO 4217 format
+          example: "SEK"
         createdAt:
           description: Date the transactions started to accumulate towards the settlement
           type: string
-          example: '2023-04-28T12:18:06.849Z'
+          example: "2023-04-28T12:18:06.849Z"
           format: date
         closedAt:
           description: Date the payout was issued
           type: string
-          example: '2023-04-28T12:18:06.849Z'
+          example: "2023-04-28T12:18:06.849Z"
           format: date
         payoutReference:
           description: The payout reference
           type: string
-          example: 'A fancy reference'
+          example: "A fancy reference"
         transactions:
           type: array
           description: Transactions that lead to the settlement
@@ -1967,23 +2005,23 @@ components:
               amount:
                 type: number
                 description: Amount of the transaction
-                example: '10000'
+                example: "10000"
               date:
                 description: Date the transaction
                 type: string
-                example: '2023-04-28T12:18:06.849Z'
+                example: "2023-04-28T12:18:06.849Z"
                 format: date
               description:
                 description: Details explanation of the reason for the transaction
                 type: string
-                example: 'A fancy description'
+                example: "A fancy description"
 
     error:
       type: object
       required:
-      - status
-      - message
-      - errors
+        - status
+        - message
+        - errors
       properties:
         status:
           type: integer
@@ -2002,8 +2040,8 @@ components:
             type: object
             description: Details of the error with additional information based on the error code
             oneOf:
-              - $ref: '#/components/schemas/defaultDetail'
-              - $ref: '#/components/schemas/duplicatedIdentifierDetail'
+              - $ref: "#/components/schemas/defaultDetail"
+              - $ref: "#/components/schemas/duplicatedIdentifierDetail"
 
     dataError:
       allOf:
@@ -2072,7 +2110,7 @@ components:
     defaultDetail:
       type: object
       required:
-      - description
+        - description
       properties:
         description:
           type: string
@@ -2081,9 +2119,9 @@ components:
     duplicatedIdentifierDetail:
       type: object
       required:
-      - description
-      - code
-      - extra
+        - description
+        - code
+        - extra
       properties:
         description:
           type: string
