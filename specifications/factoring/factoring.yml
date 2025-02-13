@@ -1010,7 +1010,10 @@ components:
             properties:
               requestedFinanceAmount:
                 type: number
-                description: Requested financing amount of the claim
+                description: |
+                  Requested financing amount of the claim
+
+                  **Note:** `requestedFinanceAmount` must be a positive number, otherwise a `400` error will be thrown.
                 example: 1000
 
     paymentCreate:
