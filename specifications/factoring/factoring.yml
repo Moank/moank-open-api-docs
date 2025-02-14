@@ -590,7 +590,7 @@ paths:
       security:
         - basic_auth: []
 
-  /claim/{claimId}/refinance:
+  /claim/{claimId}/refinanceClaim:
     put:
       tags:
         - Claim endpoints
