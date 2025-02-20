@@ -233,13 +233,19 @@ paths:
       tags:
         - Creditor endpoints
       summary: Get creditor's debtors decisions
-      description: Used to fetch a list of debtors and their decisions for a specific creditor.
+      description: |
+        Used to fetch a list of debtors and their decisions for a specific creditor.
+        
+        **Note:** For each debtor, a maximum of 25 decisions is returned.
       parameters:
         - name: creditorId
           in: path
           required: true
+          description: Unique identifier of the creditor (MongoDB ObjectId)
           schema:
             type: string
+            pattern: '^[0-9a-fA-F]{24}$'
+            example: "507f1f77bcf86cd799439011"
         - name: nationalIdentifier
           in: query
           required: true
