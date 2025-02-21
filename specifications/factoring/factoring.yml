@@ -1472,6 +1472,10 @@ components:
           type: string
           description: Status of the decision
           example: "granted"
+        currentDecisionDate:
+          type: Date
+          description: The date when the decision was taken 
+          example: '2023-04-28T12:18:06.849Z'
 
     payment:
       type: object
