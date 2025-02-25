@@ -1463,6 +1463,7 @@ components:
       required:
         - id
         - status
+        - currentDecisionDate
       properties:
         id:
           type: string
