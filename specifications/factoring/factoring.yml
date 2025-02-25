@@ -113,7 +113,7 @@ paths:
       - name: creditorId
         in: path
         required: true
-        description: Unique identifier of the creditor (MongoDB ObjectId)
+        description: Unique identifier of the creditor
         schema:
           type: string
           pattern: '^[0-9a-fA-F]{24}$'
@@ -241,7 +241,7 @@ paths:
         - name: creditorId
           in: path
           required: true
-          description: Unique identifier of the creditor (MongoDB ObjectId)
+          description: Unique identifier of the creditor
           schema:
             type: string
             pattern: '^[0-9a-fA-F]{24}$'
