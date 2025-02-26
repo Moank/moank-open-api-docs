@@ -548,7 +548,7 @@ paths:
       security:
       - basic_auth: []
 
-  /claim/{claimId}/credit::
+  /claim/{claimId}/credit-claim:
     put:
       tags:
         - Claim endpoints
