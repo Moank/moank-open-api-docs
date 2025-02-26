@@ -590,7 +590,7 @@ paths:
       security:
         - basic_auth: []
 
-  /claim/{claimId}/refinanceClaim:
+  /claim/{claimId}/refinance-claim:
     put:
       tags:
         - Claim endpoints
@@ -1006,13 +1006,8 @@ components:
           schema:
             type: object
             required:
-              - creditorId
               - requestedFinancingAmount
             properties:
-              creditorId:
-                type: string
-                description: Creditor's unique identifier in the system. Creditor to buy the claims from
-                example: "123"
               requestedFinancingAmount:
                 type: number
                 description: |
