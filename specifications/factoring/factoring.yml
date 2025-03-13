@@ -666,7 +666,7 @@ components:
                   example: This is an example transaction  
               vatPercentage:
                   type: number
-                  description: Specify the VAT rate on the credit note
+                  description: The VAT percentage of the credit note. Must be a value between 0 and 100
                   example: 10
                   minimum: 0
                   maximum: 100
