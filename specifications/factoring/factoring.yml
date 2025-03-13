@@ -617,6 +617,33 @@ paths:
       security:
         - basic_auth: []
 
+  /claim/{claimId}/credit-claim:
+    put:
+      tags:
+        - Claim endpoints
+      summary: Register a credit note on a claim
+      description: |
+        Allow the partner to notify credit notes on a claim
+      parameters:
+        - name: claimId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: "#/components/requestBodies/createCredit"
+      responses:
+        200:
+          $ref: '#/components/responses/empty'
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+      - basic_auth: []
+
   /payment:
     post:
       tags:
@@ -687,6 +714,31 @@ components:
                 type: string
                 description: The description of the transaction
                 example: This is an example transaction
+
+    createCredit:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - amount
+              - description
+            properties:
+              amount:
+                type: number
+                description: The amount of the credit note. Must be positive and greater than 0
+                example: 30
+              description:
+                  type: string
+                  description: The description of the credit note
+                  example: This is an example transaction  
+              vatPercentage:
+                  type: number
+                  description: The VAT percentage of the credit note. Must be a value between 0 and 100
+                  example: 10
+                  minimum: 0
+                  maximum: 100
 
     creditorCreate:
       required: true
