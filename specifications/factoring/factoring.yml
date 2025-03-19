@@ -683,6 +683,28 @@ paths:
           $ref: "#/components/responses/serverError"
       security:
         - basic_auth: []
+  
+  /events:
+    post:
+      tags:
+        - Event endpoints
+      summary: Create an event
+      description: Allow the partner to notify events to Moank
+      requestBody:
+        $ref: "#/components/requestBodies/createEvent"
+      responses:
+        200:
+          $ref: "#/components/responses/event"
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        403:
+          $ref: "#/components/responses/forbiddenError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+        - basic_auth: []
 
 components:
   requestBodies:
@@ -814,6 +836,52 @@ components:
                     data:
                       description: The type and format of this field depends on the `dataFormat` value
                       type: object
+                    
+    createEvent:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: 
+              - type
+            properties:
+              type:
+                type: string
+                description: Type of the event
+                enum:
+                  - invoice
+                example: identified-payment
+              invoiceData:
+                type: object
+                description: |
+                  Data of the invoice
+
+                  **Note:** `invoiceData` is required when `type` is `invoice` and forbidden otherwise.
+                required:
+                  - invoiceId
+                  - invoiceType
+                  - invoiceDate
+                  - debtorExternalNumber
+                properties:
+                  invoiceId:
+                    type: string
+                    description: Id of the invoice
+                    example: "INV-2023-001"
+                  invoiceType:
+                    type: string
+                    description: Type of the invoice
+                    example: "INVOICE"
+                  invoiceDate:
+                    type: string
+                    description: Date of the invoice in ISO format
+                    example: "2023-01-01"
+                    format: date
+                  debtorExternalNumber:
+                    type: string
+                    description: External number of the debtor
+                    example: "1234567890"
+                      
 
     decisionCreate:
       required: true
@@ -1170,6 +1238,13 @@ components:
           schema:
             type: object
 
+    event:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/event"
+
     creditor:
       description: Successful operation
       content:
@@ -1495,6 +1570,13 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/authError"
+      
+    forbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/forbiddenError"
 
     notFoundError:
       description: Application not found
@@ -1605,6 +1687,55 @@ components:
         registeredAt:
           type: string
           description: The date when the payment was registered in ISO format
+          example: "2023-04-28T12:18:06.849Z"
+          format: date
+    
+    event:
+      type: object
+      required:
+        - _id
+        - type
+        - createdAt
+      properties:
+        _id:
+          type: string
+          description: The unique identifier of the event
+          example: "123"
+        type:
+          type: string
+          description: The type of the event
+          example: "invoice"
+          enum:
+            - invoice
+        createdAt:
+          type: string
+          description: The date when the event was created in ISO format
+          example: "2023-04-28T12:18:06.849Z"
+          format: date
+        invoiceData:
+          type: object
+          description: Data of the invoice
+          properties:
+            invoiceId:
+              type: string
+              description: The unique identifier of the invoice
+              example: "INV-2023-001"
+            invoiceType:
+              type: string
+              description: The type of the invoice
+              example: "INVOICE"
+            invoiceDate:
+              type: string
+              description: The date when the invoice was created in ISO format
+              example: "2023-04-28T12:18:06.849Z"
+              format: date
+            debtorExternalNumber:
+              type: string
+              description: The external number of the debtor
+              example: "1234567890"
+        processedAt:
+          type: string
+          description: The date when the event was processed in ISO format
           example: "2023-04-28T12:18:06.849Z"
           format: date
 
@@ -2131,6 +2262,16 @@ components:
               example: 401
             message:
               example: Unauthorized
+    
+    forbiddenError:
+      allOf:
+        - $ref: "#/components/schemas/error"
+        - type: object
+          properties:
+            status:
+              example: 403
+            message:
+              example: Forbidden
 
     notFoundError:
       allOf:
