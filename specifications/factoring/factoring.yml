@@ -684,23 +684,25 @@ paths:
       security:
         - basic_auth: []
   
-  /events:
+  /invoice-event:
     post:
       tags:
-        - Event endpoints
-      summary: Create an event
-      description: Allow the partner to notify events to Moank
+        - Invoice event endpoints
+      summary: Create an invoice event
+      description: Allow the partner to notify invoice events to Moank
       requestBody:
-        $ref: "#/components/requestBodies/createEvent"
+        $ref: "#/components/requestBodies/createInvoiceEvent"
       responses:
         200:
-          $ref: "#/components/responses/event"
+          $ref: "#/components/responses/invoiceEvent"
         400:
           $ref: "#/components/responses/dataError"
         401:
           $ref: "#/components/responses/authError"
         403:
           $ref: "#/components/responses/forbiddenError"
+        409:
+          $ref: "#/components/responses/conflictError"
         500:
           $ref: "#/components/responses/serverError"
       security:
@@ -837,51 +839,37 @@ components:
                       description: The type and format of this field depends on the `dataFormat` value
                       type: object
                     
-    createEvent:
+    createInvoiceEvent:
       required: true
       content:
         application/json:
           schema:
             type: object
             required: 
-              - type
+              - invoiceId
+              - invoiceType
+              - invoiceDate
+              - creditorNumber
             properties:
-              type:
+              invoiceId:
                 type: string
-                description: Type of the event
+                description: Id of the invoice
+                example: "INV-2023-001"
+              invoiceType:
+                type: string
+                description: Type of the invoice
                 enum:
-                  - invoice
-                example: identified-payment
-              invoiceData:
-                type: object
-                description: |
-                  Data of the invoice
-
-                  **Note:** `invoiceData` is required when `type` is `invoice` and forbidden otherwise.
-                required:
-                  - invoiceId
-                  - invoiceType
-                  - invoiceDate
-                  - debtorExternalNumber
-                properties:
-                  invoiceId:
-                    type: string
-                    description: Id of the invoice
-                    example: "INV-2023-001"
-                  invoiceType:
-                    type: string
-                    description: Type of the invoice
-                    example: "INVOICE"
-                  invoiceDate:
-                    type: string
-                    description: Date of the invoice in ISO format
-                    example: "2023-01-01"
-                    format: date
-                  debtorExternalNumber:
-                    type: string
-                    description: External number of the debtor
-                    example: "1234567890"
-                      
+                  - DEBIT
+                  - STANDALONE_CREDIT
+              invoiceDate:
+                type: string
+                description: Date of the invoice in ISO format
+                example: "2023-01-01"
+                format: date
+              creditorNumber:
+                type: string
+                description: External number of the creditor
+                example: "1234567890"                
 
     decisionCreate:
       required: true
@@ -1238,12 +1226,12 @@ components:
           schema:
             type: object
 
-    event:
+    invoiceEvent:
       description: Successful operation
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/event"
+            $ref: "#/components/schemas/invoiceEvent"
 
     creditor:
       description: Successful operation
@@ -1690,7 +1678,7 @@ components:
           example: "2023-04-28T12:18:06.849Z"
           format: date
     
-    event:
+    invoiceEvent:
       type: object
       required:
         - _id
@@ -1701,38 +1689,30 @@ components:
           type: string
           description: The unique identifier of the event
           example: "123"
-        type:
-          type: string
-          description: The type of the event
-          example: "invoice"
-          enum:
-            - invoice
         createdAt:
           type: string
           description: The date when the event was created in ISO format
           example: "2023-04-28T12:18:06.849Z"
           format: date
-        invoiceData:
-          type: object
-          description: Data of the invoice
-          properties:
-            invoiceId:
-              type: string
-              description: The unique identifier of the invoice
-              example: "INV-2023-001"
-            invoiceType:
-              type: string
-              description: The type of the invoice
-              example: "INVOICE"
-            invoiceDate:
-              type: string
-              description: The date when the invoice was created in ISO format
-              example: "2023-04-28T12:18:06.849Z"
-              format: date
-            debtorExternalNumber:
-              type: string
-              description: The external number of the debtor
-              example: "1234567890"
+        invoiceId:
+          type: string
+          description: The unique identifier of the invoice
+          example: "INV-2023-001"
+        invoiceType:
+          type: string
+          description: The type of the invoice
+          enum:
+            - DEBIT
+            - STANDALONE_CREDIT
+        invoiceDate:
+          type: string
+          description: The date when the invoice was created in ISO format
+          example: "2023-04-28T12:18:06.849Z"
+          format: date
+        creditorNumber:
+          type: string
+          description: The external number of the creditor
+          example: "1234567890"
         processedAt:
           type: string
           description: The date when the event was processed in ISO format
