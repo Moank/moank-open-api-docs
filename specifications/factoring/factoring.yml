@@ -1552,7 +1552,7 @@ components:
           example: "Debtor AB"
         accountId:
           type: string
-          description: Account's unique identifier. This identify the creditor and debtor(s) connected to the claim
+          description: The account's unique identifier. This identifies the creditor and debtor(s) connected to the claim
           example: "123"
         decisions:
           type: array
