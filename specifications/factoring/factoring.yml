@@ -889,6 +889,10 @@ components:
                         postcode:
                           type: string
                           example: "54321"
+                    naceCode:
+                      type: string
+                      description: NACE code of the debtor
+                      example: "A.1.1"
                     extraData:
                       description: List of extra information to provide to Moank for the decision process based on the agreement
                       type: array
@@ -1284,6 +1288,9 @@ components:
                         postcode:
                           type: string
                           example: "54321"
+                    naceCode:
+                      type: string
+                      example: "A.1.1"
                     extraData:
                       description: List of extra information provided to Moank for the decision process based on the agreement
                       type: array
@@ -1405,6 +1412,10 @@ components:
                           type: string
                         postcode:
                           type: string
+                    naceCode:
+                      type: string
+                      description: NACE code of the debtor
+                      example: "A.1.1"
                     extraData:
                       description: List of extra information provided to Moank for the decision process based on the agreement
                       type: array
