@@ -33,27 +33,6 @@ servers:
 
 paths:
   /creditor:
-    post:
-      tags:
-        - Creditor endpoints
-      summary: Create new creditor
-      description: Used to add a new creditor into the system. The Moank service will process it and set the business terms for it. By "creditor" is meant the current creditor of the claim before the transfer of the claim to Moank. Moank is buying the claim from the creditor. Creditors are usually merchants or other financers that issued the claim in the first place.
-      requestBody:
-        $ref: "#/components/requestBodies/creditorCreate"
-      responses:
-        200:
-          $ref: "#/components/responses/creditor"
-        400:
-          $ref: "#/components/responses/dataError"
-        409:
-          $ref: "#/components/responses/conflictError"
-        401:
-          $ref: "#/components/responses/authError"
-        500:
-          $ref: "#/components/responses/serverError"
-      security:
-        - basic_auth: []
-
     get:
       tags:
         - Creditor endpoints
@@ -659,6 +638,8 @@ paths:
           $ref: "#/components/responses/dataError"
         401:
           $ref: "#/components/responses/authError"
+        422:
+          $ref: "#/components/responses/unprocessableEntityError"
         500:
           $ref: "#/components/responses/serverError"
       security:
@@ -679,6 +660,8 @@ paths:
           $ref: "#/components/responses/dataError"
         401:
           $ref: "#/components/responses/authError"
+        422:
+          $ref: "#/components/responses/unprocessableEntityError"
         500:
           $ref: "#/components/responses/serverError"
       security:
@@ -1489,6 +1472,13 @@ components:
           schema:
             $ref: "#/components/schemas/conflictError"
 
+    unprocessableEntityError:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/unprocessableEntityError"
+
     authError:
       description: Invalid authentication
       content:
@@ -2151,6 +2141,16 @@ components:
               example: 404
             message:
               example: Application not found
+
+    unprocessableEntityError:
+      allOf:
+        - $ref: "#/components/schemas/error"
+        - type: object
+          properties:
+            status:
+              example: 422
+            message:
+              example: Unprocessable Entity
 
     serverError:
       allOf:
