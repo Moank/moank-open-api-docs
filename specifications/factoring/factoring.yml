@@ -1157,7 +1157,10 @@ components:
                 example: "Debtor AB"
               paymentType:
                 type: string
-                description: Type of payment the partner is reporting
+                description: |
+                  Type of payment the partner is reporting
+
+                  **Note:** Payments with the `unidentified-payment` type will be registered as unidentified accounts.
                 enum:
                   - identified-payment
                   - unidentified-payment
