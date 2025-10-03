@@ -667,6 +667,24 @@ paths:
       security:
         - basic_auth: []
 
+  /unidentified-account:
+    get:
+      tags:
+        - Unidentified account endpoints
+      summary: Get list of unidentified accounts for partner
+      description: Used to fetch the list of details for unidentified accounts for the authenticated partner. The list is sorted with the most recent unidentified accounts first.
+      responses:
+        200:
+          $ref: "#/components/responses/unidentifiedAccountList"
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+        - basic_auth: []
+
 components:
   requestBodies:
     createTransaction:
@@ -1196,6 +1214,15 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/settlement"
+
+    unidentifiedAccountList:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/unidentifiedAccount"
 
     decision:
       description: Successful operation
@@ -2081,6 +2108,38 @@ components:
                 description: Details explanation of the reason for the transaction
                 type: string
                 example: "A fancy description"
+    
+    unidentifiedAccount:
+      type: object
+      required:
+        - id
+        - date
+        - amount
+        - currency
+        - createdAt
+      properties:
+        id:
+          description: Unique identifier of the unidentified account
+          type: string
+          example: "123"
+        date:
+          description: Date the unidentified account was created
+          type: string
+          example: "2023-04-28T12:18:06.849Z"
+          format: date
+        amount:
+          type: number
+          description: Amount of the unidentified account
+          example: "10000"
+        currency:
+          type: string
+          description: Currency of the payment received by the creditor in ISO 4217 format
+          example: "SEK"
+        createdAt:
+          description: Date the unidentified account was created in Moank's system
+          type: string
+          example: "2023-04-28T12:18:06.849Z"
+          format: date
 
     error:
       type: object
