@@ -691,6 +691,32 @@ paths:
       security:
         - basic_auth: []
 
+  /unidentified-account/identify:
+    post:
+      tags:
+        - Unidentified account endpoints
+      summary: Identifying an unidentified account
+      description: Associates an unidentified account with a specific order to resolve the unidentified payment. This action links the payment to the order.
+      requestBody:
+        $ref: "#/components/requestBodies/identifyUnidentifiedPayment"
+      responses:
+        200:
+          $ref: "#/components/responses/empty"
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        403:
+          $ref: "#/components/responses/forbiddenError"
+        404:
+          $ref: "#/components/responses/notFoundError"
+        422:
+          $ref: "#/components/responses/unprocessableContentError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+        - basic_auth: []
+
 components:
   requestBodies:
     createTransaction:
@@ -1176,6 +1202,30 @@ components:
                 description: Creditor unique payment reference for the claim. Required for identified payments
                 example: PAY-2023-001
 
+    identifyUnidentifiedPayment:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - unidentifiedAccountId
+              - amount
+              - paymentReference
+            properties:
+              unidentifiedAccountId:
+                type: string
+                description: Unique identifier for the unidentified account
+                example: "123"
+              amount:
+                type: number
+                description: Payment amount in the account's base currency
+                example: 1000
+              paymentReference:
+                type: string
+                description: Order payment reference number that will be used to link this unidentified account to the specified order
+                example: "0001"
+
   responses:
     empty:
       description: Successful operation
@@ -1232,6 +1282,15 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/unidentifiedAccount"
+
+    unidentifiedAccountIdentify:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/unidentifiedAccountIdentify"
 
     decision:
       description: Successful operation
@@ -2131,7 +2190,7 @@ components:
                 description: Details explanation of the reason for the transaction
                 type: string
                 example: "A fancy description"
-    
+
     unidentifiedAccount:
       type: object
       required:
@@ -2235,6 +2294,16 @@ components:
             message:
               example: Forbidden
 
+    forbiddenError:
+      allOf:
+        - $ref: "#/components/schemas/error"
+        - type: object
+          properties:
+            status:
+              example: 403
+            message:
+              example: Forbidden
+
     notFoundError:
       allOf:
         - $ref: "#/components/schemas/error"
@@ -2254,6 +2323,16 @@ components:
               example: 422
             message:
               example: Unprocessable Entity
+    
+    unprocessableContentError:
+      allOf:
+        - $ref: "#/components/schemas/error"
+        - type: object
+          properties:
+            status:
+              example: 422
+            message:
+              example: Unprocessable creditor
 
     unprocessableContentError:
       allOf:
