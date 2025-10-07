@@ -1219,7 +1219,7 @@ components:
                 example: "123"
               amount:
                 type: number
-                description: Payment amount in the account's base currency
+                description: Payment amount in the account's base currency, Must be positive and greater than 0.
                 example: 1000
               paymentReference:
                 type: string
