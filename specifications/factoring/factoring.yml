@@ -680,6 +680,12 @@ paths:
           $ref: "#/components/responses/dataError"
         401:
           $ref: "#/components/responses/authError"
+        403:
+          $ref: "#/components/responses/forbiddenError"
+        404:
+          $ref: "#/components/responses/notFoundError"
+        422:
+          $ref: "#/components/responses/unprocessableContentError"
         500:
           $ref: "#/components/responses/serverError"
       security:
@@ -1528,7 +1534,7 @@ components:
             $ref: "#/components/schemas/authError"
 
     notFoundError:
-      description: Application not found
+      description: Not found
       content:
         application/json:
           schema:
@@ -1547,6 +1553,20 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/serviceError"
+
+    unprocessableContentError:
+      description: Unprocessable content
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/unprocessableContentError"
+
+    forbiddenError:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/forbiddenError"
 
   securitySchemes:
     basic_auth:
@@ -2204,6 +2224,16 @@ components:
               example: 401
             message:
               example: Unauthorized
+    
+    forbiddenError:
+      allOf:
+        - $ref: "#/components/schemas/error"
+        - type: object
+          properties:
+            status:
+              example: 403
+            message:
+              example: Forbidden
 
     notFoundError:
       allOf:
@@ -2213,7 +2243,7 @@ components:
             status:
               example: 404
             message:
-              example: Application not found
+              example: Not found
 
     unprocessableEntityError:
       allOf:
@@ -2224,6 +2254,16 @@ components:
               example: 422
             message:
               example: Unprocessable Entity
+
+    unprocessableContentError:
+      allOf:
+        - $ref: "#/components/schemas/error"
+        - type: object
+          properties:
+            status:
+              example: 422
+            message:
+              example: Unprocessable creditor
 
     serverError:
       allOf:
