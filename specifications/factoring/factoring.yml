@@ -671,7 +671,7 @@ paths:
     get:
       tags:
         - Unidentified account endpoints
-      summary: Get list of unidentified accounts for partner
+      summary: Get list of unidentified accounts
       description: Used to fetch the list of details for unidentified accounts for the authenticated partner. The list is sorted with the most recent unidentified accounts first.
       responses:
         200:
@@ -2146,7 +2146,7 @@ components:
           type: string
           example: "123"
         date:
-          description: Date the unidentified account was created
+          description: Date when the payment has been received by the creditor
           type: string
           example: "2023-04-28T12:18:06.849Z"
           format: date
@@ -2159,7 +2159,7 @@ components:
           description: Currency of the payment received by the creditor in ISO 4217 format
           example: "SEK"
         createdAt:
-          description: Date the unidentified account was created in Moank's system
+          description: Date when the unidentified account was created in Moank's system
           type: string
           example: "2023-04-28T12:18:06.849Z"
           format: date
