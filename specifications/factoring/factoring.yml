@@ -1230,7 +1230,7 @@ components:
                       example: 1000
                     paymentReference:
                       type: string
-                      description: Order payment reference number that will be used to link this unidentified account to the specified order
+                      description: Order payment reference number that will be used to link this payment to the specified order
                       example: "0001"
 
   responses:
