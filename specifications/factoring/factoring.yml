@@ -696,7 +696,7 @@ paths:
       tags:
         - Unidentified account endpoints
       summary: Identifying an unidentified account
-      description: Associates an unidentified account with a specific order to resolve the unidentified payment. This action links the payment to the order.
+      description: Associates the payment in the unidentified account with one or more orders using the order's payment reference. Multiple payments from the same unidentified account can be associated with multiple orders. The total amount of payments provided must match the unidentified account amount.
       requestBody:
         $ref: "#/components/requestBodies/identifyUnidentifiedPayment"
       responses:
@@ -1210,21 +1210,28 @@ components:
             type: object
             required:
               - unidentifiedAccountId
-              - amount
-              - paymentReference
+              - payments
             properties:
               unidentifiedAccountId:
                 type: string
                 description: Unique identifier for the unidentified account
                 example: "123"
-              amount:
-                type: number
-                description: Payment amount in the account's base currency, Must be positive and greater than 0.
-                example: 1000
-              paymentReference:
-                type: string
-                description: Order payment reference number that will be used to link this unidentified account to the specified order
-                example: "0001"
+              payments:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - amount
+                    - paymentReference
+                  properties:
+                    amount:
+                      type: number
+                      description: Payment amount in the account's base currency, Must be positive and greater than 0.
+                      example: 1000
+                    paymentReference:
+                      type: string
+                      description: Order payment reference number that will be used to link this unidentified account to the specified order
+                      example: "0001"
 
   responses:
     empty:
@@ -1282,15 +1289,6 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/unidentifiedAccount"
-
-    unidentifiedAccountIdentify:
-      description: Successful operation
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/unidentifiedAccountIdentify"
 
     decision:
       description: Successful operation
@@ -2283,16 +2281,6 @@ components:
               example: 401
             message:
               example: Unauthorized
-    
-    forbiddenError:
-      allOf:
-        - $ref: "#/components/schemas/error"
-        - type: object
-          properties:
-            status:
-              example: 403
-            message:
-              example: Forbidden
 
     forbiddenError:
       allOf:
@@ -2323,16 +2311,6 @@ components:
               example: 422
             message:
               example: Unprocessable Entity
-    
-    unprocessableContentError:
-      allOf:
-        - $ref: "#/components/schemas/error"
-        - type: object
-          properties:
-            status:
-              example: 422
-            message:
-              example: Unprocessable creditor
 
     unprocessableContentError:
       allOf:
