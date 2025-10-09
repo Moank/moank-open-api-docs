@@ -2196,8 +2196,6 @@ components:
         - date
         - amount
         - balance
-        - reference
-        - payerName
         - currency
         - createdAt
       properties:
