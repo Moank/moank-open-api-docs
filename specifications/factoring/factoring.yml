@@ -696,7 +696,7 @@ paths:
       tags:
         - Unidentified account endpoints
       summary: Identifying an unidentified account
-      description: Associates the payment in the unidentified account with one or more orders using the order's payment reference. Multiple payments from the same unidentified account can be associated with multiple orders. The total amount of payments provided must match the unidentified account amount.
+      description: Associates the payment in the unidentified account with one or more orders using the order's payment reference. Multiple payments from the same unidentified account can be associated with multiple orders. The total amount of payments provided must match the unidentified account balance.
       requestBody:
         $ref: "#/components/requestBodies/identifyUnidentifiedPayment"
       responses:
