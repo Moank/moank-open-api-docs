@@ -2195,6 +2195,9 @@ components:
         - id
         - date
         - amount
+        - balance
+        - reference
+        - payerName
         - currency
         - createdAt
       properties:
@@ -2211,6 +2214,18 @@ components:
           type: number
           description: Amount of the unidentified account
           example: "10000"
+        balance:
+          type: number
+          description: Balance of the unidentified account
+          example: "10000"
+        reference:
+          type: string
+          description: Reference put in the payment details of the unidentified account
+          example: "123"
+        payerName:
+          type: string
+          description: Name of the payer
+          example: "Debtor AB"
         currency:
           type: string
           description: Currency of the payment received by the creditor in ISO 4217 format
