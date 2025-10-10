@@ -2194,6 +2194,7 @@ components:
       required:
         - id
         - date
+        - bankReferenceId
         - amount
         - balance
         - currency
@@ -2208,6 +2209,10 @@ components:
           type: string
           example: "2023-04-28T12:18:06.849Z"
           format: date
+        bankReferenceId:
+          type: string
+          description: Unique identifier of the transaction from the creditor's bank
+          example: "0001"
         amount:
           type: number
           description: Amount of the unidentified account
@@ -2216,9 +2221,9 @@ components:
           type: number
           description: Balance of the unidentified account
           example: "10000"
-        reference:
+        paymentReference:
           type: string
-          description: Reference put in the payment details of the unidentified account
+          description: Unique identifier of the payment for the creditor
           example: "123"
         payerName:
           type: string
