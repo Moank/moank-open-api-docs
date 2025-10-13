@@ -691,6 +691,32 @@ paths:
       security:
         - basic_auth: []
 
+  /unidentified-account/identify:
+    post:
+      tags:
+        - Unidentified account endpoints
+      summary: Identifying an unidentified account
+      description: Associates the payment in the unidentified account with one or more orders using the order's payment reference. Multiple payments from the same unidentified account can be associated with multiple orders. The total amount of payments provided must match the unidentified account balance.
+      requestBody:
+        $ref: "#/components/requestBodies/identifyUnidentifiedPayment"
+      responses:
+        200:
+          $ref: "#/components/responses/empty"
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        403:
+          $ref: "#/components/responses/forbiddenError"
+        404:
+          $ref: "#/components/responses/notFoundError"
+        422:
+          $ref: "#/components/responses/unprocessableContentError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+        - basic_auth: []
+
 components:
   requestBodies:
     createTransaction:
@@ -1175,6 +1201,37 @@ components:
                 type: string
                 description: Creditor unique payment reference for the claim. Required for identified payments
                 example: PAY-2023-001
+
+    identifyUnidentifiedPayment:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - unidentifiedAccountId
+              - payments
+            properties:
+              unidentifiedAccountId:
+                type: string
+                description: Unique identifier for the unidentified account
+                example: "123"
+              payments:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - amount
+                    - paymentReference
+                  properties:
+                    amount:
+                      type: number
+                      description: Payment amount in the account's base currency, Must be positive and greater than 0.
+                      example: 1000
+                    paymentReference:
+                      type: string
+                      description: Order payment reference number that will be used to link this payment to the specified order
+                      example: "0001"
 
   responses:
     empty:
@@ -2131,13 +2188,15 @@ components:
                 description: Details explanation of the reason for the transaction
                 type: string
                 example: "A fancy description"
-    
+
     unidentifiedAccount:
       type: object
       required:
         - id
         - date
+        - bankReferenceId
         - amount
+        - balance
         - currency
         - createdAt
       properties:
@@ -2150,10 +2209,26 @@ components:
           type: string
           example: "2023-04-28T12:18:06.849Z"
           format: date
+        bankReferenceId:
+          type: string
+          description: Unique identifier of the transaction from the creditor's bank
+          example: "0001"
         amount:
           type: number
           description: Amount of the unidentified account
           example: "10000"
+        balance:
+          type: number
+          description: Balance of the unidentified account
+          example: "10000"
+        paymentReference:
+          type: string
+          description: Unique identifier of the payment for the creditor
+          example: "123"
+        payerName:
+          type: string
+          description: Name of the payer
+          example: "Debtor AB"
         currency:
           type: string
           description: Currency of the payment received by the creditor in ISO 4217 format
@@ -2224,7 +2299,7 @@ components:
               example: 401
             message:
               example: Unauthorized
-    
+
     forbiddenError:
       allOf:
         - $ref: "#/components/schemas/error"
