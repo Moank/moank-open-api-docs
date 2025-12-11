@@ -1059,7 +1059,7 @@ components:
                     example: 60
               financing:
                 type: object
-                description: If invoiceType is set to to INVOICE_SERVICE, `amount` and `ltv` need to be set to zero or the financing object needs to be empty.
+                description: If invoiceType is set to to INVOICE_SERVICE, the finacing object can either be left empty or have the `amount` and `ltv` set to zero and the `financialProduct` set to `disclosed-factoring` or `disclosed-factoring-recoursing`.
                 properties:
                   amount:
                     description: Amount to finance of the claim total amount
@@ -1069,6 +1069,15 @@ components:
                     description: Percentage to finance of the claim total amount
                     minimum: 0
                     example: 90
+                  financialProduct:
+                    type: string
+                    description: The type of financial product applied to the claim financing
+                    enum:
+                      - undisclosed-factoring-recoursing
+                      - undisclosed-factoring-non-recoursing
+                      - disclosed-factoring
+                      - disclosed-factoring-recoursing
+                    example: disclosed-factoring-recoursing
               extraData:
                 description: List of extra information to provide to Moank for the decision process based on the agreement
                 type: array
@@ -1941,9 +1950,15 @@ components:
               description: Date when the claim was financed in ISO format.
               example: "2023-04-28T12:18:06.849Z"
               format: date
-            finacialProduct:
+            financialProduct:
               type: string
               description: The type of financial product applied to the claim financing
+              enum:
+                - undisclosed-factoring-recoursing
+                - undisclosed-factoring-non-recoursing
+                - disclosed-factoring
+                - disclosed-factoring-recoursing
+              example: disclosed-factoring-recoursing
         claimStatus:
           deprecated: true
           type: string
