@@ -715,6 +715,37 @@ paths:
       security:
         - basic_auth: []
 
+  /unidentified-account/{accountId}/request-payout:
+    post:
+      tags:
+        - Unidentified account endpoints
+      summary: Request payout for unidentified account
+      description: Allows partners to request a payout for an unidentified account.
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          description: Unique identifier of the unidentified account
+          schema:
+            type: string
+      requestBody:
+        $ref: "#/components/requestBodies/requestPayoutUnidentifiedAccount"
+      responses:
+        200:
+          $ref: "#/components/responses/empty"
+        400:
+          $ref: "#/components/responses/dataError"
+        401:
+          $ref: "#/components/responses/authError"
+        403:
+          $ref: "#/components/responses/forbiddenError"
+        422:
+          $ref: "#/components/responses/unprocessableContentError"
+        500:
+          $ref: "#/components/responses/serverError"
+      security:
+        - basic_auth: []
+
 components:
   requestBodies:
     createTransaction:
@@ -1239,6 +1270,22 @@ components:
                       type: string
                       description: Order payment reference number that will be used to link this payment to the specified order
                       example: "0001"
+
+    requestPayoutUnidentifiedPayment:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - requestedPayoutAmount
+            properties:
+              requestedPayoutAmount:
+                type: number
+                description: The amount requested for payout from the unidentified account. Must be a strictly positive number.
+                example: 1000
+                minimum: 0
+                exclusiveMinimum: true
 
   responses:
     empty:
