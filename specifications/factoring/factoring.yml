@@ -720,7 +720,7 @@ paths:
       tags:
         - Unidentified account endpoints
       summary: Request payout for unidentified account
-      description: Allows partners to request a payout for an unidentified account.
+      description: Allows partners to request a payout for an open unidentified account. If a new payout request is submitted for the same account, it will replace any previous request. Only the most recent payout request will be visible and processed by the admin users.
       parameters:
         - name: accountId
           in: path
