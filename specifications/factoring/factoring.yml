@@ -1271,7 +1271,7 @@ components:
                       description: Order payment reference number that will be used to link this payment to the specified order
                       example: "0001"
 
-    requestPayoutUnidentifiedPayment:
+    requestPayoutUnidentifiedAccount:
       required: true
       content:
         application/json:
