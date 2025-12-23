@@ -372,6 +372,8 @@ paths:
       responses:
         200:
           $ref: "#/components/responses/claim"
+        409:
+          $ref: "#/components/responses/conflictError"
         400:
           $ref: "#/components/responses/dataError"
         401:
@@ -2278,6 +2280,7 @@ components:
             oneOf:
               - $ref: "#/components/schemas/defaultDetail"
               - $ref: "#/components/schemas/duplicatedIdentifierDetail"
+              - $ref: "#/components/schemas/restrictedDebtorDetail"
 
     dataError:
       allOf:
@@ -2403,3 +2406,24 @@ components:
             resourceId:
               type: string
               description: Id of the resource already existing with the same identifier sent in the request
+
+    restrictedDebtorDetail:
+      type: object
+      required:
+        - description
+        - code
+        - extra
+      properties:
+        description:
+          description: Human readable description of the error like "Invoice service created with restricted debtor"
+          type: string
+        code:
+          description: restricted-debtor
+          type: string
+        extra:
+          type: object
+          required:
+            - claim
+          properties:
+            claim:
+              $ref: "#/components/schemas/claim"
