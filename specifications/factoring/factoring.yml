@@ -1776,6 +1776,18 @@ components:
           description: The date when the payment was made in ISO format
           example: "2023-04-28T12:18:06.849Z"
           format: date
+        payerName:
+          type: string
+          description: Name of the person or organization that made the payment
+          example: Debtor AB
+        bankReferenceId:
+          type: string
+          description: Unique bank transaction identifier for the payment
+          example: "0001"
+        paymentReference:
+          type: string
+          description: Reference message associated with the payment
+          example: "1234567890"
         registeredAt:
           type: string
           description: The date when the payment was registered in ISO format
