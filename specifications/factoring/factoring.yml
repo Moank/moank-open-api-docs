@@ -673,6 +673,13 @@ paths:
         - Unidentified account endpoints
       summary: Get list of unidentified accounts
       description: Used to fetch the list of details for unidentified accounts for the authenticated partner. The list is sorted with the most recent unidentified accounts first.
+      parameters:
+        - in: query
+          name: date
+          description: The date to filter unidentified accounts by their createdAt value
+          schema:
+            type: string
+            example: "2024-02-28"
       responses:
         200:
           $ref: "#/components/responses/unidentifiedAccountList"
