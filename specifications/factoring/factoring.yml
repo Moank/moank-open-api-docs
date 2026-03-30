@@ -123,6 +123,22 @@ paths:
           schema:
             type: string
             example: "2024-02-28"
+        - in: query
+          name: hideDirectPayments
+          description: Whether to hide direct payments from the response
+          required: false
+          schema:
+            type: boolean
+            default: false
+            example: false
+        - in: query
+          name: hideIdentifiedPayments
+          description: Whether to hide identified payments from the response
+          required: false
+          schema:
+            type: boolean
+            default: false
+            example: false
       responses:
         200:
           $ref: "#/components/responses/payments"
